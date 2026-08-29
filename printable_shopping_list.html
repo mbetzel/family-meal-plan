@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grocery Shopping List by Week - Costco & Willy Street Co-Op</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --costco-red: #d32f2f;
+      --costco-bg: #fff5f5;
+      --costco-border: #fecaca;
+      --willy-green: #15803d;
+      --willy-bg: #f0fdf4;
+      --willy-border: #bbf7d0;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --mom-green: #059669;
+      --mom-bg: #ecfdf5;
+      --mom-border: #a7f3d0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 20px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+      margin-bottom: 24px;
+    }
+
+    .header-title h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+    }
+
+    .header-title p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: #f1f5f9;
+      color: #334155;
+    }
+
+    .btn-secondary:hover {
+      background-color: #e2e8f0;
+    }
+
+    /* Mom Diet Banner */
+    .diet-banner {
+      background: var(--mom-bg);
+      border: 1px solid var(--mom-border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .diet-banner-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--mom-green);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .diet-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .diet-pill {
+      background: white;
+      border: 1px solid var(--mom-border);
+      color: #065f46;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    .pantry-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .pantry-card h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pantry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .pantry-col h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+    }
+
+    .week-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 28px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
+    }
+
+    .week-header {
+      background: #f8fafc;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .week-header h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .week-header .meals-tag {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      max-width: 60%;
+      text-align: right;
+    }
+
+    .stores-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 768px) {
+      .stores-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .store-col {
+      padding: 16px 20px;
+    }
+
+    .store-col.costco {
+      background-color: #ffffff;
+      border-right: 1px solid var(--border);
+    }
+
+    .store-col.willy {
+      background-color: #ffffff;
+    }
+
+    .store-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .costco .store-title {
+      color: var(--costco-red);
+      border-bottom-color: var(--costco-border);
+    }
+
+    .willy .store-title {
+      color: var(--willy-green);
+      border-bottom-color: var(--willy-border);
+    }
+
+    .store-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .costco .store-badge {
+      background: var(--costco-bg);
+      color: var(--costco-red);
+      border: 1px solid var(--costco-border);
+    }
+
+    .willy .store-badge {
+      background: var(--willy-bg);
+      color: var(--willy-green);
+      border: 1px solid var(--willy-border);
+    }
+
+    .sub-section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin: 10px 0 4px 0;
+    }
+
+    .item-list {
+      list-style: none;
+    }
+
+    .item-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.85rem;
+      padding: 4px 0;
+      color: var(--text);
+    }
+
+    .item-list input[type="checkbox"] {
+      margin-top: 3px;
+      cursor: pointer;
+      accent-color: var(--primary);
+      width: 14px;
+      height: 14px;
+    }
+
+    .item-list label {
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .item-list input[type="checkbox"]:checked + label {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .meal-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      @page {
+        margin: 0.8cm;
+        size: portrait;
+      }
+
+      body {
+        background: white;
+        color: black;
+        padding: 0;
+        font-size: 8.5pt;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      .container {
+        max-width: 100%;
+        margin: 0;
+      }
+
+      .diet-banner {
+        border: 1px solid #000;
+        background: #fafafa;
+        padding: 6px 10px;
+        margin-bottom: 10px;
+      }
+
+      .diet-banner-title {
+        color: black;
+        font-size: 8pt;
+      }
+
+      .diet-pill {
+        border: 1px solid #000;
+        color: black;
+        font-size: 6.5pt;
+      }
+
+      .pantry-card {
+        border: 1px solid #000;
+        box-shadow: none;
+        padding: 10px 14px;
+        margin-bottom: 14px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .pantry-grid {
+        gap: 10px;
+      }
+
+      .week-card {
+        border: 1px solid #000;
+        box-shadow: none;
+        margin-bottom: 14px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .week-card.page-break {
+        break-before: page;
+        page-break-before: always;
+      }
+
+      .week-header {
+        background: #f1f5f9 !important;
+        border-bottom: 1px solid #000;
+        padding: 6px 12px;
+      }
+
+      .week-header h2 {
+        font-size: 0.95rem;
+        color: black;
+      }
+
+      .stores-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .store-col {
+        padding: 8px 12px;
+      }
+
+      .store-col.costco {
+        border-right: 1px solid #000;
+      }
+
+      .store-title {
+        color: black !important;
+        border-bottom: 1px solid #000;
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+      }
+
+      .store-badge {
+        display: none;
+      }
+
+      .sub-section-title {
+        color: #333;
+        font-size: 0.7rem;
+        margin-top: 6px;
+      }
+
+      .item-list li {
+        font-size: 8pt;
+        padding: 2px 0;
+      }
+
+      .item-list input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 10px;
+        height: 10px;
+        border: 1px solid #000;
+        border-radius: 2px;
+        margin-top: 2px;
+      }
+
+      .meal-note {
+        color: #555;
+        font-size: 7.5pt;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <div class="container">
+    <div class="header-bar no-print">
+      <div class="header-title">
+        <h1>🛒 Weekly Grocery Shopping List</h1>
+        <p>Costco (Bulk & Lean Proteins) & Willy Street Co-op (Produce & Specialty) • Mom's 30P/30F/40C Aligned</p>
+      </div>
+      <div class="btn-group">
+        <a href="printable_meal_plan.html" class="btn btn-secondary">
+          🍽️ Meal Plan
+        </a>
+        <a href="printable_recipe_book.html" class="btn btn-secondary">
+          📖 Recipe Book
+        </a>
+        <button class="btn btn-primary" onclick="window.print()">
+          🖨️ Print List / Save PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Mom Diet Alignment Callout -->
+    <div class="diet-banner">
+      <div class="diet-banner-title">
+        <span>🥗 Mom's Diet Alignment Checklist</span>
+      </div>
+      <div class="diet-pills">
+        <span class="diet-pill">Pure Lean Poultry & Seafood (No Red Meat/Pork)</span>
+        <span class="diet-pill">Complex Carbs (Sweet Potatoes, Brown/Wild Rice, Banza Pasta)</span>
+        <span class="diet-pill">Healthy Fats (Olive Oil, Avocados, Greek Yogurt)</span>
+      </div>
+    </div>
+
+    <!-- Master Staples Checklist -->
+    <div class="pantry-card">
+      <h2>📦 Monthly Bulk / Master Pantry Staples (Costco)</h2>
+      <div class="pantry-grid">
+        <div class="pantry-col">
+          <h3>Oils & Condiments</h3>
+          <ul class="item-list">
+            <li><input type="checkbox" id="p1"><label for="p1">Olive oil / Avocado oil spray</label></li>
+            <li><input type="checkbox" id="p2"><label for="p2">Toasted sesame oil & Low-sodium soy sauce</label></li>
+            <li><input type="checkbox" id="p3"><label for="p3">Sriracha & Mike's Hot Honey</label></li>
+            <li><input type="checkbox" id="p4"><label for="p4">Dijon / Coarse whole-grain mustard</label></li>
+            <li><input type="checkbox" id="p5"><label for="p5">Taco seasoning, Italian herbs, Red pepper flakes</label></li>
+          </ul>
+        </div>
+        <div class="pantry-col">
+          <h3>Grains & Canned</h3>
+          <ul class="item-list">
+            <li><input type="checkbox" id="p6"><label for="p6">Jasmine / White rice & Brown rice (bulk)</label></li>
+            <li><input type="checkbox" id="p7"><label for="p7">Wild rice blend & Banza chickpea pasta</label></li>
+            <li><input type="checkbox" id="p8"><label for="p8">Black beans & Sweet corn (canned multipack)</label></li>
+            <li><input type="checkbox" id="p9"><label for="p9">Marinara sauce (Rao's / Kirkland multipack)</label></li>
+            <li><input type="checkbox" id="p10"><label for="p10">Low-sodium chicken broth & Panko crumbs</label></li>
+          </ul>
+        </div>
+        <div class="pantry-col">
+          <h3>Dairy & Fridge Bulk</h3>
+          <ul class="item-list">
+            <li><input type="checkbox" id="p11"><label for="p11">Butter (Kirkland 4-pack)</label></li>
+            <li><input type="checkbox" id="p12"><label for="p12">Large pasture eggs (2 dozen)</label></li>
+            <li><input type="checkbox" id="p13"><label for="p13">Shredded Mexican & Cheddar cheese blend</label></li>
+            <li><input type="checkbox" id="p14"><label for="p14">Block Parmesan cheese</label></li>
+            <li><input type="checkbox" id="p15"><label for="p15">Nonfat plain Greek yogurt (bulk tub)</label></li>
+          </ul>
+        </div>
+        <div class="pantry-col">
+          <h3>Pantry Roots & Bulk Produce</h3>
+          <ul class="item-list">
+            <li><input type="checkbox" id="p16"><label for="p16">Yellow & Red onions (bulk bag)</label></li>
+            <li><input type="checkbox" id="p17"><label for="p17">Garlic bulbs (bulk mesh bag)</label></li>
+            <li><input type="checkbox" id="p18"><label for="p18">Russet potatoes (bulk bag)</label></li>
+            <li><input type="checkbox" id="p19"><label for="p19">Sweet potatoes (bulk bag for Mom's carbs)</label></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 1 -->
+    <div class="week-card">
+      <div class="week-header">
+        <h2>🗓️ Week 1: Classic Crowd-Pleasers</h2>
+        <div class="meals-tag">Fajitas • Lemon Chicken • Turkey Meatballs • Balsamic Chicken • Turkey Burgers • Salmon • Pizza</div>
+      </div>
+      <div class="stores-grid">
+        <!-- Costco -->
+        <div class="store-col costco">
+          <div class="store-title">
+            <span>🔴 Costco Wholesale</span>
+            <span class="store-badge">Bulk & Lean Meats</span>
+          </div>
+          <div class="sub-section-title">Lean Poultry & Seafood</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w1-c1"><label for="w1-c1"><strong>Chicken Breasts / Tenders</strong> (bulk pack) <span class="meal-note">(Mon Fajitas, Tue Lemon Chicken, Thu Balsamic, Sat Kids, Sun Salad)</span></label></li>
+            <li><input type="checkbox" id="w1-c2"><label for="w1-c2"><strong>Ground Turkey 93/7</strong> (3.5–4 lbs) <span class="meal-note">(Wed Meatballs & Fri Turkey Burgers)</span></label></li>
+            <li><input type="checkbox" id="w1-c3"><label for="w1-c3"><strong>Fresh Salmon Fillets</strong> (approx. 1.5 lbs) <span class="meal-note">(Sat Salmon)</span></label></li>
+          </ul>
+          <div class="sub-section-title">Bakery, Carbs & Dairy</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w1-c4"><label for="w1-c4">Brioche burger buns & Whole wheat thin buns <span class="meal-note">(Fri Burgers)</span></label></li>
+            <li><input type="checkbox" id="w1-c5"><label for="w1-c5">Penne or Rotini pasta & Banza pasta <span class="meal-note">(Wed Meatballs)</span></label></li>
+            <li><input type="checkbox" id="w1-c6"><label for="w1-c6">Pepper jack & Cheddar cheese slices <span class="meal-note">(Fri Burgers)</span></label></li>
+            <li><input type="checkbox" id="w1-c7"><label for="w1-c7">Thin artisan pizza crust pack <span class="meal-note">(Sun Pizza)</span></label></li>
+            <li><input type="checkbox" id="w1-c8"><label for="w1-c8">Shredded mozzarella cheese <span class="meal-note">(Sun Pizza)</span></label></li>
+          </ul>
+        </div>
+        <!-- Willy Street -->
+        <div class="store-col willy">
+          <div class="store-title">
+            <span>🟢 Willy Street Co-op North</span>
+            <span class="store-badge">Produce & Specialty</span>
+          </div>
+          <div class="sub-section-title">Fresh Produce</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w1-w1"><label for="w1-w1">Bell peppers (3 colors: Mon Fajitas)</label></li>
+            <li><input type="checkbox" id="w1-w2"><label for="w1-w2">Avocados (3–4 for Mon Fajitas & Fri Burgers)</label></li>
+            <li><input type="checkbox" id="w1-w3"><label for="w1-w3">Limes & Lemons (Mon Fajitas, Tue Lemon Chicken, Sat Salmon)</label></li>
+            <li><input type="checkbox" id="w1-w4"><label for="w1-w4">Fresh cilantro & Jalapeños (Mon/Fri Dad kick)</label></li>
+            <li><input type="checkbox" id="w1-w5"><label for="w1-w5">Fresh green beans (1 lb: Tue side)</label></li>
+            <li><input type="checkbox" id="w1-w6"><label for="w1-w6">Broccoli crowns (2 crowns: Wed/Sat)</label></li>
+            <li><input type="checkbox" id="w1-w7"><label for="w1-w7">Zucchini (2–3 medium: Wed zoodles & Thu grilled)</label></li>
+            <li><input type="checkbox" id="w1-w8"><label for="w1-w8">Salad greens / Romaine (Mon/Wed/Fri/Sun base)</label></li>
+          </ul>
+          <div class="sub-section-title">Deli & Specialty Condiments</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w1-w9"><label for="w1-w9">Fresh local Tzatziki dip & Crumbled feta (Tue)</label></li>
+            <li><input type="checkbox" id="w1-w10"><label for="w1-w10">Fresh corn & flour tortillas (Mon Fajitas)</label></li>
+            <li><input type="checkbox" id="w1-w11"><label for="w1-w11">Fresh salsa & Hot chili oil</label></li>
+            <li><input type="checkbox" id="w1-w12"><label for="w1-w12">Balsamic glaze & Whole-grain Dijon mustard</label></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 2 -->
+    <div class="week-card">
+      <div class="week-header">
+        <h2>🗓️ Week 2: Fast Asian & Comfort Flavors</h2>
+        <div class="meals-tag">Teriyaki Chicken • Panko Tenders • Chicken & Broccoli • Chicken Sausage • Taco Salad • Cod • Pizza</div>
+      </div>
+      <div class="stores-grid">
+        <!-- Costco -->
+        <div class="store-col costco">
+          <div class="store-title">
+            <span>🔴 Costco Wholesale</span>
+            <span class="store-badge">Bulk & Lean Meats</span>
+          </div>
+          <div class="sub-section-title">Lean Poultry & Seafood</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w2-c1"><label for="w2-c1"><strong>Chicken Breasts / Tenders</strong> (bulk pack) <span class="meal-note">(Mon Teriyaki, Tue Tenders, Wed Skillet, Fri Tacos, Sat Kids, Sun Salad)</span></label></li>
+            <li><input type="checkbox" id="w2-c2"><label for="w2-c2"><strong>All-Natural Chicken Sausages</strong> (Amylu / Aidells pack) <span class="meal-note">(Thu Sausage)</span></label></li>
+            <li><input type="checkbox" id="w2-c3"><label for="w2-c3"><strong>Cod / White Fish Fillets</strong> (fresh or frozen wild) <span class="meal-note">(Sat Fish)</span></label></li>
+          </ul>
+          <div class="sub-section-title">Carbs, Dairy & Frozen</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w2-c4"><label for="w2-c4">Baby petite medley potatoes <span class="meal-note">(Tue & Thu sides)</span></label></li>
+            <li><input type="checkbox" id="w2-c5"><label for="w2-c5">Panko breadcrumbs <span class="meal-note">(Tue Tenders)</span></label></li>
+            <li><input type="checkbox" id="w2-c6"><label for="w2-c6">Pizza crust pack & Shredded mozzarella <span class="meal-note">(Sun Pizza)</span></label></li>
+          </ul>
+        </div>
+        <!-- Willy Street -->
+        <div class="store-col willy">
+          <div class="store-title">
+            <span>🟢 Willy Street Co-op North</span>
+            <span class="store-badge">Produce & Specialty</span>
+          </div>
+          <div class="sub-section-title">Fresh Produce</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w2-w1"><label for="w2-w1">Sugar snap peas (1 bag: Mon Teriyaki)</label></li>
+            <li><input type="checkbox" id="w2-w2"><label for="w2-w2">Bell peppers (2–3 colors: Mon Teriyaki & Thu Sausage)</label></li>
+            <li><input type="checkbox" id="w2-w3"><label for="w2-w3">Fresh broccoli crowns (2 large: Wed Skillet)</label></li>
+            <li><input type="checkbox" id="w2-w4"><label for="w2-w4">English cucumbers (Kids sides & fresh salads)</label></li>
+            <li><input type="checkbox" id="w2-w5"><label for="w2-w5">Fresh asparagus (1 bunch: Sat Cod)</label></li>
+            <li><input type="checkbox" id="w2-w6"><label for="w2-w6">Avocados (2 for Fri Taco salad)</label></li>
+            <li><input type="checkbox" id="w2-w7"><label for="w2-w7">Mixed salad greens & Green onions</label></li>
+          </ul>
+          <div class="sub-section-title">Deli & Specialty Condiments</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w2-w8"><label for="w2-w8">Blue cheese dressing & Buffalo sauce (Tue Tenders)</label></li>
+            <li><input type="checkbox" id="w2-w9"><label for="w2-w9">Chili crunch oil & Toasted sesame seeds</label></li>
+            <li><input type="checkbox" id="w2-w10"><label for="w2-w10">Jarred capers (small jar for lemon-caper cod)</label></li>
+            <li><input type="checkbox" id="w2-w11"><label for="w2-w11">Pepper relish & Spicy coarse mustard (Thu)</label></li>
+            <li><input type="checkbox" id="w2-w12"><label for="w2-w12">Chipotle crema & Fresh tortillas (Fri Tacos)</label></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <div class="week-card page-break">
+      <div class="week-header">
+        <h2>🗓️ Week 3: Tex-Mex & Italian Favorites</h2>
+        <div class="meals-tag">Turkey Burrito Bowls • Chicken Parm • Korean Turkey • Lemon Thighs • Loaded Sweet Potato • Salmon • Pizza</div>
+      </div>
+      <div class="stores-grid">
+        <!-- Costco -->
+        <div class="store-col costco">
+          <div class="store-title">
+            <span>🔴 Costco Wholesale</span>
+            <span class="store-badge">Bulk & Lean Meats</span>
+          </div>
+          <div class="sub-section-title">Lean Poultry & Seafood</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w3-c1"><label for="w3-c1"><strong>Ground Turkey 93/7</strong> (3 lbs) <span class="meal-note">(Mon Burrito Bowls & Wed Korean Turkey)</span></label></li>
+            <li><input type="checkbox" id="w3-c2"><label for="w3-c2"><strong>Chicken Breasts</strong> (bulk pack) <span class="meal-note">(Tue Parm, Fri Potato Bar protein, Sun Salad)</span></label></li>
+            <li><input type="checkbox" id="w3-c3"><label for="w3-c3"><strong>Chicken Thighs</strong> (boneless skinless, 2 lbs) <span class="meal-note">(Thu Thighs)</span></label></li>
+            <li><input type="checkbox" id="w3-c4"><label for="w3-c4"><strong>Fresh Salmon Fillets</strong> (approx. 1.5 lbs) <span class="meal-note">(Sat Salmon)</span></label></li>
+            <li><input type="checkbox" id="w3-c5"><label for="w3-c5"><strong>Chicken Tenders</strong> (1 lb) <span class="meal-note">(Sat Kids Tenders)</span></label></li>
+            <li><input type="checkbox" id="w3-c6"><label for="w3-c6">Bacon (thick-cut, optional topping for dad/kids) <span class="meal-note">(Fri Potato topping)</span></label></li>
+          </ul>
+          <div class="sub-section-title">Carbs & Dairy Bulk</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w3-c7"><label for="w3-c7">Russet Potatoes & Sweet Potatoes (Fri Potato Bar)</label></li>
+            <li><input type="checkbox" id="w3-c8"><label for="w3-c8">Pasta / Spaghetti for kids & Banza chickpea penne <span class="meal-note">(Tue Parm)</span></label></li>
+            <li><input type="checkbox" id="w3-c9"><label for="w3-c9">Mozzarella cheese (block or shredded) <span class="meal-note">(Tue Parm & Sun Pizza)</span></label></li>
+          </ul>
+        </div>
+        <!-- Willy Street -->
+        <div class="store-col willy">
+          <div class="store-title">
+            <span>🟢 Willy Street Co-op North</span>
+            <span class="store-badge">Produce & Specialty</span>
+          </div>
+          <div class="sub-section-title">Fresh Produce</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w3-w1"><label for="w3-w1">Lemons & Fresh garlic bulbs</label></li>
+            <li><input type="checkbox" id="w3-w2"><label for="w3-w2">Fresh green beans (1 lb: Thu side)</label></li>
+            <li><input type="checkbox" id="w3-w3"><label for="w3-w3">Zucchini (2–3 medium: Tue zoodles & Sat Salmon side)</label></li>
+            <li><input type="checkbox" id="w3-w4"><label for="w3-w4">Carrots (1 bunch: Wed kids side & matchsticks)</label></li>
+            <li><input type="checkbox" id="w3-w5"><label for="w3-w5">Bibb / Butter lettuce (Wed turkey cups & Mon bowls)</label></li>
+            <li><input type="checkbox" id="w3-w6"><label for="w3-w6">Avocados (Mon burrito bowls)</label></li>
+            <li><input type="checkbox" id="w3-w7"><label for="w3-w7">Fresh jalapeños & chives</label></li>
+          </ul>
+          <div class="sub-section-title">Deli & Specialty Condiments</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w3-w8"><label for="w3-w8">Local Kimchi (refrigerated jar for Wed)</label></li>
+            <li><input type="checkbox" id="w3-w9"><label for="w3-w9">Garlic Toum dip (Middle Eastern deli for Thu)</label></li>
+            <li><input type="checkbox" id="w3-w10"><label for="w3-w10">Fresh basil pesto (deli tub for Tue)</label></li>
+            <li><input type="checkbox" id="w3-w11"><label for="w3-w11">Salsa Verde & Chipotle hot sauce</label></li>
+            <li><input type="checkbox" id="w3-w12"><label for="w3-w12">Wild rice blend (bulk bin or box for Sat)</label></li>
+            <li><input type="checkbox" id="w3-w13"><label for="w3-w13">Coarse honey mustard (Sat glaze)</label></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <div class="week-card">
+      <div class="week-header">
+        <h2>🗓️ Week 4: Quick Skillet & Air-Fryer Favorites</h2>
+        <div class="meals-tag">Greek Bowls • Chicken Tacos • Tomato Spinach Pasta • BBQ Chicken • Sloppy Joes • Garlic Shrimp • Pizza</div>
+      </div>
+      <div class="stores-grid">
+        <!-- Costco -->
+        <div class="store-col costco">
+          <div class="store-title">
+            <span>🔴 Costco Wholesale</span>
+            <span class="store-badge">Bulk & Lean Meats</span>
+          </div>
+          <div class="sub-section-title">Lean Poultry & Seafood</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w4-c1"><label for="w4-c1"><strong>Ground Turkey 93/7</strong> (3 lbs) <span class="meal-note">(Mon Greek Bowls + Fri Sloppy Joes)</span></label></li>
+            <li><input type="checkbox" id="w4-c2"><label for="w4-c2"><strong>Chicken Breasts / Tenders</strong> (bulk pack) <span class="meal-note">(Tue Tacos, Wed Pasta, Thu BBQ, Sat Sliders, Sun Salad)</span></label></li>
+            <li><input type="checkbox" id="w4-c3"><label for="w4-c3"><strong>Raw Large Shrimp</strong> (Kirkland peeled/deveined tail-on, 1.5 lbs) <span class="meal-note">(Sat Shrimp)</span></label></li>
+          </ul>
+          <div class="sub-section-title">Carbs, Dairy & Staples</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w4-c4"><label for="w4-c4">King's Hawaiian Rolls (pack) <span class="meal-note">(Fri Sloppy Joes & Sat Sliders)</span></label></li>
+            <li><input type="checkbox" id="w4-c5"><label for="w4-c5">BBQ Sauce (Kinder's / Sweet Baby Ray's)</label></li>
+            <li><input type="checkbox" id="w4-c6"><label for="w4-c6">Penne Pasta & Banza chickpea penne <span class="meal-note">(Wed Pasta)</span></label></li>
+            <li><input type="checkbox" id="w4-c7"><label for="w4-c7">Half & Half or Light Cream <span class="meal-note">(Wed Pasta)</span></label></li>
+            <li><input type="checkbox" id="w4-c8"><label for="w4-c8">Pizza Night supplies <span class="meal-note">(Sun Pizza)</span></label></li>
+          </ul>
+        </div>
+        <!-- Willy Street -->
+        <div class="store-col willy">
+          <div class="store-title">
+            <span>🟢 Willy Street Co-op North</span>
+            <span class="store-badge">Produce & Specialty</span>
+          </div>
+          <div class="sub-section-title">Fresh Produce</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w4-w1"><label for="w4-w1">Persian / English cucumbers (2–3: Mon bowls & kids sides)</label></li>
+            <li><input type="checkbox" id="w4-w2"><label for="w4-w2">Cherry tomatoes (1 pint: Mon bowls)</label></li>
+            <li><input type="checkbox" id="w4-w3"><label for="w4-w3">Fresh baby spinach (1 tub: Wed Pasta)</label></li>
+            <li><input type="checkbox" id="w4-w4"><label for="w4-w4">Fresh sweet corn on the cob (3–4 ears: Thu BBQ)</label></li>
+            <li><input type="checkbox" id="w4-w5"><label for="w4-w5">Broccoli crowns (2 crowns: Thu side)</label></li>
+            <li><input type="checkbox" id="w4-w6"><label for="w4-w6">Fresh asparagus (1 bunch: Sat Shrimp)</label></li>
+            <li><input type="checkbox" id="w4-w7"><label for="w4-w7">Zucchini & Sweet potatoes (Wed zoodles & Fri side)</label></li>
+            <li><input type="checkbox" id="w4-w8"><label for="w4-w8">Shredded romaine lettuce & Pickled jalapeños</label></li>
+          </ul>
+          <div class="sub-section-title">Deli & Specialty Condiments</div>
+          <ul class="item-list">
+            <li><input type="checkbox" id="w4-w9"><label for="w4-w9">Harissa paste (tube or jar for Mon)</label></li>
+            <li><input type="checkbox" id="w4-w10"><label for="w4-w10">Crumbled feta cheese (Mon Greek bowls)</label></li>
+            <li><input type="checkbox" id="w4-w11"><label for="w4-w11">Greek whole wheat & white pita flatbreads (Mon bowls)</label></li>
+            <li><input type="checkbox" id="w4-w12"><label for="w4-w12">Fresh corn & flour tortillas (Tue Tacos)</label></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family Meal Plan & Recipe Schedule (Printable)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      
+      --air-fryer: #d97706;
+      --grill: #dc2626;
+      --instant-pot: #0284c7;
+      --skillet: #16a34a;
+      --oven: #7c3aed;
+
+      --mom-green: #059669;
+      --mom-bg: #ecfdf5;
+      --mom-border: #a7f3d0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px;
+    }
+
+    .header-bar {
+      max-width: 1150px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 20px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    }
+
+    .header-title h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+    }
+
+    .header-title p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: #f1f5f9;
+      color: #334155;
+    }
+
+    .btn-secondary:hover {
+      background-color: #e2e8f0;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+
+    /* Mom's Diet Guidance Banner */
+    .diet-banner {
+      background: var(--mom-bg);
+      border: 1px solid var(--mom-border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .diet-banner-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .diet-banner-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--mom-green);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .diet-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .diet-pill {
+      background: white;
+      border: 1px solid var(--mom-border);
+      color: #065f46;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .diet-desc {
+      font-size: 0.82rem;
+      color: #064e3b;
+      line-height: 1.4;
+    }
+
+    .week-block {
+      margin-bottom: 32px;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 24px 0 14px 0;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .legend {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-af { background-color: var(--air-fryer); }
+    .badge-grill { background-color: var(--grill); }
+    .badge-ip { background-color: var(--instant-pot); }
+    .badge-skillet { background-color: var(--skillet); }
+    .badge-oven { background-color: var(--oven); }
+
+    .plan-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+
+    .plan-table th, .plan-table td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.84rem;
+      vertical-align: top;
+    }
+
+    .plan-table th {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.5px;
+    }
+
+    .day-cell {
+      font-weight: 700;
+      color: var(--primary);
+      width: 65px;
+    }
+
+    .main-cell {
+      width: 210px;
+    }
+
+    .main-title {
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .mom-cell {
+      color: #065f46;
+      background: #fcfdfd;
+    }
+
+    .macro-tag {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #047857;
+      background: #d1fae5;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* PRINT STYLESHEET */
+    @media print {
+      @page {
+        margin: 0.8cm;
+        size: landscape;
+      }
+
+      body {
+        background: white;
+        color: black;
+        padding: 0;
+        font-size: 8pt;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      .container {
+        max-width: 100%;
+        margin: 0;
+      }
+
+      .diet-banner {
+        border: 1px solid #000;
+        background: #fafafa;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+      }
+
+      .diet-banner-title {
+        color: black;
+        font-size: 8.5pt;
+      }
+
+      .diet-pill {
+        border: 1px solid #000;
+        color: black;
+        font-size: 7pt;
+      }
+
+      .diet-desc {
+        color: #333;
+        font-size: 7.5pt;
+      }
+
+      .week-block {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin-bottom: 0;
+        padding-top: 6px;
+      }
+
+      .week-block + .week-block {
+        break-before: page;
+        page-break-before: always;
+      }
+
+      .section-title {
+        border-bottom: 2px solid #000;
+        margin-top: 0;
+        margin-bottom: 8px;
+        padding-bottom: 2px;
+        font-size: 1rem;
+        color: black;
+      }
+
+      .plan-table {
+        box-shadow: none;
+        border: 1px solid #000;
+      }
+
+      .plan-table th {
+        background: #eee !important;
+        color: black;
+        border: 1px solid #000;
+        font-size: 7pt;
+        padding: 6px 8px;
+      }
+
+      .plan-table td {
+        border: 1px solid #000;
+        padding: 6px 8px;
+        font-size: 7.5pt;
+        color: black;
+      }
+
+      .mom-cell {
+        background: transparent;
+        color: black;
+      }
+
+      .macro-tag {
+        border: 1px solid #000;
+        background: transparent;
+        color: black;
+        font-size: 6.5pt;
+      }
+
+      .badge {
+        border: 1px solid #000;
+        color: black !important;
+        background: transparent !important;
+        font-size: 6.5pt;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Control Bar -->
+  <div class="header-bar no-print">
+    <div class="header-title">
+      <h1>🍽️ Family Dinner Plan & Recipe Schedule</h1>
+      <p>4-Week Rotation • 30-Min Prep • Mom's 1350–1450 kcal (30P/30F/40C) Target • Pure Lean Poultry & Seafood Focus</p>
+    </div>
+    <div class="btn-group">
+      <a href="printable_recipe_book.html" class="btn btn-secondary">
+        📖 Recipe Book
+      </a>
+      <a href="printable_shopping_list.html" class="btn btn-secondary">
+        🛒 Shopping List
+      </a>
+      <button class="btn btn-primary" onclick="window.print()">
+        🖨️ Print / Save to PDF
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Mom's Diet Reference Banner -->
+    <div class="diet-banner">
+      <div class="diet-banner-header">
+        <div class="diet-banner-title">
+          <span>🥗 Mom's Daily Diet & Macro Guide</span>
+        </div>
+        <div class="diet-pills">
+          <span class="diet-pill">Target: 1,350–1,450 kcal/day</span>
+          <span class="diet-pill">30% Protein (~105g)</span>
+          <span class="diet-pill">30% Fat (~46g)</span>
+          <span class="diet-pill">40% Carbs (~140g)</span>
+          <span class="diet-pill">0% Red Meat & Pork</span>
+        </div>
+      </div>
+      <p class="diet-desc">
+        <strong>Dinner Target (~33% daily intake):</strong> ~440–470 kcal • 35–40g Lean Protein (Chicken Breast, 93/7 Ground Turkey, Salmon, Cod, Shrimp) • 13–16g Healthy Fats (Olive oil, avocado, seafood) • 42–48g Nutrient-Dense Complex Carbs (Sweet potatoes, brown/wild rice, Banza chickpea pasta, whole wheat pitas, corn, beans).
+      </p>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend no-print">
+      <span class="badge badge-af">Air Fryer</span>
+      <span class="badge badge-grill">Outdoor Grill</span>
+      <span class="badge badge-ip">Instant Pot</span>
+      <span class="badge badge-skillet">Stovetop Skillet</span>
+      <span class="badge badge-oven">Oven</span>
+    </div>
+
+    <!-- WEEK 1 OVERVIEW -->
+    <div class="week-block">
+      <div class="section-title">
+        <span>🗓️ Week 1: Classic Crowd-Pleasers</span>
+      </div>
+      <table class="plan-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Dinner Main</th>
+            <th>Method</th>
+            <th>Mom's Portion (30P / 30F / 40C)</th>
+            <th>Dad's Flavor Kick</th>
+            <th>Kids' Plate (10, 8, 5)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="day-cell">Mon</td>
+            <td class="main-cell">
+              <div class="main-title">Grilled Chicken Fajitas</div>
+            </td>
+            <td><span class="badge badge-grill">Grill</span></td>
+            <td class="mom-cell">
+              5 oz grilled chicken breast + 1/2 cup black beans + grilled peppers/onions + 1/4 avocado + salsa
+              <div class="macro-tag">38g P • 15g F • 44g C • 460 kcal</div>
+            </td>
+            <td>Hot salsa, fresh sliced jalapeños & lime</td>
+            <td>Chicken & cheese warm flour tortillas (peppers on side)</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Tue</td>
+            <td class="main-cell">
+              <div class="main-title">Air-Fryer Lemon Herb Chicken</div>
+            </td>
+            <td><span class="badge badge-af">Air Fryer</span></td>
+            <td class="mom-cell">
+              5 oz lemon herb chicken breast + 140g roasted potato wedges + 1 cup steamed green beans + 2 tbsp tzatziki
+              <div class="macro-tag">38g P • 13g F • 45g C • 450 kcal</div>
+            </td>
+            <td>Tzatziki, crumbled feta & chili oil</td>
+            <td>Lemon tenders + crispy potato wedges + green beans with ketchup</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Wed</td>
+            <td class="main-cell">
+              <div class="main-title">IP Turkey Meatballs in Marinara</div>
+            </td>
+            <td><span class="badge badge-ip">Instant Pot</span></td>
+            <td class="mom-cell">
+              4 lean turkey meatballs (93/7) + 1.5 oz Banza chickpea pasta & zoodles + 1/2 cup marinara + side salad
+              <div class="macro-tag">36g P • 14g F • 46g C • 460 kcal</div>
+            </td>
+            <td>Crushed red pepper flakes & shaved parmesan</td>
+            <td>Penne pasta with marinara on side + 2 meatballs + broccoli</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Thu</td>
+            <td class="main-cell">
+              <div class="main-title">Grilled Balsamic Herb Chicken</div>
+            </td>
+            <td><span class="badge badge-grill">Grill</span></td>
+            <td class="mom-cell">
+              5 oz balsamic chicken breast + 130g roasted sweet potato wedges + grilled zucchini spears
+              <div class="macro-tag">37g P • 12g F • 44g C • 440 kcal</div>
+            </td>
+            <td>Spicy coarse whole-grain mustard dip</td>
+            <td>Grilled chicken slices + sweet potato wedges + zucchini</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Fri</td>
+            <td class="main-cell">
+              <div class="main-title">Custom Family Turkey Burgers</div>
+            </td>
+            <td><span class="badge badge-grill">Grill</span></td>
+            <td class="mom-cell">
+              5 oz seasoned 93/7 turkey patty + open-face whole wheat thin bun + tomato/onion/lettuce + 100g sweet potato fries
+              <div class="macro-tag">36g P • 14g F • 44g C • 450 kcal</div>
+            </td>
+            <td>Melted pepper jack, jalapeños & sriracha mayo</td>
+            <td>Turkey cheeseburger on brioche bun with pickles & ketchup</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Sat</td>
+            <td class="main-cell">
+              <div class="main-title">🐟 Air-Fryer Honey-Garlic Salmon</div>
+            </td>
+            <td><span class="badge badge-af">Air Fryer</span></td>
+            <td class="mom-cell">
+              5 oz salmon fillet + 2/3 cup cooked brown rice + 1.5 cups steamed broccoli + honey-garlic glaze
+              <div class="macro-tag">34g P • 16g F • 48g C • 470 kcal</div>
+            </td>
+            <td>Sriracha-honey glaze with red pepper flakes</td>
+            <td><strong>KIDS: Air-Fryer Crispy Chicken Tenders</strong> + rice + broccoli</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Sun</td>
+            <td class="main-cell">
+              <div class="main-title">🍕 Family Pizza Night</div>
+            </td>
+            <td><span class="badge badge-oven">Oven</span></td>
+            <td class="mom-cell">
+              1 thin-crust veggie slice + large garden salad topped with 3.5 oz grilled chicken strips & light Italian vinaigrette
+              <div class="macro-tag">34g P • 14g F • 42g C • 430 kcal</div>
+            </td>
+            <td>Hot Honey drizzle & red pepper flakes</td>
+            <td>Classic mozzarella cheese pizza slices + cucumber sticks</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- WEEK 2 OVERVIEW -->
+    <div class="week-block">
+      <div class="section-title">
+        <span>🗓️ Week 2: Fast Asian & Comfort Flavors</span>
+      </div>
+      <table class="plan-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Dinner Main</th>
+            <th>Method</th>
+            <th>Mom's Portion (30P / 30F / 40C)</th>
+            <th>Dad's Flavor Kick</th>
+            <th>Kids' Plate (10, 8, 5)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="day-cell">Mon</td>
+            <td class="main-cell">
+              <div class="main-title">IP Teriyaki Chicken & Snap Peas</div>
+            </td>
+            <td><span class="badge badge-ip">Instant Pot</span></td>
+            <td class="mom-cell">
+              5 oz chicken breast + 1/2 cup brown rice + snap peas & bell peppers + teriyaki glaze (1 tbsp)
+              <div class="macro-tag">38g P • 12g F • 48g C • 450 kcal</div>
+            </td>
+            <td>Crispy chili crunch oil, scallions & sesame seeds</td>
+            <td>Mild shredded teriyaki chicken over jasmine rice + sliced cucumbers</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Tue</td>
+            <td class="main-cell">
+              <div class="main-title">Air-Fryer Crispy Panko Tenders</div>
+            </td>
+            <td><span class="badge badge-af">Air Fryer</span></td>
+            <td class="mom-cell">
+              5 oz panko tenders + 110g roasted baby medley potatoes + colorful garden salad + light vinaigrette
+              <div class="macro-tag">36g P • 14g F • 44g C • 450 kcal</div>
+            </td>
+            <td>Spicy buffalo sauce dip & blue cheese crumbles</td>
+            <td>Crispy panko tenders with honey mustard + roasted potato bites</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Wed</td>
+            <td class="main-cell">
+              <div class="main-title">Savory Chicken & Broccoli Skillet</div>
+            </td>
+            <td><span class="badge badge-skillet">Skillet</span></td>
+            <td class="mom-cell">
+              5 oz sliced chicken breast + 1/2 cup brown rice + 1.5 cups broccoli florets + ginger-soy-sesame sauce
+              <div class="macro-tag">38g P • 13g F • 46g C • 450 kcal</div>
+            </td>
+            <td>Chili garlic sauce, sriracha & extra scallions</td>
+            <td>Tender chicken breast slices over jasmine rice with broccoli florets</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Thu</td>
+            <td class="main-cell">
+              <div class="main-title">Grilled Chicken Sausage & Veggies</div>
+            </td>
+            <td><span class="badge badge-grill">Grill</span></td>
+            <td class="mom-cell">
+              1.5 links Amylu chicken sausage + 2 oz grilled chicken breast + 120g roasted potatoes + peppers/onions
+              <div class="macro-tag">38g P • 14g F • 43g C • 450 kcal</div>
+            </td>
+            <td>Spicy coarse whole-grain mustard & sweet pepper relish</td>
+            <td>Sliced mild sausage medallions + roasted potato bites + bell peppers</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Fri</td>
+            <td class="main-cell">
+              <div class="main-title">Taco Salad & Rice Bowls</div>
+            </td>
+            <td><span class="badge badge-skillet">Skillet</span></td>
+            <td class="mom-cell">
+              5 oz taco chicken breast + 1/3 cup black beans + 1/3 cup sweet corn + shredded romaine + salsa + 1/4 avocado
+              <div class="macro-tag">38g P • 15g F • 44g C • 460 kcal</div>
+            </td>
+            <td>Smoky chipotle crema & pickled jalapeños</td>
+            <td>Warm chicken & cheese quesadillas with mild sour cream</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Sat</td>
+            <td class="main-cell">
+              <div class="main-title">🐟 Grilled Cod with Lemon-Caper Butter</div>
+            </td>
+            <td><span class="badge badge-grill">Grill</span></td>
+            <td class="mom-cell">
+              6 oz fresh cod fillet + 2/3 cup cooked wild rice blend + grilled fresh asparagus + 1 tbsp lemon-caper butter
+              <div class="macro-tag">36g P • 15g F • 42g C • 450 kcal</div>
+            </td>
+            <td>Crushed red pepper flakes & extra lemon-caper butter</td>
+            <td><strong>KIDS: Grilled Mild Chicken Skewers</strong> + jasmine rice + carrots</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Sun</td>
+            <td class="main-cell">
+              <div class="main-title">🍕 Family Pizza Night</div>
+            </td>
+            <td><span class="badge badge-oven">Oven</span></td>
+            <td class="mom-cell">
+              1 thin-crust veggie slice + large garden salad topped with 3.5 oz grilled chicken breast & light dressing
+              <div class="macro-tag">34g P • 14g F • 42g C • 430 kcal</div>
+            </td>
+            <td>Hot Honey drizzle & red pepper flakes</td>
+            <td>Crispy cheese pizza slices + fresh sliced cucumbers</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- WEEK 3 OVERVIEW -->
+    <div class="week-block">
+      <div class="section-title">
+        <span>🗓️ Week 3: Tex-Mex & Italian Favorites</span>
+      </div>
+      <table class="plan-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Dinner Main</th>
+            <th>Method</th>
+            <th>Mom's Portion (30P / 30F / 40C)</th>
+            <th>Dad's Flavor Kick</th>
+            <th>Kids' Plate (10, 8, 5)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="day-cell">Mon</td>
+            <td class="main-cell">
+              <div class="main-title">IP Turkey Burrito Bowls</div>
+            </td>
+            <td><span class="badge badge-ip">Instant Pot</span></td>
+            <td class="mom-cell">
+              5 oz 93/7 ground turkey + 1/2 cup brown rice + 1/4 cup black beans/corn + romaine + salsa + 1/4 avocado
+              <div class="macro-tag">36g P • 15g F • 46g C • 460 kcal</div>
+            </td>
+            <td>Salsa Verde, chipotle hot sauce & sliced jalapeños</td>
+            <td>Mild seasoned turkey, rice, and sweet corn topped with cheddar</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Tue</td>
+            <td class="main-cell">
+              <div class="main-title">Air-Fryer Chicken Parmesan</div>
+            </td>
+            <td><span class="badge badge-af">Air Fryer</span></td>
+            <td class="mom-cell">
+              5 oz chicken cutlet + 1 oz part-skim mozzarella + 1.5 oz Banza chickpea pasta & zoodles + marinara
+              <div class="macro-tag">42g P • 14g F • 44g C • 470 kcal</div>
+            </td>
+            <td>Hot basil pesto oil drizzle & red pepper flakes</td>
+            <td>Crispy breaded chicken cutlet with melted mozzarella over pasta</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Wed</td>
+            <td class="main-cell">
+              <div class="main-title">Sweet Korean Ground Turkey Skillet</div>
+            </td>
+            <td><span class="badge badge-skillet">Skillet</span></td>
+            <td class="mom-cell">
+              5 oz 93/7 ground turkey + 1/2 cup brown rice + crisp butter lettuce cups + matchstick carrots + kimchi
+              <div class="macro-tag">36g P • 14g F • 45g C • 450 kcal</div>
+            </td>
+            <td>Spicy local kimchi, sriracha & toasted sesame seeds</td>
+            <td>Sweet Korean ground turkey over jasmine rice with sweet carrots</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Thu</td>
+            <td class="main-cell">
+              <div class="main-title">Grilled Lemon Garlic Chicken Thighs</div>
+            </td>
+            <td><span class="badge badge-grill">Grill</span></td>
+            <td class="mom-cell">
+              4.5 oz skinless chicken thigh meat + 120g roasted baby potatoes + 1.5 cups charred green beans + 1 tbsp toum
+              <div class="macro-tag">34g P • 16g F • 42g C • 450 kcal</div>
+            </td>
+            <td>Spicy Lebanese Garlic Toum dip & warm pita</td>
+            <td>Sliced chicken thigh meat + roasted potato bites + warm pita wedges</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Fri</td>
+            <td class="main-cell">
+              <div class="main-title">Protein-Loaded Sweet Potato Bar</div>
+            </td>
+            <td><span class="badge badge-af">Air Fryer</span></td>
+            <td class="mom-cell">
+              1 medium baked sweet potato (150g) + 4.5 oz diced grilled chicken breast + 1/4 cup Greek yogurt + broccoli
+              <div class="macro-tag">38g P • 14g F • 44g C • 450 kcal</div>
+            </td>
+            <td>Loaded russet with sharp cheddar, bacon crumbles, jalapeños & hot sauce</td>
+            <td>Loaded russet potato with melted butter, cheddar & bacon bits</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Sat</td>
+            <td class="main-cell">
+              <div class="main-title">🐟 Honey Mustard Salmon & Wild Rice</div>
+            </td>
+            <td><span class="badge badge-af">Air Fryer</span></td>
+            <td class="mom-cell">
+              5 oz salmon fillet + 2/3 cup cooked wild rice blend + roasted zucchini half-moons + honey mustard glaze
+              <div class="macro-tag">34g P • 16g F • 47g C • 470 kcal</div>
+            </td>
+            <td>Spicy coarse Dijon glaze with cracked pepper & cayenne</td>
+            <td><strong>KIDS: Air-Fryer Chicken Tenders</strong> + wild rice + honey mustard</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Sun</td>
+            <td class="main-cell">
+              <div class="main-title">🍕 Family Pizza Night</div>
+            </td>
+            <td><span class="badge badge-oven">Oven</span></td>
+            <td class="mom-cell">
+              1 thin-crust veggie slice + large garden salad topped with 3.5 oz grilled chicken breast & light vinaigrette
+              <div class="macro-tag">34g P • 14g F • 42g C • 430 kcal</div>
+            </td>
+            <td>Hot Honey drizzle & red pepper flakes</td>
+            <td>Melted mozzarella cheese pizza slices + fresh veggie sticks</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- WEEK 4 OVERVIEW -->
+    <div class="week-block">
+      <div class="section-title">
+        <span>🗓️ Week 4: Quick Skillet & Air-Fryer Favorites</span>
+      </div>
+      <table class="plan-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Dinner Main</th>
+            <th>Method</th>
+            <th>Mom's Portion (30P / 30F / 40C)</th>
+            <th>Dad's Flavor Kick</th>
+            <th>Kids' Plate (10, 8, 5)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="day-cell">Mon</td>
+            <td class="main-cell">
+              <div class="main-title">Greek Turkey Cucumber Salad Bowls</div>
+            </td>
+            <td><span class="badge badge-skillet">Skillet</span></td>
+            <td class="mom-cell">
+              5 oz 93/7 ground turkey + 1/2 whole wheat Greek pita + cucumber-tomato salad + 2 tbsp feta & tzatziki
+              <div class="macro-tag">36g P • 15g F • 43g C • 450 kcal</div>
+            </td>
+            <td>Spicy red Harissa paste swirl & extra crumbled feta</td>
+            <td>Warm rice bowl with seasoned turkey, cucumbers & pita triangles</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Tue</td>
+            <td class="main-cell">
+              <div class="main-title">Grilled Chicken Soft Tacos</div>
+            </td>
+            <td><span class="badge badge-grill">Grill</span></td>
+            <td class="mom-cell">
+              5 oz grilled chicken breast + 2 warm corn tortillas + shredded lettuce + fresh salsa + 2 tbsp guacamole
+              <div class="macro-tag">38g P • 14g F • 43g C • 450 kcal</div>
+            </td>
+            <td>Smoky chipotle hot sauce, fresh jalapeños & cilantro</td>
+            <td>Soft flour tortillas filled with mild grilled chicken and cheddar</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Wed</td>
+            <td class="main-cell">
+              <div class="main-title">Creamy Tomato Spinach Chicken Pasta</div>
+            </td>
+            <td><span class="badge badge-skillet">Stovetop</span></td>
+            <td class="mom-cell">
+              4.5 oz sautéed chicken breast + 2 oz Banza chickpea penne + light creamy tomato-spinach sauce + parmesan
+              <div class="macro-tag">40g P • 13g F • 45g C • 460 kcal</div>
+            </td>
+            <td>Fresh basil pesto swirl & crushed red pepper flakes</td>
+            <td>Penne pasta with creamy pink tomato sauce, chicken bites & parmesan</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Thu</td>
+            <td class="main-cell">
+              <div class="main-title">Air-Fryer BBQ Chicken & Sweet Corn</div>
+            </td>
+            <td><span class="badge badge-af">Air Fryer</span></td>
+            <td class="mom-cell">
+              5 oz BBQ glazed chicken breast tenders + 1 ear sweet corn + 1.5 cups steamed broccoli florets
+              <div class="macro-tag">37g P • 12g F • 46g C • 440 kcal</div>
+            </td>
+            <td>Spicy chipotle BBQ sauce & cayenne pepper</td>
+            <td>Sweet corn on the cob + sliced sweet BBQ chicken tenders + broccoli</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Fri</td>
+            <td class="main-cell">
+              <div class="main-title">IP Turkey Sloppy Joes</div>
+            </td>
+            <td><span class="badge badge-ip">Instant Pot</span></td>
+            <td class="mom-cell">
+              5 oz lean turkey Sloppy Joe mix + open-face whole wheat bun or roasted sweet potato + green salad
+              <div class="macro-tag">36g P • 13g F • 46g C • 450 kcal</div>
+            </td>
+            <td>Pickled jalapeño slices & spicy coarse brown mustard</td>
+            <td>Mini Sloppy Joe sliders on sweet King's Hawaiian rolls</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Sat</td>
+            <td class="main-cell">
+              <div class="main-title">🐟 Air-Fryer Garlic Butter Shrimp</div>
+            </td>
+            <td><span class="badge badge-af">Air Fryer</span></td>
+            <td class="mom-cell">
+              6 oz raw large shrimp + 2/3 cup cooked wild rice blend + roasted asparagus + 1 tbsp garlic butter/oil
+              <div class="macro-tag">38g P • 15g F • 44g C • 460 kcal</div>
+            </td>
+            <td>Garlic chili butter drizzle with lemon & red pepper flakes</td>
+            <td><strong>KIDS: Air-Fryer Mini Chicken Sliders</strong> on Hawaiian rolls</td>
+          </tr>
+          <tr>
+            <td class="day-cell">Sun</td>
+            <td class="main-cell">
+              <div class="main-title">🍕 Family Pizza Night</div>
+            </td>
+            <td><span class="badge badge-oven">Oven</span></td>
+            <td class="mom-cell">
+              1 thin-crust veggie slice + large garden salad topped with 3.5 oz grilled chicken breast & light vinaigrette
+              <div class="macro-tag">34g P • 14g F • 42g C • 430 kcal</div>
+            </td>
+            <td>Hot Honey drizzle & red pepper flakes</td>
+            <td>Crispy cheese pizza slices + fresh fruit/cucumbers</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</body>
+</html>
