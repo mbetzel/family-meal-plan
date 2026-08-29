@@ -327,6 +327,104 @@
       font-style: italic;
     }
 
+    /* RESPONSIVE MOBILE STYLES */
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+
+      .header-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+
+      .header-title h1 {
+        font-size: 1.25rem;
+      }
+
+      .header-title p {
+        font-size: 0.8rem;
+      }
+
+      .btn-group {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+      }
+
+      .btn {
+        justify-content: center;
+        width: 100%;
+      }
+
+      .diet-banner {
+        padding: 14px;
+        margin-bottom: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .diet-pills {
+        gap: 6px;
+      }
+
+      .pantry-card {
+        padding: 14px 16px;
+        margin-bottom: 16px;
+      }
+
+      .pantry-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .week-card {
+        margin-bottom: 18px;
+      }
+
+      .week-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 12px 14px;
+      }
+
+      .week-header .meals-tag {
+        max-width: 100%;
+        text-align: left;
+        font-size: 0.75rem;
+      }
+
+      .stores-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .store-col {
+        padding: 14px 16px;
+      }
+
+      .store-col.costco {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .item-list li {
+        padding: 6px 0;
+        font-size: 0.88rem;
+      }
+
+      .item-list input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-top: 2px;
+        flex-shrink: 0;
+      }
+    }
+
     /* PRINT STYLES */
     @media print {
       @page {

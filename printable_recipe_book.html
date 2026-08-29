@@ -599,6 +599,146 @@
       transform: translateY(-2px);
     }
 
+    /* RESPONSIVE MOBILE STYLES */
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+
+      .header-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+
+      .header-title h1 {
+        font-size: 1.25rem;
+      }
+
+      .header-title p {
+        font-size: 0.8rem;
+      }
+
+      .btn-group {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+      }
+
+      .btn {
+        justify-content: center;
+        width: 100%;
+      }
+
+      .diet-banner {
+        padding: 14px;
+        margin-bottom: 16px;
+      }
+
+      .diet-banner-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .diet-pills {
+        gap: 6px;
+      }
+
+      .controls-bar {
+        padding: 14px;
+        margin-bottom: 16px;
+      }
+
+      .controls-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+
+      .search-input {
+        width: 100%;
+        min-width: 0;
+        font-size: 16px; /* Prevents auto-zoom on mobile devices */
+      }
+
+      .filter-tags {
+        gap: 6px;
+      }
+
+      .filter-btn {
+        padding: 6px 12px;
+        font-size: 0.78rem;
+      }
+
+      .toc-card {
+        padding: 16px;
+        margin-bottom: 20px;
+      }
+
+      .toc-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .week-divider {
+        margin: 24px 0 16px 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .week-divider h2 {
+        font-size: 1.15rem;
+      }
+
+      .recipe-card {
+        margin-bottom: 18px;
+      }
+
+      .recipe-header {
+        padding: 14px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .recipe-title-group {
+        min-width: 0;
+        width: 100%;
+      }
+
+      .recipe-title {
+        font-size: 1.1rem;
+      }
+
+      .recipe-meta {
+        width: 100%;
+        gap: 6px;
+      }
+
+      .recipe-body {
+        padding: 14px 16px;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .customizations-box {
+        grid-template-columns: 1fr;
+        padding: 12px;
+        gap: 12px;
+      }
+
+      .back-to-top {
+        bottom: 16px;
+        right: 16px;
+        padding: 8px 14px;
+        font-size: 0.75rem;
+      }
+    }
+
     /* =========================================================
        PRINT STYLESHEET (High ink efficiency & clean pagination)
        ========================================================= */

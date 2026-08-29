@@ -256,6 +256,187 @@
       border-radius: 4px;
     }
 
+    /* RESPONSIVE MOBILE STYLES */
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+
+      .header-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+
+      .header-title h1 {
+        font-size: 1.25rem;
+      }
+
+      .header-title p {
+        font-size: 0.8rem;
+      }
+
+      .btn-group {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+      }
+
+      .btn {
+        justify-content: center;
+        width: 100%;
+      }
+
+      .diet-banner {
+        padding: 14px;
+        margin-bottom: 18px;
+      }
+
+      .diet-banner-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .diet-pills {
+        gap: 6px;
+      }
+
+      .diet-desc {
+        font-size: 0.8rem;
+      }
+
+      .legend {
+        gap: 6px;
+        margin-bottom: 14px;
+      }
+
+      .section-title {
+        font-size: 1.1rem;
+        margin: 20px 0 12px 0;
+      }
+
+      /* Mobile Card Layout for Table */
+      .plan-table {
+        display: block;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .plan-table thead {
+        display: none;
+      }
+
+      .plan-table tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .plan-table tr {
+        display: flex;
+        flex-direction: column;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 14px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        gap: 10px;
+      }
+
+      .plan-table td {
+        display: block;
+        padding: 0;
+        border: none;
+        font-size: 0.85rem;
+      }
+
+      .plan-table tr > td.day-cell {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        background: #e0e7ff;
+        color: #3730a3;
+        font-size: 0.75rem;
+        font-weight: 800;
+        padding: 3px 10px;
+        border-radius: 6px;
+        text-transform: uppercase;
+      }
+
+      .plan-table tr > td.main-cell {
+        width: 100%;
+      }
+
+      .plan-table tr > td.main-cell .main-title {
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: #1e293b;
+        margin-bottom: 0;
+      }
+
+      .plan-table tr > td.mom-cell {
+        background: var(--mom-bg);
+        border: 1px solid var(--mom-border);
+        border-radius: 8px;
+        padding: 10px 12px;
+        color: #065f46;
+      }
+
+      .plan-table tr > td.mom-cell::before {
+        content: "🥗 Mom's Portion";
+        display: block;
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--mom-green);
+        margin-bottom: 4px;
+      }
+
+      .plan-table tr > td:nth-child(5) {
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
+        border-radius: 8px;
+        padding: 10px 12px;
+        color: #9a3412;
+      }
+
+      .plan-table tr > td:nth-child(5)::before {
+        content: "🌶️ Dad's Flavor Kick";
+        display: block;
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #c2410c;
+        margin-bottom: 4px;
+      }
+
+      .plan-table tr > td:nth-child(6) {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 8px;
+        padding: 10px 12px;
+        color: #1e40af;
+      }
+
+      .plan-table tr > td:nth-child(6)::before {
+        content: "🧒 Kids' Plate (10, 8, 5)";
+        display: block;
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #2563eb;
+        margin-bottom: 4px;
+      }
+    }
+
     /* PRINT STYLESHEET */
     @media print {
       @page {
