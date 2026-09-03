@@ -260,6 +260,12 @@
       border-radius: 4px;
     }
 
+    .cell-empty {
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 0.8rem;
+    }
+
     /* RESPONSIVE MOBILE STYLES */
     @media screen and (max-width: 768px) {
       body {
@@ -425,6 +431,18 @@
         font-size: 0.75rem;
         display: block;
         margin-bottom: 2px;
+      }
+
+      .plan-table tr > td.mom-cell.cell-empty::before,
+      .plan-table tr > td.cell-empty:nth-child(5)::before,
+      .plan-table tr > td.cell-empty:nth-child(6)::before {
+        display: none !important;
+      }
+
+      .plan-table tr > td.mom-cell.cell-empty {
+        background: transparent;
+        border: none;
+        padding: 4px 0;
       }
     }
 
@@ -638,12 +656,9 @@
               <div class="main-title">🔄 Family Leftovers Night</div>
             </td>
             <td><span class="badge badge-reheat">Reheat</span></td>
-            <td class="mom-cell">
-              4–5 oz leftover chicken + 1/2 cup leftover potatoes/rice + fresh side garden salad with 1 tbsp light vinaigrette
-              <div class="macro-tag">36g P • 14g F • 44g C • 450 kcal</div>
-            </td>
-            <td>Loaded leftover remix with sriracha, pickled jalapeños & grated parmesan</td>
-            <td>Kids' choice: heated chicken fajita quesadillas or chicken tenders & potatoes</td>
+            <td class="mom-cell cell-empty">—</td>
+            <td class="cell-empty">—</td>
+            <td class="cell-empty">—</td>
           </tr>
           <tr>
             <td class="day-cell">Thu</td>
@@ -690,12 +705,9 @@
               <div class="main-title">🍕 Takeout / Frozen Pizza Night</div>
             </td>
             <td><span class="badge badge-takeout">Takeout / Frozen</span></td>
-            <td class="mom-cell">
-              1 thin-crust cheese/veggie slice + large garden salad topped with 3 oz leftover protein/tuna & light dressing
-              <div class="macro-tag">34g P • 14g F • 42g C • 430 kcal</div>
-            </td>
-            <td>Hot Honey drizzle (honey + chili flakes), grated parmesan & garlic powder</td>
-            <td>Costco frozen or takeout cheese/pepperoni pizza + sliced cucumbers & fruit</td>
+            <td class="mom-cell cell-empty">—</td>
+            <td class="cell-empty">—</td>
+            <td class="cell-empty">—</td>
           </tr>
         </tbody>
       </table>
@@ -750,12 +762,9 @@
               <div class="main-title">🔄 Family Leftovers Night</div>
             </td>
             <td><span class="badge badge-reheat">Reheat</span></td>
-            <td class="mom-cell">
-              4–5 oz leftover teriyaki chicken/tenders + 1/2 cup rice/potatoes + fresh crunchy vegetable sticks
-              <div class="macro-tag">36g P • 13g F • 45g C • 450 kcal</div>
-            </td>
-            <td>Leftover chicken rice bowl topped with chili crisp, soy sauce & scallions</td>
-            <td>Reheated chicken tenders wrap with shredded cheddar and mild honey mustard</td>
+            <td class="mom-cell cell-empty">—</td>
+            <td class="cell-empty">—</td>
+            <td class="cell-empty">—</td>
           </tr>
           <tr>
             <td class="day-cell">Thu</td>
@@ -802,12 +811,9 @@
               <div class="main-title">🍕 Takeout / Frozen Pizza Night</div>
             </td>
             <td><span class="badge badge-takeout">Takeout / Frozen</span></td>
-            <td class="mom-cell">
-              1 thin-crust cheese/veggie slice + large garden salad topped with 3 oz leftover burger patty/chicken & light dressing
-              <div class="macro-tag">34g P • 14g F • 42g C • 430 kcal</div>
-            </td>
-            <td>Hot Honey drizzle, red pepper flakes & grated parmesan</td>
-            <td>Crispy cheese pizza slices + fresh sliced cucumbers</td>
+            <td class="mom-cell cell-empty">—</td>
+            <td class="cell-empty">—</td>
+            <td class="cell-empty">—</td>
           </tr>
         </tbody>
       </table>
@@ -862,12 +868,9 @@
               <div class="main-title">🔄 Family Leftovers Night</div>
             </td>
             <td><span class="badge badge-reheat">Reheat</span></td>
-            <td class="mom-cell">
-              4 oz leftover flank steak or chicken + 1/2 cup rice/beans + side salad with salsa vinaigrette
-              <div class="macro-tag">36g P • 14g F • 44g C • 450 kcal</div>
-            </td>
-            <td>Steak/chicken quesadilla with pickled jalapeños, salsa & chimichurri drizzle</td>
-            <td>Warm steak or chicken cheese quesadillas with mild sour cream</td>
+            <td class="mom-cell cell-empty">—</td>
+            <td class="cell-empty">—</td>
+            <td class="cell-empty">—</td>
           </tr>
           <tr>
             <td class="day-cell">Thu</td>
@@ -914,12 +917,9 @@
               <div class="main-title">🍕 Takeout / Frozen Pizza Night</div>
             </td>
             <td><span class="badge badge-takeout">Takeout / Frozen</span></td>
-            <td class="mom-cell">
-              1 thin-crust cheese/veggie slice + large garden salad topped with 3.5 oz grilled chicken & light vinaigrette
-              <div class="macro-tag">34g P • 14g F • 42g C • 430 kcal</div>
-            </td>
-            <td>Hot Honey drizzle, red pepper flakes & grated parmesan</td>
-            <td>Melted mozzarella cheese pizza slices + fresh veggie sticks</td>
+            <td class="mom-cell cell-empty">—</td>
+            <td class="cell-empty">—</td>
+            <td class="cell-empty">—</td>
           </tr>
         </tbody>
       </table>
@@ -974,12 +974,9 @@
               <div class="main-title">🔄 Family Leftovers Night</div>
             </td>
             <td><span class="badge badge-reheat">Reheat</span></td>
-            <td class="mom-cell">
-              4–5 oz leftover seasoned turkey or chicken + 1/2 cup rice/pita + fresh side garden salad
-              <div class="macro-tag">36g P • 14g F • 44g C • 450 kcal</div>
-            </td>
-            <td>Loaded leftover taco salad with hot sauce, pickled peppers & crumbled feta</td>
-            <td>Reheated chicken tacos or turkey roll-ups with mild cheddar</td>
+            <td class="mom-cell cell-empty">—</td>
+            <td class="cell-empty">—</td>
+            <td class="cell-empty">—</td>
           </tr>
           <tr>
             <td class="day-cell">Thu</td>
@@ -1026,12 +1023,9 @@
               <div class="main-title">🍕 Takeout / Frozen Pizza Night</div>
             </td>
             <td><span class="badge badge-takeout">Takeout / Frozen</span></td>
-            <td class="mom-cell">
-              1 thin-crust cheese/veggie slice + large garden salad topped with 3.5 oz chicken/tuna & light vinaigrette
-              <div class="macro-tag">34g P • 14g F • 42g C • 430 kcal</div>
-            </td>
-            <td>Hot Honey drizzle, red pepper flakes & grated parmesan</td>
-            <td>Crispy cheese pizza slices + fresh fruit/cucumbers</td>
+            <td class="mom-cell cell-empty">—</td>
+            <td class="cell-empty">—</td>
+            <td class="cell-empty">—</td>
           </tr>
         </tbody>
       </table>

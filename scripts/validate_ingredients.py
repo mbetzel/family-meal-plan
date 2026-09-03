@@ -138,7 +138,7 @@ def extract_meal_plan_by_week(plan_html: str) -> dict[int, list[dict]]:
     week_blocks = re.findall(r'<div class="week-block">(.*?)</table>\s*</div>', plan_html, re.DOTALL)
     for idx, w_block in enumerate(week_blocks, 1):
         rows = re.findall(
-            r'<tr>\s*<td class="day-cell">(\w+)</td>\s*<td class="main-cell">\s*<div class="main-title">(.*?)</div>.*?<td class="mom-cell">(.*?)</td>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>',
+            r'<tr>\s*<td class="day-cell">(\w+)</td>\s*<td class="main-cell">\s*<div class="main-title">(.*?)</div>.*?<td class="mom-cell[^"]*">(.*?)</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>\s*</tr>',
             w_block,
             re.DOTALL
         )
