@@ -37,6 +37,14 @@
       --oven-bg: #f5f3ff;
       --oven-border: #ddd6fe;
 
+      --reheat: #475569;
+      --reheat-bg: #f1f5f9;
+      --reheat-border: #cbd5e1;
+
+      --takeout: #ea580c;
+      --takeout-bg: #fff7ed;
+      --takeout-border: #ffedd5;
+
       --mom-color: #059669;
       --dad-color: #ea580c;
       --kids-color: #2563eb;
@@ -428,6 +436,8 @@
     .badge-ip { background: var(--instant-pot-bg); color: var(--instant-pot); border: 1px solid var(--instant-pot-border); }
     .badge-skillet { background: var(--skillet-bg); color: var(--skillet); border: 1px solid var(--skillet-border); }
     .badge-oven { background: var(--oven-bg); color: var(--oven); border: 1px solid var(--oven-border); }
+    .badge-reheat { background: var(--reheat-bg); color: var(--reheat); border: 1px solid var(--reheat-border); }
+    .badge-takeout { background: var(--takeout-bg); color: var(--takeout); border: 1px solid var(--takeout-border); }
 
     .recipe-body {
       padding: 20px 22px;
@@ -477,11 +487,6 @@
       font-weight: bold;
       font-size: 1.1rem;
       line-height: 0;
-    }
-
-    .ingredient-note {
-      font-size: 0.75rem;
-      color: var(--text-muted);
     }
 
     /* Steps List */
@@ -661,7 +666,7 @@
       .search-input {
         width: 100%;
         min-width: 0;
-        font-size: 16px; /* Prevents auto-zoom on mobile devices */
+        font-size: 16px;
       }
 
       .filter-tags {
@@ -739,9 +744,7 @@
       }
     }
 
-    /* =========================================================
-       PRINT STYLESHEET (High ink efficiency & clean pagination)
-       ========================================================= */
+    /* PRINT STYLES */
     @media print {
       @page {
         margin: 1.2cm 1cm;
@@ -959,7 +962,7 @@
   <!-- Print Only Header -->
   <div class="print-header" style="display: none;">
     <h1>📖 Family Dinner Recipe Book & Master Instructions</h1>
-    <p>4-Week Rotation • 30-Minute Prep • Mom's 1350–1450 kcal (30P/30F/40C) Target • Pure Poultry & Seafood</p>
+    <p>4-Week Rotation • 30-Min Prep • Wed Leftovers • Thu Vegetarian • Bi-Weekly Lean Beef • Sun Pizza</p>
   </div>
 
   <div class="container">
@@ -968,7 +971,7 @@
     <div class="header-bar no-print">
       <div class="header-title">
         <h1>📖 Family Dinner Recipe Book</h1>
-        <p>Complete 4-Week Rotation • 30-Min Prep • Mom's 30P/30F/40C Macros • Pure Lean Poultry & Seafood</p>
+        <p>4-Week Rotation • 30-Min Prep • Wed Leftovers • Thu Vegetarian • Bi-Weekly Lean Beef • Sun Pizza</p>
       </div>
       <div class="btn-group">
         <a href="printable_meal_plan.html" class="btn btn-secondary">
@@ -994,18 +997,18 @@
           <span class="diet-pill">30% Protein (~105g)</span>
           <span class="diet-pill">30% Fat (~46g)</span>
           <span class="diet-pill">40% Carbs (~140g)</span>
-          <span class="diet-pill">0% Red Meat & Pork</span>
+          <span class="diet-pill">Lean Poultry, Seafood, Plant & Lean Beef</span>
         </div>
       </div>
       <p class="diet-desc">
-        <strong>Dinner Portion Target:</strong> ~440–470 kcal • 35–40g Protein (Chicken breast, 93/7 ground turkey, cod, salmon, shrimp) • 13–16g Healthy Fats (Olive oil, avocado, seafood omega-3s) • 42–48g Complex Carbs (Sweet potatoes, brown/wild rice, Banza chickpea pasta, whole wheat pitas/buns, corn, black beans). Every recipe below features Mom's calibrated portion!
+        <strong>Dinner Portion Target:</strong> ~440–470 kcal • 32–40g Protein (Chicken breast, 93/7 turkey, salmon, cod, shrimp, tofu, beans, lean beef) • 13–16g Healthy Fats (Olive oil, avocado, seafood, feta) • 42–48g Complex Carbs (Sweet potatoes, brown/wild rice, Banza pasta, whole wheat pitas, corn, black beans). Every recipe below features Mom's calibrated portion!
       </p>
     </div>
 
     <!-- Screen Controls Bar (Search & Filter) -->
     <div class="controls-bar no-print">
       <div class="controls-row">
-        <input type="text" id="recipeSearch" class="search-input" placeholder="🔍 Search recipes, ingredients (e.g. salmon, turkey, chicken, sweet potato)..." onkeyup="filterRecipes()">
+        <input type="text" id="recipeSearch" class="search-input" placeholder="🔍 Search recipes, ingredients (e.g. tofu, beef, salmon, chicken, sweet potato)..." onkeyup="filterRecipes()">
         
         <div class="filter-tags">
           <span class="filter-label">Appliance:</span>
@@ -1015,6 +1018,8 @@
           <button class="filter-btn" onclick="setApplianceFilter('Instant Pot', this)">Instant Pot</button>
           <button class="filter-btn" onclick="setApplianceFilter('Skillet', this)">Skillet / Stovetop</button>
           <button class="filter-btn" onclick="setApplianceFilter('Oven', this)">Oven</button>
+          <button class="filter-btn" onclick="setApplianceFilter('Reheat', this)">Reheat</button>
+          <button class="filter-btn" onclick="setApplianceFilter('Takeout', this)">Takeout/Frozen</button>
         </div>
       </div>
       
@@ -1024,8 +1029,10 @@
           <a href="#week-1" class="filter-btn">Week 1: Classics</a>
           <a href="#week-2" class="filter-btn">Week 2: Asian & Comfort</a>
           <a href="#week-3" class="filter-btn">Week 3: Tex-Mex & Italian</a>
-          <a href="#week-4" class="filter-btn">Week 4: Quick Skillet & Air-Fryer</a>
-          <a href="#kid-alternatives" class="filter-btn">Kids Alternates</a>
+          <a href="#week-4" class="filter-btn">Week 4: Quick Skillet & Bowls</a>
+          <a href="#master-leftovers-guide" class="filter-btn">🔄 Leftovers Guide</a>
+          <a href="#rec-master-pizza" class="filter-btn">🍕 Pizza Guide</a>
+          <a href="#kid-alternatives" class="filter-btn">🧒 Kids Alternates</a>
         </div>
       </div>
     </div>
@@ -1040,11 +1047,11 @@
           <ul class="toc-list">
             <li><a href="#rec-w1-mon"><span class="toc-day">Mon</span><span class="toc-title">Grilled Chicken Fajitas</span></a></li>
             <li><a href="#rec-w1-tue"><span class="toc-day">Tue</span><span class="toc-title">Air-Fryer Lemon Herb Chicken</span></a></li>
-            <li><a href="#rec-w1-wed"><span class="toc-day">Wed</span><span class="toc-title">Instant Pot Turkey Meatballs</span></a></li>
-            <li><a href="#rec-w1-thu"><span class="toc-day">Thu</span><span class="toc-title">Grilled Balsamic Herb Chicken</span></a></li>
-            <li><a href="#rec-w1-fri"><span class="toc-day">Fri</span><span class="toc-title">Custom Family Turkey Burgers</span></a></li>
-            <li><a href="#rec-w1-sat"><span class="toc-day">Sat</span><span class="toc-title">Honey-Garlic Salmon</span></a></li>
-            <li><a href="#rec-w1-sun"><span class="toc-day">Sun</span><span class="toc-title">Family Pizza Night</span></a></li>
+            <li><a href="#rec-w1-wed"><span class="toc-day">Wed</span><span class="toc-title">🔄 Family Leftovers Night</span></a></li>
+            <li><a href="#rec-w1-thu"><span class="toc-day">Thu</span><span class="toc-title">🌱 Crispy Peanut Tofu Stir-Fry</span></a></li>
+            <li><a href="#rec-w1-fri"><span class="toc-day">Fri</span><span class="toc-title">🥩 Classic Lean Beef Bolognese</span></a></li>
+            <li><a href="#rec-w1-sat"><span class="toc-day">Sat</span><span class="toc-title">🐟 Honey-Garlic Salmon</span></a></li>
+            <li><a href="#rec-w1-sun"><span class="toc-day">Sun</span><span class="toc-title">🍕 Takeout / Frozen Pizza Night</span></a></li>
           </ul>
         </div>
         <!-- Col 2 -->
@@ -1053,37 +1060,37 @@
           <ul class="toc-list">
             <li><a href="#rec-w2-mon"><span class="toc-day">Mon</span><span class="toc-title">Instant Pot Teriyaki Chicken</span></a></li>
             <li><a href="#rec-w2-tue"><span class="toc-day">Tue</span><span class="toc-title">Air-Fryer Panko Tenders</span></a></li>
-            <li><a href="#rec-w2-wed"><span class="toc-day">Wed</span><span class="toc-title">Savory Chicken & Broccoli Skillet</span></a></li>
-            <li><a href="#rec-w2-thu"><span class="toc-day">Thu</span><span class="toc-title">Grilled Chicken Sausage & Veggies</span></a></li>
-            <li><a href="#rec-w2-fri"><span class="toc-day">Fri</span><span class="toc-title">Taco Salad & Rice Bowls</span></a></li>
-            <li><a href="#rec-w2-sat"><span class="toc-day">Sat</span><span class="toc-title">Grilled Cod with Lemon-Caper Butter</span></a></li>
-            <li><a href="#rec-w2-sun"><span class="toc-day">Sun</span><span class="toc-title">Family Pizza Night</span></a></li>
+            <li><a href="#rec-w2-wed"><span class="toc-day">Wed</span><span class="toc-title">🔄 Family Leftovers Night</span></a></li>
+            <li><a href="#rec-w2-thu"><span class="toc-day">Thu</span><span class="toc-title">🌱 Mediterranean Chickpea Bowls</span></a></li>
+            <li><a href="#rec-w2-fri"><span class="toc-day">Fri</span><span class="toc-title">Custom Family Burgers (Beef/Turkey)</span></a></li>
+            <li><a href="#rec-w2-sat"><span class="toc-day">Sat</span><span class="toc-title">🐟 Grilled Cod with Lemon-Caper Butter</span></a></li>
+            <li><a href="#rec-w2-sun"><span class="toc-day">Sun</span><span class="toc-title">🍕 Takeout / Frozen Pizza Night</span></a></li>
           </ul>
         </div>
         <!-- Col 3 -->
         <div class="toc-col">
           <h3>Week 3: Tex-Mex & Italian</h3>
           <ul class="toc-list">
-            <li><a href="#rec-w3-mon"><span class="toc-day">Mon</span><span class="toc-title">Turkey Burrito Bowls</span></a></li>
+            <li><a href="#rec-w3-mon"><span class="toc-day">Mon</span><span class="toc-title">🥩 Grilled Flank Steak Burrito Bowls</span></a></li>
             <li><a href="#rec-w3-tue"><span class="toc-day">Tue</span><span class="toc-title">Air-Fryer Chicken Parmesan</span></a></li>
-            <li><a href="#rec-w3-wed"><span class="toc-day">Wed</span><span class="toc-title">Sweet Korean Ground Turkey</span></a></li>
-            <li><a href="#rec-w3-thu"><span class="toc-day">Thu</span><span class="toc-title">Grilled Lemon Garlic Thighs</span></a></li>
-            <li><a href="#rec-w3-fri"><span class="toc-day">Fri</span><span class="toc-title">Protein-Loaded Sweet Potato Bar</span></a></li>
-            <li><a href="#rec-w3-sat"><span class="toc-day">Sat</span><span class="toc-title">Honey Mustard Salmon & Wild Rice</span></a></li>
-            <li><a href="#rec-w3-sun"><span class="toc-day">Sun</span><span class="toc-title">Family Pizza Night</span></a></li>
+            <li><a href="#rec-w3-wed"><span class="toc-day">Wed</span><span class="toc-title">🔄 Family Leftovers Night</span></a></li>
+            <li><a href="#rec-w3-thu"><span class="toc-day">Thu</span><span class="toc-title">🌱 Sweet Potato Enchilada Bake</span></a></li>
+            <li><a href="#rec-w3-fri"><span class="toc-day">Fri</span><span class="toc-title">Grilled Lemon Garlic Thighs</span></a></li>
+            <li><a href="#rec-w3-sat"><span class="toc-day">Sat</span><span class="toc-title">🐟 Honey Mustard Salmon & Wild Rice</span></a></li>
+            <li><a href="#rec-w3-sun"><span class="toc-day">Sun</span><span class="toc-title">🍕 Takeout / Frozen Pizza Night</span></a></li>
           </ul>
         </div>
         <!-- Col 4 -->
         <div class="toc-col">
-          <h3>Week 4: Quick Skillet & Air-Fryer</h3>
+          <h3>Week 4: Quick Skillet & Bowls</h3>
           <ul class="toc-list">
             <li><a href="#rec-w4-mon"><span class="toc-day">Mon</span><span class="toc-title">Greek Turkey Cucumber Bowls</span></a></li>
             <li><a href="#rec-w4-tue"><span class="toc-day">Tue</span><span class="toc-title">Grilled Chicken Soft Tacos</span></a></li>
-            <li><a href="#rec-w4-wed"><span class="toc-day">Wed</span><span class="toc-title">Creamy Tomato Spinach Pasta</span></a></li>
-            <li><a href="#rec-w4-thu"><span class="toc-day">Thu</span><span class="toc-title">Air-Fryer BBQ Chicken & Corn</span></a></li>
-            <li><a href="#rec-w4-fri"><span class="toc-day">Fri</span><span class="toc-title">Instant Pot Turkey Sloppy Joes</span></a></li>
-            <li><a href="#rec-w4-sat"><span class="toc-day">Sat</span><span class="toc-title">Garlic Butter Shrimp & Asparagus</span></a></li>
-            <li><a href="#rec-w4-sun"><span class="toc-day">Sun</span><span class="toc-title">Family Pizza Night</span></a></li>
+            <li><a href="#rec-w4-wed"><span class="toc-day">Wed</span><span class="toc-title">🔄 Family Leftovers Night</span></a></li>
+            <li><a href="#rec-w4-thu"><span class="toc-day">Thu</span><span class="toc-title">🌱 Creamy Tuscan White Bean Pasta</span></a></li>
+            <li><a href="#rec-w4-fri"><span class="toc-day">Fri</span><span class="toc-title">Air-Fryer BBQ Chicken & Corn</span></a></li>
+            <li><a href="#rec-w4-sat"><span class="toc-day">Sat</span><span class="toc-title">🐟 Garlic Butter Shrimp & Asparagus</span></a></li>
+            <li><a href="#rec-w4-sun"><span class="toc-day">Sun</span><span class="toc-title">🍕 Takeout / Frozen Pizza Night</span></a></li>
           </ul>
         </div>
       </div>
@@ -1094,7 +1101,7 @@
     <!-- ========================================================================= -->
     <div class="week-divider" id="week-1">
       <h2>🗓️ Week 1: Classic Crowd-Pleasers</h2>
-      <span class="week-subtitle">Fajitas • Lemon Chicken • Turkey Meatballs • Balsamic Chicken • Turkey Burgers • Salmon • Pizza</span>
+      <span class="week-subtitle">Fajitas • Lemon Chicken • Leftovers • Tofu Stir-Fry • Beef Bolognese • Salmon • Pizza</span>
     </div>
 
     <!-- W1 MON -->
@@ -1142,7 +1149,7 @@
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Top generously with hot salsa, fresh sliced jalapeños, and a squeeze of fresh lime.</div>
+            <div class="custom-text">Top generously with hot salsa, pickled jalapeño slices, and a fresh lime squeeze.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
@@ -1197,80 +1204,76 @@
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Serve chicken topped with generous cool tzatziki, crumbled feta, and spicy chili oil.</div>
+            <div class="custom-text">Serve chicken topped with generous cool tzatziki, crumbled feta, and chili garlic crisp.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Mild tender slices + crispy potato wedges + green beans with ketchup or mild honey mustard.</div>
+            <div class="custom-text">Lemon tenders + crispy potato wedges + steamed green beans with ketchup.</div>
           </div>
         </div>
       </div>
     </article>
 
-    <!-- W1 WED -->
-    <article class="recipe-card" id="rec-w1-wed" data-appliance="Instant Pot" data-week="1">
+    <!-- W1 WED: LEFTOVERS -->
+    <article class="recipe-card" id="rec-w1-wed" data-appliance="Reheat" data-week="1">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 1 • Wednesday</div>
-          <h3 class="recipe-title">Instant Pot Turkey Meatballs in Marinara</h3>
+          <div class="recipe-day-tag">Week 1 • Wednesday • Busy Activities Night</div>
+          <h3 class="recipe-title">🔄 Family Leftovers Buffet & Reheat Night</h3>
         </div>
         <div class="recipe-meta">
-          <span class="badge badge-ip">Instant Pot</span>
-          <span class="meta-pill">⏱️ Prep: 12m</span>
-          <span class="meta-pill">🔥 Cook: 7m (High)</span>
+          <span class="badge badge-reheat">Quick Reheat</span>
+          <span class="meta-pill">⏱️ Prep: 5m</span>
+          <span class="meta-pill">🔥 Reheat: 5m</span>
           <span class="meta-pill">👥 Serves: 5</span>
         </div>
       </div>
       <div class="recipe-body">
         <div class="recipe-col">
-          <div class="recipe-section-title">🛒 Ingredients</div>
+          <div class="recipe-section-title">🛒 Ingredients (From Fridge)</div>
           <ul class="ingredients-list">
-            <li>1.5–2 lbs ground turkey (93/7)</li>
-            <li>1/2 cup panko breadcrumbs + 1 egg</li>
-            <li>1/4 cup grated Parmesan cheese</li>
-            <li>1 tsp Italian seasoning, 1/2 tsp garlic powder, 1/2 tsp salt</li>
-            <li>1 jar (24 oz) quality marinara sauce + 1/2 cup broth</li>
-            <li>12 oz penne or rotini pasta (for kids/dad)</li>
-            <li>2 oz Banza chickpea pasta + 2 medium zucchinis (zoodles) for mom</li>
-            <li>1 crown broccoli (steamed for side)</li>
+            <li>Leftover grilled fajita chicken & peppers/onions (from Mon)</li>
+            <li>Leftover lemon herb chicken & crispy potato wedges (from Tue)</li>
+            <li>1 tub salad greens & cherry tomatoes</li>
+            <li>Tortillas or bread for easy melts/wraps</li>
+            <li>Pantry condiments: sriracha, pickled jalapeños, grated parmesan, dressings</li>
           </ul>
         </div>
         <div class="recipe-col">
-          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
+          <div class="recipe-section-title">👨‍🍳 5-Minute Speedy Service</div>
           <ol class="steps-list">
-            <li>In a bowl, gently combine ground turkey, panko, egg, Parmesan, Italian seasoning, garlic powder, and salt. Roll into 16–18 round meatballs.</li>
-            <li>Pour marinara sauce and 1/2 cup broth into Instant Pot. Gently submerge raw meatballs in the sauce.</li>
-            <li>Seal lid, cook on High Pressure for 7 minutes. Boil family pasta and Mom's Banza pasta; steam broccoli. Spiralize zucchini into zoodles.</li>
-            <li>Quick Release pressure. Sauté zoodles for 2 mins in a pan with 1 tsp olive oil. Toss zoodles with cooked Banza pasta, spoon 4 meatballs and marinara over top.</li>
+            <li>Set out containers of Monday fajitas and Tuesday chicken/potatoes on the counter.</li>
+            <li>Pop chicken and potato wedges into the air fryer at 375°F for 3–4 minutes to restore crispiness, or microwave for 60–90 seconds.</li>
+            <li>Assemble quick dinner plates or wrap stations in under 5 minutes before or after sports/activities.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">4 lean turkey meatballs + 1.5 oz Banza chickpea pasta combined with 1 cup sautéed zoodles + 1/2 cup marinara + side green salad.</div>
-            <div class="macro-badge">🎯 36g Protein • 14g Fat • 46g Carbs • 460 kcal</div>
+            <div class="custom-text">4–5 oz leftover chicken + 1/2 cup leftover potatoes + large garden salad with cherry tomatoes and 1 tbsp light vinaigrette.</div>
+            <div class="macro-badge">🎯 36g Protein • 14g Fat • 44g Carbs • 450 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Extra red pepper flakes, fresh shaved parmesan, and fresh cracked black pepper over pasta.</div>
+            <div class="custom-text">Remix leftover chicken and potatoes into a spicy skillet bowl with sriracha, pickled jalapeños & grated parmesan.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Penne pasta with marinara lightly tossed (or on side), 2 meatballs, and steamed broccoli trees with butter.</div>
+            <div class="custom-text">Kids' pick: warm chicken quesadilla with melted cheese or crispy tenders with potato wedges & ketchup.</div>
           </div>
         </div>
       </div>
     </article>
 
-    <!-- W1 THU -->
-    <article class="recipe-card" id="rec-w1-thu" data-appliance="Grill" data-week="1">
+    <!-- W1 THU: VEGETARIAN -->
+    <article class="recipe-card" id="rec-w1-thu" data-appliance="Skillet" data-week="1">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 1 • Thursday</div>
-          <h3 class="recipe-title">Grilled Balsamic Herb Chicken Breasts with Sweet Potato Wedges & Zucchini</h3>
+          <div class="recipe-day-tag">Week 1 • Thursday • High-Protein Vegetarian</div>
+          <h3 class="recipe-title">🌱 Crispy Sesame Peanut Tofu & Veggie Stir-Fry</h3>
         </div>
         <div class="recipe-meta">
-          <span class="badge badge-grill">Outdoor Grill</span>
+          <span class="badge badge-skillet">Skillet / Air Fryer</span>
           <span class="meta-pill">⏱️ Prep: 10m</span>
           <span class="meta-pill">🔥 Cook: 15m</span>
           <span class="meta-pill">👥 Serves: 5</span>
@@ -1280,52 +1283,52 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>1.5–2 lbs boneless skinless chicken breasts or tenderloins</li>
-            <li>3 medium sweet potatoes, cut into wedges</li>
-            <li>2 medium zucchinis, cut lengthwise into spears</li>
-            <li>2 tbsp olive oil + 2 tbsp balsamic glaze/vinegar</li>
-            <li>1 tsp dried rosemary, 1 tsp garlic powder, salt & pepper</li>
-            <li>Coarse whole-grain Dijon mustard (for dipping)</li>
+            <li>2 blocks (14–16 oz each) organic extra-firm tofu, pressed & cubed</li>
+            <li>2 tbsp cornstarch + 1 tbsp olive/sesame oil</li>
+            <li>1 bag (12 oz) broccoli florets + 1 red bell pepper, sliced</li>
+            <li>3 cups cooked brown rice (or jasmine for kids)</li>
+            <li><strong>Quick Peanut Sauce:</strong> 3 tbsp creamy peanut butter, 3 tbsp low-sodium soy sauce, 1 tbsp honey/maple syrup, 1 tbsp warm water, 1 clove minced garlic</li>
+            <li>Toppings: crushed salted peanuts, sesame seeds, green onions</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Toss sweet potato wedges in 1 tbsp olive oil, salt, and rosemary. Roast in air fryer or oven at 400°F for 20 mins until tender and caramelized.</li>
-            <li>Preheat grill to medium-high (400°F). Rub chicken breasts and zucchini spears with olive oil, balsamic glaze, garlic powder, salt, and pepper.</li>
-            <li>Grill chicken breasts for 5–6 minutes per side until internal temperature reaches 165°F. Grill zucchini spears for 3–4 minutes per side until marked and tender.</li>
-            <li>Let chicken rest 3 minutes before slicing for the family.</li>
+            <li>Toss pressed tofu cubes with cornstarch, 1 tbsp oil, and a pinch of salt. Air-fry at 400°F for 12–14 minutes (shaking halfway) or pan-sear in a skillet until golden and crispy.</li>
+            <li>Whisk peanut butter, soy sauce, honey, warm water, and garlic in a small bowl until smooth.</li>
+            <li>In a large skillet over medium-high heat, sauté broccoli and sliced bell peppers with 1 tbsp oil for 4–5 minutes until tender-crisp.</li>
+            <li>Add crispy tofu and peanut sauce to the skillet; toss gently for 1–2 minutes until warm and well coated. Serve over cooked rice.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz balsamic herb grilled chicken breast + 130g roasted sweet potato wedges + 1.5 cups grilled zucchini spears.</div>
-            <div class="macro-badge">🎯 37g Protein • 12g Fat • 44g Carbs • 440 kcal</div>
+            <div class="custom-text">5 oz air-crisped tofu + 1/2 cup cooked brown rice + 1.5 cups broccoli & peppers tossed in 1.5 tbsp light peanut sauce.</div>
+            <div class="macro-badge">🎯 32g Protein • 16g Fat • 48g Carbs • 460 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Spicy coarse whole-grain mustard dip on the side with a dash of hot pepper flakes.</div>
+            <div class="custom-text">Drizzle generously with chili garlic crisp oil, sriracha, and extra crunchy crushed salted peanuts.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Tender grilled chicken slices + sweet potato wedges (naturally sweet) + zucchini coins.</div>
+            <div class="custom-text">Deconstructed: crispy golden tofu nuggets with mild sweet soy dip, jasmine rice, and sweet bell pepper sticks.</div>
           </div>
         </div>
       </div>
     </article>
 
-    <!-- W1 FRI -->
-    <article class="recipe-card" id="rec-w1-fri" data-appliance="Grill" data-week="1">
+    <!-- W1 FRI: RED MEAT -->
+    <article class="recipe-card" id="rec-w1-fri" data-appliance="Skillet" data-week="1">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 1 • Friday</div>
-          <h3 class="recipe-title">Custom Family Turkey Burgers (with Sweet Potato Fries & DIY Burger Bar)</h3>
+          <div class="recipe-day-tag">Week 1 • Friday • Lean Red Meat Feature</div>
+          <h3 class="recipe-title">🥩 Classic Lean Beef Bolognese with Banza Penne</h3>
         </div>
         <div class="recipe-meta">
-          <span class="badge badge-grill">Outdoor Grill</span>
+          <span class="badge badge-skillet">Stovetop Skillet</span>
           <span class="meta-pill">⏱️ Prep: 10m</span>
-          <span class="meta-pill">🔥 Cook: 10m</span>
+          <span class="meta-pill">🔥 Cook: 20m</span>
           <span class="meta-pill">👥 Serves: 5</span>
         </div>
       </div>
@@ -1333,37 +1336,37 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>1.5–2 lbs 93/7 lean ground turkey (Costco)</li>
-            <li>1 tsp kosher salt, 1/2 tsp black pepper, 1/2 tsp garlic powder, 1 tbsp Worcestershire</li>
-            <li>5 Brioche burger buns (plus 1 whole wheat thin bun for mom)</li>
-            <li>2 sweet potatoes, cut into thin matchstick fries</li>
-            <li>Cheese slices (cheddar for kids, pepper jack for dad)</li>
-            <li>Toppings: Romaine lettuce, sliced tomato, red onion, pickles</li>
-            <li>Condiments: Sriracha mayo, ketchup, mustard</li>
+            <li>1.5 lbs 90/10 or 93/7 lean ground beef</li>
+            <li>1 medium yellow onion & 2 cloves garlic, finely diced</li>
+            <li>1 jar (24 oz) quality Marinara sauce (e.g. Rao's or Kirkland organic)</li>
+            <li>1 box (8 oz) Banza chickpea penne (for Mom) + regular penne for kids</li>
+            <li>1 medium zucchini, spiralized into zoodles (for Mom's pasta blend)</li>
+            <li>1 bag mixed garden salad greens + light Italian dressing</li>
+            <li>Grated parmesan cheese & crushed red pepper flakes</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Toss sweet potato matchsticks with 1 tsp oil, salt, and air-fry at 390°F for 14 mins until crisp.</li>
-            <li>Form ground turkey into 5 equal patties. Season with salt, pepper, garlic powder, and Worcestershire sauce.</li>
-            <li>Preheat grill to medium-high (400°F). Grill turkey patties for 5 minutes per side until cooked through (165°F internal). Top with cheese during the last minute.</li>
-            <li>Toast buns on the grill for 30 seconds. Set up DIY burger bar with fresh lettuce, tomatoes, onions, and sauces.</li>
+            <li>In a large skillet over medium-high heat, brown lean ground beef with diced onion and garlic for 6–7 minutes until fully cooked. Drain any excess fat.</li>
+            <li>Pour in marinara sauce, reduce heat to low, and simmer for 10–12 minutes so flavors meld.</li>
+            <li>Boil Banza and regular penne in salted water according to box directions (about 7–9 mins). Drain.</li>
+            <li>Sauté spiralized zoodles in a pan with light olive oil spray for 2 minutes. Blend with Mom's Banza penne.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz seasoned turkey patty + open-face whole wheat thin bun + tomato, red onion, lettuce + 100g air-fried sweet potato fries.</div>
-            <div class="macro-badge">🎯 36g Protein • 14g Fat • 44g Carbs • 450 kcal</div>
+            <div class="custom-text">4 oz 90/10 lean beef Bolognese sauce + 1.5 cups mixed Banza pasta & zoodles + side garden salad with 1 tbsp light dressing + 1 tsp parmesan.</div>
+            <div class="macro-badge">🎯 38g Protein • 14g Fat • 45g Carbs • 460 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Melted pepper jack cheese, pickled jalapeños, red onions, and homemade sriracha mayo on brioche.</div>
+            <div class="custom-text">Top with heaping grated parmesan, crushed red pepper flakes, and dried Italian oregano.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Cheesy turkey burger on soft brioche bun with ketchup, pickles, and sweet potato fries.</div>
+            <div class="custom-text">Warm penne pasta tossed with beef meat sauce, melted shredded mozzarella, and steamed broccoli florets.</div>
           </div>
         </div>
       </div>
@@ -1373,12 +1376,12 @@
     <article class="recipe-card" id="rec-w1-sat" data-appliance="Air Fryer" data-week="1">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 1 • Saturday</div>
-          <h3 class="recipe-title">Air-Fryer Honey-Garlic Salmon (with Kids Tenders Option)</h3>
+          <div class="recipe-day-tag">Week 1 • Saturday • Seafood Night</div>
+          <h3 class="recipe-title">🐟 Air-Fryer Honey-Garlic Salmon & Brown Rice</h3>
         </div>
         <div class="recipe-meta">
           <span class="badge badge-af">Air Fryer</span>
-          <span class="meta-pill">⏱️ Prep: 8m</span>
+          <span class="meta-pill">⏱️ Prep: 10m</span>
           <span class="meta-pill">🔥 Cook: 10m</span>
           <span class="meta-pill">👥 Serves: 5</span>
         </div>
@@ -1387,53 +1390,51 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>2–3 fresh salmon fillets (approx. 5–6 oz each for parents)</li>
-            <li>Kids meat: 1 lb chicken breast tenders (for air fryer)</li>
-            <li>2 tbsp honey + 2 tbsp low-sodium soy sauce (or tamari)</li>
-            <li>2 cloves garlic, minced + 1 tsp grated ginger + 1 tsp lemon juice</li>
-            <li>1 tbsp olive oil</li>
-            <li>Cooked brown rice & jasmine rice</li>
-            <li>1 head fresh broccoli florets, steamed</li>
+            <li>1.5 lbs fresh salmon fillets, cut into 4–5 portions</li>
+            <li><strong>Glaze:</strong> 2 tbsp honey, 2 tbsp low-sodium soy sauce, 1 tbsp olive oil, 2 cloves minced garlic</li>
+            <li>3 cups cooked brown rice (or wild rice blend)</li>
+            <li>1.5 lbs fresh broccoli florets</li>
+            <li><em>Kids alternative:</em> 1 bag frozen or homemade chicken tenders</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Whisk honey, soy sauce, minced garlic, ginger, and lemon juice together in a small bowl.</li>
-            <li>Brush salmon fillets with olive oil and spoon half the honey-garlic glaze over top.</li>
-            <li>Preheat Air Fryer to 400°F. Place salmon in basket skin-side down. Air-fry for 7–9 minutes until flaky and edges are caramelized. Brush with remaining glaze.</li>
-            <li>Kids Chicken Tenders: Bread lightly with panko or cook seasoned tenders in batch 2 for 8–10 mins at 390°F.</li>
+            <li>Preheat Air Fryer to 400°F. Whisk honey, soy sauce, olive oil, and minced garlic in a bowl.</li>
+            <li>Brush salmon fillets generously with honey-garlic glaze.</li>
+            <li>Place salmon in air fryer basket and cook at 400°F for 7–9 minutes until flaky and caramelized.</li>
+            <li>Steam broccoli in a microwave steamer or saucepan for 4–5 minutes with a splash of water and salt.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz salmon fillet + 2/3 cup cooked brown rice + 1.5 cups steamed broccoli florets + 1 tbsp honey-garlic glaze.</div>
+            <div class="custom-text">5 oz honey-garlic salmon fillet + 2/3 cup cooked brown rice + 1.5 cups steamed broccoli with lemon wedge.</div>
             <div class="macro-badge">🎯 34g Protein • 16g Fat • 48g Carbs • 470 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Stir sriracha and red pepper flakes directly into his honey-garlic glaze portion before glazing.</div>
+            <div class="custom-text">Quick Hot-Honey glaze: drizzle salmon with sriracha, honey, and crushed red pepper flakes.</div>
           </div>
           <div class="custom-item">
-            <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text"><strong>Kid Friendly:</strong> Crispy air-fryer chicken tenders + fluffy white rice + steamed broccoli with butter.</div>
+            <div class="custom-label label-kids">🧒 Kids' Plate (Alternative)</div>
+            <div class="custom-text">Air-Fryer crispy chicken tenders + steamed jasmine rice + broccoli with mild dip.</div>
           </div>
         </div>
       </div>
     </article>
 
     <!-- W1 SUN -->
-    <article class="recipe-card" id="rec-w1-sun" data-appliance="Oven" data-week="1">
+    <article class="recipe-card" id="rec-w1-sun" data-appliance="Takeout" data-week="1">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 1 • Sunday</div>
-          <h3 class="recipe-title">Family Pizza Night</h3>
+          <div class="recipe-day-tag">Week 1 • Sunday • Family Tradition</div>
+          <h3 class="recipe-title">🍕 Takeout / Frozen Pizza & Movie Night</h3>
         </div>
         <div class="recipe-meta">
-          <span class="badge badge-oven">Oven</span>
-          <span class="meta-pill">⏱️ Prep: 10m</span>
-          <span class="meta-pill">🔥 Cook: 12m</span>
+          <span class="badge badge-takeout">Takeout / Frozen</span>
+          <span class="meta-pill">⏱️ Prep: 5m</span>
+          <span class="meta-pill">🔥 Cook: 15m</span>
           <span class="meta-pill">👥 Serves: 5</span>
         </div>
       </div>
@@ -1441,48 +1442,45 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>2 artisan thin pizza crusts or pre-made dough</li>
-            <li>1 cup pizza / marinara sauce + 2 cups shredded mozzarella</li>
-            <li>1 lb chicken breast strips (grilled for mom & salad toppers)</li>
-            <li>Toppings: sliced bell peppers, mushrooms, red onions, fresh basil</li>
-            <li>Hot Honey & red pepper flakes (for dad)</li>
-            <li>Large family garden salad kit with light Italian dressing</li>
+            <li>2 Costco Kirkland Signature or Motor City frozen pizzas (or local takeout order)</li>
+            <li>1 large bagged Italian salad kit or mixed romaine greens</li>
+            <li>1 can light chunk white tuna (or 1 cup leftover grilled chicken from Mon/Tue)</li>
+            <li>Condiments: Honey, crushed red pepper flakes, grated parmesan, garlic powder</li>
+            <li>Sliced fresh cucumbers & carrots for kids</li>
           </ul>
         </div>
         <div class="recipe-col">
-          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
+          <div class="recipe-section-title">👨‍🍳 Effortless Sunday Flow</div>
           <ol class="steps-list">
-            <li>Preheat oven to 450°F (or 475°F with a pizza stone). Pan-sear or grill seasoned chicken breast strips for 6 mins.</li>
-            <li>Spread marinara over crusts, top with mozzarella and family toppings.</li>
-            <li>Bake for 10–13 minutes until crust is golden and cheese is bubbling with blistered spots.</li>
-            <li>Toss large garden salad with light Italian vinaigrette and top with grilled chicken.</li>
+            <li>Bake frozen pizzas according to package instructions at 425°F for 14–18 mins (or call ahead for takeout delivery).</li>
+            <li>Toss large garden salad with light Italian dressing and top with 3 oz leftover grilled chicken or tuna for protein balance.</li>
+            <li>Slice pizzas, set out bowls of crunchy cucumber sticks, and enjoy movie night!</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">1 thin-crust veggie slice + large crisp garden salad topped with 3.5 oz grilled chicken breast & light Italian vinaigrette.</div>
+            <div class="custom-text">1 thin-crust cheese/veggie slice + large garden salad topped with 3 oz leftover chicken/tuna & light vinaigrette.</div>
             <div class="macro-badge">🎯 34g Protein • 14g Fat • 42g Carbs • 430 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Pizza slice finished with a generous drizzle of spicy Hot Honey and crushed red pepper flakes.</div>
+            <div class="custom-text">Drizzle hot honey (honey + chili flakes), grated parmesan, and garlic powder over crispy crust.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Classic mozzarella cheese pizza slices with crunchy raw cucumber or carrot sticks.</div>
+            <div class="custom-text">Crispy mozzarella cheese/pepperoni pizza slices + sweet sliced cucumbers & apple slices.</div>
           </div>
         </div>
       </div>
     </article>
 
-
     <!-- ========================================================================= -->
     <!-- WEEK 2 RECIPES -->
     <!-- ========================================================================= -->
     <div class="week-divider" id="week-2">
-      <h2>🗓️ Week 2: Fast Asian & Comfort Flavors</h2>
-      <span class="week-subtitle">Teriyaki Chicken • Panko Tenders • Chicken & Broccoli • Chicken Sausage • Taco Salad • Cod • Pizza</span>
+      <h2>🗓️ Week 2: Asian & Mediterranean Comfort</h2>
+      <span class="week-subtitle">Teriyaki Chicken • Panko Tenders • Leftovers • Chickpea Bowls • Custom Burgers • Grilled Cod • Pizza</span>
     </div>
 
     <!-- W2 MON -->
@@ -1490,12 +1488,12 @@
       <div class="recipe-header">
         <div class="recipe-title-group">
           <div class="recipe-day-tag">Week 2 • Monday</div>
-          <h3 class="recipe-title">Instant Pot Teriyaki Chicken with Snap Peas & Peppers</h3>
+          <h3 class="recipe-title">Instant Pot Teriyaki Chicken & Snap Peas</h3>
         </div>
         <div class="recipe-meta">
           <span class="badge badge-ip">Instant Pot</span>
           <span class="meta-pill">⏱️ Prep: 10m</span>
-          <span class="meta-pill">🔥 Cook: 8m (High)</span>
+          <span class="meta-pill">🔥 Cook: 15m</span>
           <span class="meta-pill">👥 Serves: 5</span>
         </div>
       </div>
@@ -1503,37 +1501,36 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>1.5–2 lbs boneless skinless chicken breasts / tenders</li>
-            <li>1/3 cup low-sodium soy sauce (or tamari)</li>
-            <li>3 tbsp honey + 1 tbsp brown sugar</li>
-            <li>2 cloves garlic, minced + 1 tsp fresh grated ginger</li>
+            <li>2 lbs boneless skinless chicken breasts</li>
+            <li>1/2 cup low-sodium soy sauce + 1/4 cup honey</li>
+            <li>2 tbsp rice vinegar + 1 tbsp sesame oil + 3 cloves minced garlic + 1 tsp minced ginger</li>
             <li>1 tbsp cornstarch mixed with 2 tbsp cold water (slurry)</li>
-            <li>1 bag sugar snap peas & 1 sliced bell pepper</li>
-            <li>Cooked brown rice & jasmine white rice</li>
+            <li>8 oz sugar snap peas & 1 red bell pepper, sliced</li>
+            <li>Cooked brown rice (jasmine rice for kids)</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Whisk soy sauce, honey, brown sugar, garlic, and ginger directly in the Instant Pot insert. Add chicken breasts and coat in sauce.</li>
-            <li>Lock lid, cook on High Pressure for 8 minutes. Quick release pressure.</li>
-            <li>Transfer chicken to a plate and dice or shred into bite-sized pieces. Turn Instant Pot to "Sauté" mode, stir in cornstarch slurry, and simmer 2 mins until glossy and thickened.</li>
-            <li>Add snap peas and sliced peppers into the hot sauce for 2 minutes to tender-crisp. Return chicken to pot.</li>
+            <li>Place chicken breasts into Instant Pot. Whisk soy sauce, honey, vinegar, sesame oil, garlic, and ginger; pour over chicken.</li>
+            <li>Seal lid and cook on High Pressure for 10 minutes, followed by a 5-minute natural release then quick release.</li>
+            <li>Transfer chicken to a cutting board and shred or slice into chunks. Turn Instant Pot to Sauté mode, stir in cornstarch slurry, and simmer for 2 mins until thickened.</li>
+            <li>Add snap peas and sliced peppers into hot sauce for 2 minutes to tender-crisp. Return chicken to pot.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz chicken breast + 1/2 cup cooked brown rice + 1.5 cups snap peas & bell peppers + 1 tbsp teriyaki glaze.</div>
+            <div class="custom-text">5 oz teriyaki chicken breast + 1/2 cup brown rice + 1 cup snap peas & bell peppers + 1 tbsp light glaze.</div>
             <div class="macro-badge">🎯 38g Protein • 12g Fat • 48g Carbs • 450 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Topped with crispy chili crunch oil, sliced green onions, and toasted sesame seeds.</div>
+            <div class="custom-text">Top with chili garlic crisp oil, sriracha, sliced scallions, and toasted sesame seeds.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Mild shredded teriyaki chicken over jasmine rice with crisp sliced English cucumbers.</div>
+            <div class="custom-text">Mild shredded teriyaki chicken over jasmine rice + fresh sliced cucumbers.</div>
           </div>
         </div>
       </div>
@@ -1544,118 +1541,11 @@
       <div class="recipe-header">
         <div class="recipe-title-group">
           <div class="recipe-day-tag">Week 2 • Tuesday</div>
-          <h3 class="recipe-title">Air-Fryer Crispy Panko Chicken Tenders</h3>
+          <h3 class="recipe-title">Air-Fryer Crispy Panko Tenders & Roasted Potatoes</h3>
         </div>
         <div class="recipe-meta">
           <span class="badge badge-af">Air Fryer</span>
-          <span class="meta-pill">⏱️ Prep: 10m</span>
-          <span class="meta-pill">🔥 Cook: 12m</span>
-          <span class="meta-pill">👥 Serves: 5</span>
-        </div>
-      </div>
-      <div class="recipe-body">
-        <div class="recipe-col">
-          <div class="recipe-section-title">🛒 Ingredients</div>
-          <ul class="ingredients-list">
-            <li>1.5 lbs chicken tenderloins</li>
-            <li>1 cup Panko breadcrumbs + 1 egg (beaten with 1 tbsp water)</li>
-            <li>1/2 tsp garlic powder, onion powder, paprika, salt</li>
-            <li>Cooking oil spray (avocado/olive)</li>
-            <li>1.5 lbs baby petite medley potatoes, halved</li>
-            <li>Large mixed garden salad kit with light lemon-herb dressing</li>
-            <li>Buffalo sauce, Blue cheese dressing, Honey mustard</li>
-          </ul>
-        </div>
-        <div class="recipe-col">
-          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
-          <ol class="steps-list">
-            <li>Toss halved baby potatoes in 1 tbsp olive oil, salt, and pepper. Air-fry at 400°F for 15 minutes until crispy.</li>
-            <li>Mix panko with seasonings in a shallow bowl. Dip chicken tenders in beaten egg, then press firmly into panko crumbs.</li>
-            <li>Preheat Air Fryer to 390°F. Spray basket and tenders with cooking spray. Air-fry for 10–12 minutes, flipping halfway, until golden brown (165°F).</li>
-          </ol>
-        </div>
-        <div class="customizations-box">
-          <div class="custom-item">
-            <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz crispy panko tenders + 110g roasted baby medley potatoes + large garden salad with light lemon-herb dressing.</div>
-            <div class="macro-badge">🎯 36g Protein • 14g Fat • 44g Carbs • 450 kcal</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Toss 3 tenders in spicy buffalo sauce; serve with creamy blue cheese crumbles.</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Ultra-crispy panko tenders with ketchup/honey mustard + crispy roasted potato bites.</div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- W2 WED -->
-    <article class="recipe-card" id="rec-w2-wed" data-appliance="Skillet" data-week="2">
-      <div class="recipe-header">
-        <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 2 • Wednesday</div>
-          <h3 class="recipe-title">20-Minute Savory Chicken & Broccoli Skillet</h3>
-        </div>
-        <div class="recipe-meta">
-          <span class="badge badge-skillet">Stovetop Skillet</span>
-          <span class="meta-pill">⏱️ Prep: 10m</span>
-          <span class="meta-pill">🔥 Cook: 10m</span>
-          <span class="meta-pill">👥 Serves: 5</span>
-        </div>
-      </div>
-      <div class="recipe-body">
-        <div class="recipe-col">
-          <div class="recipe-section-title">🛒 Ingredients</div>
-          <ul class="ingredients-list">
-            <li>1.5 lbs chicken breasts, thinly sliced into bite-sized strips</li>
-            <li>2 large broccoli heads, cut into florets</li>
-            <li>1/3 cup low-sodium soy sauce + 1/3 cup chicken broth</li>
-            <li>2 tbsp brown sugar or honey + 1 tbsp toasted sesame oil</li>
-            <li>3 cloves garlic, minced + 1 tsp fresh ginger</li>
-            <li>1.5 tbsp cornstarch</li>
-            <li>Cooked brown rice & jasmine rice</li>
-          </ul>
-        </div>
-        <div class="recipe-col">
-          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
-          <ol class="steps-list">
-            <li>Whisk soy sauce, chicken broth, brown sugar, sesame oil, garlic, ginger, and cornstarch in a bowl.</li>
-            <li>Heat 1 tbsp oil in a large skillet over high heat. Add chicken slices in a single layer and sear for 3–4 minutes until golden and cooked through. Remove chicken to a plate.</li>
-            <li>Add broccoli florets and 3 tbsp water to the pan. Cover and steam for 3 minutes until vibrant green and tender-crisp.</li>
-            <li>Pour in sauce and bring to a simmer for 1 min until glossy and thick. Return chicken, toss to coat, and serve immediately.</li>
-          </ol>
-        </div>
-        <div class="customizations-box">
-          <div class="custom-item">
-            <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz sliced chicken breast + 1/2 cup cooked brown rice + 1.5 cups steamed broccoli florets + savory ginger-soy sauce.</div>
-            <div class="macro-badge">🎯 38g Protein • 13g Fat • 46g Carbs • 450 kcal</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Top with chili garlic sauce, sriracha, toasted sesame seeds, and extra scallions.</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Tender chicken strips over fluffy white rice with mild broccoli florets.</div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- W2 THU -->
-    <article class="recipe-card" id="rec-w2-thu" data-appliance="Grill" data-week="2">
-      <div class="recipe-header">
-        <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 2 • Thursday</div>
-          <h3 class="recipe-title">Grilled Chicken Sausage with Peppers, Onions & Baby Potatoes</h3>
-        </div>
-        <div class="recipe-meta">
-          <span class="badge badge-grill">Outdoor Grill</span>
-          <span class="meta-pill">⏱️ Prep: 8m</span>
+          <span class="meta-pill">⏱️ Prep: 12m</span>
           <span class="meta-pill">🔥 Cook: 15m</span>
           <span class="meta-pill">👥 Serves: 5</span>
         </div>
@@ -1664,52 +1554,102 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>1 pack (5–6 links) all-natural lean chicken sausage (Amylu / Aidells)</li>
-            <li>1/2 lb chicken breast tenders (extra lean protein for mom)</li>
-            <li>2 bell peppers & 1 red onion, sliced into strips</li>
-            <li>1 lb baby medley potatoes, parboiled 5 mins or microwaved</li>
-            <li>1.5 tbsp olive oil, salt, pepper, Italian seasoning</li>
-            <li>Spicy coarse grain mustard & sweet pepper relish</li>
+            <li>1.5 lbs chicken breast tenderloins</li>
+            <li>1 cup Panko breadcrumbs (seasoned with garlic powder, paprika, salt, pepper)</li>
+            <li>1 egg (beaten) or 2 tbsp Dijon mustard for dredging</li>
+            <li>1.5 lbs baby medley potatoes, quartered</li>
+            <li>1 bag fresh garden salad with cherry tomatoes</li>
+            <li>Olive oil cooking spray</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Toss peppers, onions, and parboiled baby potatoes with olive oil, salt, and Italian seasoning.</li>
-            <li>Preheat grill to medium (375°F). Place chicken sausages and chicken breast directly on grates and veggies/potatoes in a grill basket.</li>
-            <li>Grill sausages and chicken breast for 8–10 minutes, turning frequently until charred and heated through (165°F).</li>
-            <li>Grill veggies until onions and peppers are tender-charred and potatoes are crispy.</li>
+            <li>Toss quartered baby potatoes with 1 tbsp olive oil, garlic powder, salt, and pepper. Air-fry at 400°F for 15 minutes until crisp and tender.</li>
+            <li>Dip chicken tenderloins in beaten egg (or brush with mustard), then press into seasoned panko breadcrumbs.</li>
+            <li>Lightly spray tenders with olive oil spray. Air-fry at 390°F for 10–12 minutes until deeply golden and 165°F inside.</li>
+            <li>Toss garden salad with light vinaigrette.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">1.5 sliced chicken sausages + 2 oz grilled chicken breast + 120g roasted baby potatoes + 1 cup grilled peppers & onions.</div>
-            <div class="macro-badge">🎯 38g Protein • 14g Fat • 43g Carbs • 450 kcal</div>
+            <div class="custom-text">5 oz panko tenders + 110g roasted baby medley potatoes + colorful garden salad with light vinaigrette.</div>
+            <div class="macro-badge">🎯 36g Protein • 14g Fat • 44g Carbs • 450 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Dip into spicy coarse whole-grain mustard and tangy hot pepper relish.</div>
+            <div class="custom-text">Spicy buffalo sauce dip & creamy blue cheese or ranch dressing.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Sliced mild sausage medallions with crispy roasted potato bites (sweet bell peppers on side).</div>
+            <div class="custom-text">Crispy panko tenders with sweet honey mustard + roasted potato bites.</div>
           </div>
         </div>
       </div>
     </article>
 
-    <!-- W2 FRI -->
-    <article class="recipe-card" id="rec-w2-fri" data-appliance="Skillet" data-week="2">
+    <!-- W2 WED: LEFTOVERS -->
+    <article class="recipe-card" id="rec-w2-wed" data-appliance="Reheat" data-week="2">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 2 • Friday</div>
-          <h3 class="recipe-title">Build-Your-Own Taco Salad & Cheesy Quesadillas</h3>
+          <div class="recipe-day-tag">Week 2 • Wednesday • Busy Activities Night</div>
+          <h3 class="recipe-title">🔄 Family Leftovers Buffet & Reheat Night</h3>
         </div>
         <div class="recipe-meta">
-          <span class="badge badge-skillet">Stovetop Skillet</span>
+          <span class="badge badge-reheat">Quick Reheat</span>
+          <span class="meta-pill">⏱️ Prep: 5m</span>
+          <span class="meta-pill">🔥 Reheat: 5m</span>
+          <span class="meta-pill">👥 Serves: 5</span>
+        </div>
+      </div>
+      <div class="recipe-body">
+        <div class="recipe-col">
+          <div class="recipe-section-title">🛒 Ingredients (From Fridge)</div>
+          <ul class="ingredients-list">
+            <li>Leftover IP teriyaki chicken & rice (from Mon)</li>
+            <li>Leftover crispy panko tenders & roasted baby potatoes (from Tue)</li>
+            <li>Tortillas or pita bread</li>
+            <li>Condiments: chili crisp, soy sauce, hot sauce, mustard, tzatziki</li>
+          </ul>
+        </div>
+        <div class="recipe-col">
+          <div class="recipe-section-title">👨‍🍳 5-Minute Speedy Service</div>
+          <ol class="steps-list">
+            <li>Pop crispy panko tenders and potatoes in the air fryer at 380°F for 3 minutes to regain golden crunch.</li>
+            <li>Warm teriyaki chicken and rice in microwave for 90 seconds.</li>
+            <li>Set up a speedy buffet line for everyone to customize before evening activities.</li>
+          </ol>
+        </div>
+        <div class="customizations-box">
+          <div class="custom-item">
+            <div class="custom-label label-mom">🥗 Mom's Portion</div>
+            <div class="custom-text">4–5 oz leftover chicken + 1/2 cup rice/potatoes + fresh crunchy cucumber and carrot sticks.</div>
+            <div class="macro-badge">🎯 36g Protein • 13g Fat • 45g Carbs • 450 kcal</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
+            <div class="custom-text">Leftover teriyaki chicken rice bowl topped with chili crisp, soy sauce & scallions.</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-kids">🧒 Kids' Plate</div>
+            <div class="custom-text">Crispy chicken tenders wrap with melted cheddar and mild honey mustard.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- W2 THU: VEGETARIAN -->
+    <article class="recipe-card" id="rec-w2-thu" data-appliance="Air Fryer" data-week="2">
+      <div class="recipe-header">
+        <div class="recipe-title-group">
+          <div class="recipe-day-tag">Week 2 • Thursday • High-Protein Vegetarian</div>
+          <h3 class="recipe-title">🌱 Mediterranean Crispy Chickpea & Grain Bowls</h3>
+        </div>
+        <div class="recipe-meta">
+          <span class="badge badge-af">Air Fryer / Bowl</span>
           <span class="meta-pill">⏱️ Prep: 10m</span>
-          <span class="meta-pill">🔥 Cook: 12m</span>
+          <span class="meta-pill">🔥 Cook: 15m</span>
           <span class="meta-pill">👥 Serves: 5</span>
         </div>
       </div>
@@ -1717,49 +1657,50 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>1.5 lbs chicken breasts or 93/7 ground turkey</li>
-            <li>1 packet taco seasoning (or chili powder, cumin, garlic, oregano)</li>
-            <li>Flour tortillas (for kids quesadillas) & shredded Mexican cheese</li>
-            <li>1 head crisp Romaine lettuce, shredded</li>
-            <li>1 can black beans & 1 can sweet corn, drained & warmed</li>
-            <li>Fresh salsa, 1 avocado, chipotle crema, sour cream, jalapeños</li>
+            <li>2 cans (15 oz each) organic chickpeas, rinsed, drained & patted dry</li>
+            <li>1 tbsp olive oil + 1 tsp cumin, 1 tsp garlic powder, 1/2 tsp smoked paprika, pinch salt</li>
+            <li>3 cups cooked brown rice or quinoa</li>
+            <li>2 Persian cucumbers, diced + 1 cup cherry tomatoes, halved</li>
+            <li>1/2 cup crumbled feta cheese + 1/2 cup prepared deli Tzatziki</li>
+            <li>Warm whole wheat pita bread (for kids/dad)</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Brown chicken or ground turkey in a skillet with taco seasoning and 1/3 cup water for 8 mins until cooked through. Warm black beans and sweet corn.</li>
-            <li>For kids' quesadillas: Heat a dry skillet over medium, place tortilla, add cheese and shredded taco chicken, fold in half, and cook 2 mins per side until golden and melted. Cut into triangles.</li>
-            <li>Set out bowls with shredded romaine, black beans, corn, fresh salsa, avocado, and cremas for custom assembly.</li>
+            <li>Toss thoroughly dried chickpeas with 1 tbsp olive oil, cumin, garlic powder, smoked paprika, and salt.</li>
+            <li>Air-fry chickpeas at 390°F for 12–14 minutes, shaking halfway, until crunchy and lightly browned.</li>
+            <li>Warm cooked grain (brown rice or quinoa) and warm pita wedges in a dry pan or toaster.</li>
+            <li>Assemble bowls: base of grains, heaping roasted chickpeas, diced cucumbers, tomatoes, crumbled feta, and a dollop of tzatziki.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz taco chicken breast + 1/3 cup black beans + 1/3 cup sweet corn + shredded romaine + 2 tbsp fresh salsa + 1/4 avocado.</div>
-            <div class="macro-badge">🎯 38g Protein • 15g Fat • 44g Carbs • 460 kcal</div>
+            <div class="custom-text">1 cup spiced crispy chickpeas + 1/2 cup quinoa/brown rice + diced cucumbers, tomatoes, 2 tbsp feta & 2 tbsp tzatziki.</div>
+            <div class="macro-badge">🎯 28g Protein • 15g Fat • 50g Carbs • 450 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Drizzle with smoky chipotle crema and top with fresh pickled jalapeños and hot salsa.</div>
+            <div class="custom-text">Pickled banana peppers/jalapeños, extra crumbled feta, and a drizzle of spicy chili garlic oil.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Warm, crispy chicken and cheese quesadilla triangles with mild sour cream or salsa.</div>
+            <div class="custom-text">Warm pita pocket filled with mild spiced chickpeas, cucumbers, and mild shredded cheese.</div>
           </div>
         </div>
       </div>
     </article>
 
-    <!-- W2 SAT -->
-    <article class="recipe-card" id="rec-w2-sat" data-appliance="Grill" data-week="2">
+    <!-- W2 FRI: BURGERS -->
+    <article class="recipe-card" id="rec-w2-fri" data-appliance="Grill" data-week="2">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 2 • Saturday</div>
-          <h3 class="recipe-title">Grilled Cod with Lemon-Caper Butter & Asparagus (Kids Skewers)</h3>
+          <div class="recipe-day-tag">Week 2 • Friday • Family Burger Night</div>
+          <h3 class="recipe-title">Custom Family Burgers (Lean Beef or Turkey)</h3>
         </div>
         <div class="recipe-meta">
-          <span class="badge badge-grill">Outdoor Grill</span>
+          <span class="badge badge-grill">Grill / Skillet</span>
           <span class="meta-pill">⏱️ Prep: 10m</span>
           <span class="meta-pill">🔥 Cook: 10m</span>
           <span class="meta-pill">👥 Serves: 5</span>
@@ -1769,51 +1710,159 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>2–3 thick Cod or white fish fillets (approx. 6 oz each for parents)</li>
-            <li>Kids meat: 1 lb chicken breast chunks on skewers</li>
-            <li>1 bunch fresh asparagus, woody ends snapped</li>
-            <li>2 tbsp butter, melted + 1 tbsp olive oil</li>
-            <li>1 lemon (juiced and sliced) + 1 tbsp drained capers</li>
-            <li>2 cloves garlic, minced + fresh parsley</li>
-            <li>Cooked wild rice blend & jasmine rice</li>
+            <li>1.5 lbs 90/10 lean beef or 93/7 ground turkey (formed into 5 patties)</li>
+            <li>1 tbsp Worcestershire sauce, 1 tsp garlic powder, salt, and pepper</li>
+            <li>1 bag frozen sweet potato fries</li>
+            <li>Burger buns: Brioche for kids/dad, whole wheat thin bun for Mom</li>
+            <li>Toppings: Cheddar slices, sliced tomatoes, red onions, lettuce, dill pickles, pickled jalapeños</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Preheat grill to medium (375°F). Lightly oil foil sheets or grill basket for the delicate fish.</li>
-            <li>Season cod fillets and asparagus with olive oil, salt, pepper, and garlic. Thread chicken chunks onto skewers and season with salt and garlic.</li>
-            <li>Grill cod on foil for 8–10 minutes until flaky and opaque. Grill asparagus and chicken skewers directly on grates for 8–10 mins, turning often.</li>
-            <li>Melt butter in a small pan, stir in lemon juice, capers, and minced garlic; spoon over the cooked cod.</li>
+            <li>Bake or air-fry sweet potato fries at 400°F for 15 minutes until crispy.</li>
+            <li>Season burger patties with Worcestershire, garlic powder, salt, and pepper.</li>
+            <li>Grill or sear in a hot skillet for 4–5 minutes per side until cooked through (165°F for turkey, 160°F for beef). Melt cheddar on top if desired.</li>
+            <li>Toast buns lightly and assemble with favorite toppings.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">6 oz grilled cod fillet + 2/3 cup cooked wild rice blend + 1.5 cups grilled asparagus + 1 tbsp lemon-caper garlic butter.</div>
+            <div class="custom-text">5 oz seasoned patty + open-face whole wheat bun + lettuce/tomato/onion + 100g sweet potato fries.</div>
+            <div class="macro-badge">🎯 36g Protein • 14g Fat • 44g Carbs • 450 kcal</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
+            <div class="custom-text">Melted sharp cheddar, pickled jalapeños, and spicy coarse Dijon-sriracha mayo.</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-kids">🧒 Kids' Plate</div>
+            <div class="custom-text">Cheeseburger on soft brioche bun with pickles & ketchup + crispy sweet potato fries.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- W2 SAT: SEAFOOD -->
+    <article class="recipe-card" id="rec-w2-sat" data-appliance="Grill" data-week="2">
+      <div class="recipe-header">
+        <div class="recipe-title-group">
+          <div class="recipe-day-tag">Week 2 • Saturday • Seafood Night</div>
+          <h3 class="recipe-title">🐟 Grilled Cod with Lemon-Caper Butter & Wild Rice</h3>
+        </div>
+        <div class="recipe-meta">
+          <span class="badge badge-grill">Outdoor Grill / Skillet</span>
+          <span class="meta-pill">⏱️ Prep: 10m</span>
+          <span class="meta-pill">🔥 Cook: 10m</span>
+          <span class="meta-pill">👥 Serves: 5</span>
+        </div>
+      </div>
+      <div class="recipe-body">
+        <div class="recipe-col">
+          <div class="recipe-section-title">🛒 Ingredients</div>
+          <ul class="ingredients-list">
+            <li>1.5 lbs wild Atlantic or Pacific Cod fillets</li>
+            <li>2 tbsp butter + 2 tbsp capers + 1 lemon (juiced) + 1 tbsp fresh parsley</li>
+            <li>3 cups cooked wild rice blend (Lundberg)</li>
+            <li>1 lb fresh asparagus, trimmed</li>
+            <li><em>Kids alternative:</em> 1 lb chicken breast tenders on skewers</li>
+          </ul>
+        </div>
+        <div class="recipe-col">
+          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
+          <ol class="steps-list">
+            <li>Preheat grill to medium (375°F) with a lightly oiled grill mat or foil packet for fish.</li>
+            <li>Season cod with salt, pepper, and olive oil spray. Grill 4–5 mins per side until opaque and flaky.</li>
+            <li>In a small pan, melt butter with capers, lemon juice, and parsley for 2 mins.</li>
+            <li>Grill asparagus tossed in olive oil for 5–7 mins until tender-crisp. Spoon lemon-caper butter over cod.</li>
+          </ol>
+        </div>
+        <div class="customizations-box">
+          <div class="custom-item">
+            <div class="custom-label label-mom">🥗 Mom's Portion</div>
+            <div class="custom-text">6 oz cod fillet + 2/3 cup cooked wild rice blend + grilled fresh asparagus + 1 tbsp lemon-caper butter.</div>
             <div class="macro-badge">🎯 36g Protein • 15g Fat • 42g Carbs • 450 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Add crushed red pepper flakes and extra caper-garlic lemon butter over the cod.</div>
+            <div class="custom-text">Crushed red pepper flakes, extra lemon squeeze, and garlic herb drizzle.</div>
           </div>
           <div class="custom-item">
-            <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text"><strong>Kid Friendly:</strong> Grilled chicken skewers (mild) with fluffy white rice and tender asparagus or carrots.</div>
+            <div class="custom-label label-kids">🧒 Kids' Plate (Alternative)</div>
+            <div class="custom-text">Grilled mild chicken skewers + warm jasmine rice + sweet baby carrots.</div>
           </div>
         </div>
       </div>
     </article>
 
     <!-- W2 SUN -->
-    <article class="recipe-card" id="rec-w2-sun" data-appliance="Oven" data-week="2">
+    <article class="recipe-card" id="rec-w2-sun" data-appliance="Takeout" data-week="2">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 2 • Sunday</div>
-          <h3 class="recipe-title">Family Pizza Night</h3>
+          <div class="recipe-day-tag">Week 2 • Sunday • Family Tradition</div>
+          <h3 class="recipe-title">🍕 Takeout / Frozen Pizza & Movie Night</h3>
         </div>
         <div class="recipe-meta">
-          <span class="badge badge-oven">Oven</span>
+          <span class="badge badge-takeout">Takeout / Frozen</span>
+          <span class="meta-pill">⏱️ Prep: 5m</span>
+          <span class="meta-pill">🔥 Cook: 15m</span>
+          <span class="meta-pill">👥 Serves: 5</span>
+        </div>
+      </div>
+      <div class="recipe-body">
+        <div class="recipe-col">
+          <div class="recipe-section-title">🛒 Ingredients</div>
+          <ul class="ingredients-list">
+            <li>2 frozen pizzas or local delivery order</li>
+            <li>1 large fresh salad kit with light dressing</li>
+            <li>1 cup leftover protein (e.g. burger patty or chicken)</li>
+            <li>Pantry: Hot honey, red pepper flakes, grated parmesan</li>
+          </ul>
+        </div>
+        <div class="recipe-col">
+          <div class="recipe-section-title">👨‍🍳 Effortless Sunday Flow</div>
+          <ol class="steps-list">
+            <li>Bake pizzas or unpack takeout delivery.</li>
+            <li>Toss Italian garden salad with light dressing and lean protein for Mom.</li>
+            <li>Enjoy zero-cook Sunday family dinner!</li>
+          </ol>
+        </div>
+        <div class="customizations-box">
+          <div class="custom-item">
+            <div class="custom-label label-mom">🥗 Mom's Portion</div>
+            <div class="custom-text">1 thin-crust slice + large salad with 3 oz leftover protein & light dressing.</div>
+            <div class="macro-badge">🎯 34g Protein • 14g Fat • 42g Carbs • 430 kcal</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
+            <div class="custom-text">Hot honey drizzle, red pepper flakes & grated parmesan.</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-kids">🧒 Kids' Plate</div>
+            <div class="custom-text">Crispy cheese pizza slices + sliced fresh cucumbers.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ========================================================================= -->
+    <!-- WEEK 3 RECIPES -->
+    <!-- ========================================================================= -->
+    <div class="week-divider" id="week-3">
+      <h2>🗓️ Week 3: Tex-Mex & Italian Favorites</h2>
+      <span class="week-subtitle">Flank Steak Bowls • Chicken Parm • Leftovers • Enchilada Bake • Lemon Garlic Thighs • Salmon • Pizza</span>
+    </div>
+
+    <!-- W3 MON: RED MEAT -->
+    <article class="recipe-card" id="rec-w3-mon" data-appliance="Grill" data-week="3">
+      <div class="recipe-header">
+        <div class="recipe-title-group">
+          <div class="recipe-day-tag">Week 3 • Monday • Lean Red Meat Feature</div>
+          <h3 class="recipe-title">🥩 Grilled Flank Steak Burrito Bowls with Chimichurri</h3>
+        </div>
+        <div class="recipe-meta">
+          <span class="badge badge-grill">Outdoor Grill / Skillet</span>
           <span class="meta-pill">⏱️ Prep: 10m</span>
           <span class="meta-pill">🔥 Cook: 12m</span>
           <span class="meta-pill">👥 Serves: 5</span>
@@ -1823,96 +1872,36 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>2 pizza crusts / flatbreads</li>
-            <li>1 cup marinara sauce + 2 cups shredded mozzarella</li>
-            <li>1 lb chicken breast strips (grilled for toppers & salad)</li>
-            <li>Assorted vegetable toppings (mushrooms, bell peppers, onions)</li>
-            <li>Hot honey & large mixed salad kit with Italian vinaigrette</li>
+            <li>1.5 lbs lean flank steak (or top sirloin)</li>
+            <li>2 bell peppers + 1 yellow onion, sliced</li>
+            <li>1 can (15 oz) black beans, rinsed & drained</li>
+            <li>3 cups cooked brown rice (cilantro-lime seasoned)</li>
+            <li><strong>Budget Herb Chimichurri:</strong> 1/2 bunch finely chopped parsley, 2 cloves minced garlic, 2 tbsp red wine vinegar, 3 tbsp olive oil, 1/2 tsp salt, pinch red pepper flakes</li>
+            <li>Toppings: Fresh salsa, 1 avocado, pickled jalapeños</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Preheat oven to 450°F. Pan-sear chicken breast strips.</li>
-            <li>Assemble family pizzas with desired cheese and toppings.</li>
-            <li>Bake for 10–13 minutes until bubbly and crust edges are browned.</li>
-            <li>Toss garden salad with light dressing and top with grilled chicken.</li>
+            <li>Whisk chimichurri ingredients together in a small bowl; set aside.</li>
+            <li>Season flank steak with olive oil, cumin, garlic powder, salt, and pepper. Grill over medium-high heat (400°F) for 5–6 mins per side to medium doneness (135°F–140°F). Rest 5 mins, then slice thinly against the grain.</li>
+            <li>Grill peppers and onions in a basket for 8 mins until lightly charred. Warm black beans in a saucepan.</li>
+            <li>Build bowls with cilantro-lime brown rice, black beans, fajita peppers, and sliced flank steak.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">1 thin-crust veggie slice + large crisp garden salad topped with 3.5 oz grilled chicken breast & light vinaigrette.</div>
-            <div class="macro-badge">🎯 34g Protein • 14g Fat • 42g Carbs • 430 kcal</div>
+            <div class="custom-text">4.5 oz grilled lean flank steak + 1/3 cup brown rice + 1/3 cup black beans + grilled peppers/onions + fresh salsa + 1/4 sliced avocado.</div>
+            <div class="macro-badge">🎯 38g Protein • 15g Fat • 43g Carbs • 460 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Hot Honey drizzle over pizza with crushed chili flakes.</div>
+            <div class="custom-text">Drizzle generously with fresh homemade chimichurri and add spicy pickled jalapeños.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Classic melty cheese pizza slices with fresh sliced cucumbers.</div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-
-    <!-- ========================================================================= -->
-    <!-- WEEK 3 RECIPES -->
-    <!-- ========================================================================= -->
-    <div class="week-divider" id="week-3">
-      <h2>🗓️ Week 3: Tex-Mex & Italian Favorites</h2>
-      <span class="week-subtitle">Turkey Burrito Bowls • Chicken Parm • Korean Turkey • Lemon Thighs • Loaded Sweet Potato • Salmon • Pizza</span>
-    </div>
-
-    <!-- W3 MON -->
-    <article class="recipe-card" id="rec-w3-mon" data-appliance="Instant Pot" data-week="3">
-      <div class="recipe-header">
-        <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 3 • Monday</div>
-          <h3 class="recipe-title">Instant Pot Turkey Burrito Bowls</h3>
-        </div>
-        <div class="recipe-meta">
-          <span class="badge badge-ip">Instant Pot</span>
-          <span class="meta-pill">⏱️ Prep: 8m</span>
-          <span class="meta-pill">🔥 Cook: 6m (High)</span>
-          <span class="meta-pill">👥 Serves: 5</span>
-        </div>
-      </div>
-      <div class="recipe-body">
-        <div class="recipe-col">
-          <div class="recipe-section-title">🛒 Ingredients</div>
-          <ul class="ingredients-list">
-            <li>1.5 lbs ground turkey (93/7)</li>
-            <li>1 cup long grain brown or white rice (rinsed)</li>
-            <li>1 cup chicken broth + 1 cup mild salsa</li>
-            <li>1 can black beans & 1 can sweet corn (rinsed)</li>
-            <li>1 tbsp taco seasoning / cumin / garlic powder</li>
-            <li>Toppings: Shredded cheddar, avocados, salsa verde, chipotle hot sauce, romaine</li>
-          </ul>
-        </div>
-        <div class="recipe-col">
-          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
-          <ol class="steps-list">
-            <li>Set Instant Pot to "Sauté" mode. Add 1 tsp oil and brown ground turkey with taco seasoning for 4 mins, breaking into crumbles.</li>
-            <li>Pour in 1 cup chicken broth and scrape any brown bits from bottom. Stir in rinsed rice, black beans, corn, and pour salsa across top.</li>
-            <li>Lock lid, cook on High Pressure for 6 minutes, followed by 5 minutes natural release, then quick release. Fluff with a fork.</li>
-          </ol>
-        </div>
-        <div class="customizations-box">
-          <div class="custom-item">
-            <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz seasoned 93/7 turkey + 1/2 cup cooked brown rice + 1/4 cup black beans/corn + shredded romaine + salsa + 1/4 avocado.</div>
-            <div class="macro-badge">🎯 36g Protein • 15g Fat • 46g Carbs • 460 kcal</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Top with tangy Salsa Verde, smoky chipotle hot sauce, and sliced jalapeños.</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Mild turkey, rice, and sweet corn topped with melted shredded cheddar cheese.</div>
+            <div class="custom-text">Mild flank steak slices over rice, black beans, and mild shredded cheddar cheese.</div>
           </div>
         </div>
       </div>
@@ -1923,7 +1912,7 @@
       <div class="recipe-header">
         <div class="recipe-title-group">
           <div class="recipe-day-tag">Week 3 • Tuesday</div>
-          <h3 class="recipe-title">Air-Fryer Crispy Chicken Parmesan with Pasta & Zoodles</h3>
+          <h3 class="recipe-title">Air-Fryer Chicken Parmesan with Banza Pasta</h3>
         </div>
         <div class="recipe-meta">
           <span class="badge badge-af">Air Fryer</span>
@@ -1936,52 +1925,100 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>1.5 lbs chicken breasts (cut into thin cutlets)</li>
-            <li>1 cup Panko breadcrumbs + 1/4 cup grated Parmesan + 1 egg</li>
-            <li>1 cup quality marinara sauce + 1 cup shredded part-skim mozzarella</li>
-            <li>8 oz spaghetti or penne (for kids/dad)</li>
-            <li>2 oz Banza chickpea pasta + 2 medium zucchinis (spiralized for mom)</li>
-            <li>Fresh basil pesto & red pepper flakes</li>
+            <li>1.5 lbs chicken cutlets (pounded thin)</li>
+            <li>1/2 cup Italian seasoned breadcrumbs + 2 tbsp grated parmesan</li>
+            <li>1 jar (24 oz) marinara sauce</li>
+            <li>4 oz part-skim mozzarella cheese, sliced</li>
+            <li>1 box Banza chickpea pasta + regular pasta for kids</li>
+            <li>1 zucchini spiralized into zoodles (for Mom)</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Dip chicken cutlets in beaten egg, then press into seasoned panko/parmesan mix.</li>
-            <li>Preheat Air Fryer to 390°F. Spray cutlets with olive oil spray and air-fry for 8 minutes.</li>
-            <li>Top each cutlet with 2 tbsp marinara and a slice of mozzarella. Air-fry 3 more minutes until cheese is melted and bubbling.</li>
-            <li>Boil spaghetti for family and Banza pasta for mom. Sauté spiralized zucchini with 1 tsp olive oil for 2 mins; toss with Banza pasta.</li>
+            <li>Lightly spray chicken cutlets with olive oil spray, then coat in breadcrumbs and parmesan.</li>
+            <li>Air-fry at 390°F for 8 mins. Top each cutlet with 2 tbsp marinara and a slice of mozzarella. Air-fry 3 more mins until cheese is melted and bubbling.</li>
+            <li>Boil pasta according to package. Sauté zoodles for 2 mins and blend with Mom's pasta.</li>
+            <li>Serve chicken parm over pasta with warm marinara.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz air-fried chicken cutlet + 1 oz melted mozzarella + 1.5 oz Banza chickpea pasta & zoodles + 1/3 cup marinara.</div>
+            <div class="custom-text">5 oz chicken cutlet + 1 oz part-skim mozzarella + 1.5 oz Banza pasta & zoodles + marinara sauce.</div>
             <div class="macro-badge">🎯 42g Protein • 14g Fat • 44g Carbs • 470 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Drizzle chicken with hot basil pesto oil and crushed red pepper flakes over spaghetti.</div>
+            <div class="custom-text">Crushed red pepper flakes, grated parmesan & dried oregano.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Crispy breaded chicken cutlet with melted mozzarella cheese over buttered or marinara pasta.</div>
+            <div class="custom-text">Crispy chicken cutlet with melted mozzarella over penne pasta with marinara.</div>
           </div>
         </div>
       </div>
     </article>
 
-    <!-- W3 WED -->
-    <article class="recipe-card" id="rec-w3-wed" data-appliance="Skillet" data-week="3">
+    <!-- W3 WED: LEFTOVERS -->
+    <article class="recipe-card" id="rec-w3-wed" data-appliance="Reheat" data-week="3">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 3 • Wednesday</div>
-          <h3 class="recipe-title">Sweet & Savory Korean Ground Turkey Skillet</h3>
+          <div class="recipe-day-tag">Week 3 • Wednesday • Busy Activities Night</div>
+          <h3 class="recipe-title">🔄 Family Leftovers Buffet & Reheat Night</h3>
         </div>
         <div class="recipe-meta">
-          <span class="badge badge-skillet">Stovetop Skillet</span>
-          <span class="meta-pill">⏱️ Prep: 8m</span>
-          <span class="meta-pill">🔥 Cook: 10m</span>
+          <span class="badge badge-reheat">Quick Reheat</span>
+          <span class="meta-pill">⏱️ Prep: 5m</span>
+          <span class="meta-pill">🔥 Reheat: 5m</span>
+          <span class="meta-pill">👥 Serves: 5</span>
+        </div>
+      </div>
+      <div class="recipe-body">
+        <div class="recipe-col">
+          <div class="recipe-section-title">🛒 Ingredients (From Fridge)</div>
+          <ul class="ingredients-list">
+            <li>Leftover grilled flank steak, beans & rice (from Mon)</li>
+            <li>Leftover chicken parmesan & pasta (from Tue)</li>
+            <li>Tortillas, salsa, chimichurri, shredded cheese</li>
+          </ul>
+        </div>
+        <div class="recipe-col">
+          <div class="recipe-section-title">👨‍🍳 5-Minute Speedy Service</div>
+          <ol class="steps-list">
+            <li>Quick-reheat steak slices or chicken parm in microwave or toaster oven.</li>
+            <li>Assemble fast quesadillas, rice bowls, or pasta plates in 5 mins flat.</li>
+          </ol>
+        </div>
+        <div class="customizations-box">
+          <div class="custom-item">
+            <div class="custom-label label-mom">🥗 Mom's Portion</div>
+            <div class="custom-text">4 oz leftover steak/chicken + 1/2 cup rice/beans + side salad with salsa vinaigrette.</div>
+            <div class="macro-badge">🎯 36g Protein • 14g Fat • 44g Carbs • 450 kcal</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
+            <div class="custom-text">Steak quesadilla with pickled jalapeños, salsa & chimichurri drizzle.</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-kids">🧒 Kids' Plate</div>
+            <div class="custom-text">Warm steak or chicken cheese quesadillas with mild sour cream.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- W3 THU: VEGETARIAN -->
+    <article class="recipe-card" id="rec-w3-thu" data-appliance="Oven" data-week="3">
+      <div class="recipe-header">
+        <div class="recipe-title-group">
+          <div class="recipe-day-tag">Week 3 • Thursday • High-Protein Vegetarian</div>
+          <h3 class="recipe-title">🌱 Loaded Black Bean & Sweet Potato Enchilada Bake</h3>
+        </div>
+        <div class="recipe-meta">
+          <span class="badge badge-oven">Oven</span>
+          <span class="meta-pill">⏱️ Prep: 15m</span>
+          <span class="meta-pill">🔥 Cook: 20m</span>
           <span class="meta-pill">👥 Serves: 5</span>
         </div>
       </div>
@@ -1989,48 +2026,48 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>1.5 lbs lean ground turkey (93/7)</li>
-            <li>1/3 cup low-sodium soy sauce (or tamari)</li>
-            <li>1/4 cup brown sugar or honey + 1 tbsp toasted sesame oil</li>
-            <li>3 cloves garlic, minced + 1 tsp fresh ginger</li>
-            <li>1 head Bibb / Butter lettuce (for lettuce cups)</li>
-            <li>Cooked brown rice & jasmine rice</li>
-            <li>Sliced carrots, local kimchi, sriracha, toasted sesame seeds</li>
+            <li>2 medium sweet potatoes (peeled and diced small)</li>
+            <li>2 cans (15 oz each) organic black beans, rinsed & drained</li>
+            <li>1 cup sweet corn kernels</li>
+            <li>1 jar (16 oz) green Salsa Verde or red enchilada sauce</li>
+            <li>8 small corn tortillas (cut into quarters)</li>
+            <li>1 cup shredded Monterey Jack cheese</li>
+            <li>1 tbsp olive oil, 1 tsp cumin, 1 tsp chili powder, salt</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Whisk soy sauce, brown sugar, sesame oil, garlic, and ginger in a small bowl.</li>
-            <li>In a large skillet over medium-high heat, cook ground turkey for 6–7 minutes until fully cooked, breaking into fine crumbles.</li>
-            <li>Pour in the sauce mixture and simmer with the turkey for 2–3 minutes until the sauce reduces into a glossy glaze.</li>
-            <li>Serve with warm rice, crisp lettuce cups, matchstick carrots, and kimchi.</li>
+            <li>Microwave diced sweet potatoes in a covered bowl with 2 tbsp water for 5 mins until tender.</li>
+            <li>Toss sweet potatoes with black beans, corn, cumin, chili powder, and half the enchilada sauce.</li>
+            <li>In a 9x13 baking dish, layer tortilla quarters, sweet potato-black bean mixture, and sauce. Top with shredded jack cheese.</li>
+            <li>Bake at 375°F for 18–20 minutes until bubbling and cheese is melted and lightly browned.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz sweet Korean ground turkey + 1/2 cup cooked brown rice + butter lettuce cups + matchstick carrots + 1/3 cup kimchi.</div>
-            <div class="macro-badge">🎯 36g Protein • 14g Fat • 45g Carbs • 450 kcal</div>
+            <div class="custom-text">1 generous square enchilada bake (black beans, sweet potato, corn, salsa verde, light jack cheese) + side green salad.</div>
+            <div class="macro-badge">🎯 26g Protein • 14g Fat • 54g Carbs • 450 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Top generously with spicy local kimchi, sriracha drizzle, and toasted sesame seeds.</div>
+            <div class="custom-text">Pickled jalapeño slices, hot sauce & cilantro-lime crema.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Sweet Korean turkey spooned over warm jasmine rice with sweet raw carrot matchsticks.</div>
+            <div class="custom-text">Mild sweet potato & cheese soft tacos with corn on the side.</div>
           </div>
         </div>
       </div>
     </article>
 
-    <!-- W3 THU -->
-    <article class="recipe-card" id="rec-w3-thu" data-appliance="Grill" data-week="3">
+    <!-- W3 FRI -->
+    <article class="recipe-card" id="rec-w3-fri" data-appliance="Grill" data-week="3">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 3 • Thursday</div>
-          <h3 class="recipe-title">Grilled Lemon-Garlic Chicken Thighs & Green Beans</h3>
+          <div class="recipe-day-tag">Week 3 • Friday</div>
+          <h3 class="recipe-title">Grilled Lemon Garlic Chicken Thighs & Baby Potatoes</h3>
         </div>
         <div class="recipe-meta">
           <span class="badge badge-grill">Outdoor Grill</span>
@@ -2043,103 +2080,50 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>2 lbs boneless skinless chicken thighs</li>
+            <li>1.5–2 lbs boneless skinless chicken thighs</li>
+            <li>1.5 lbs baby potatoes, halved</li>
             <li>1 lb fresh green beans, trimmed</li>
-            <li>1 lb baby potatoes, halved and parboiled</li>
-            <li>2 tbsp olive oil + 1 lemon (juiced and zested)</li>
-            <li>3 cloves garlic, minced + 1 tsp dried oregano</li>
-            <li>Garlic Toum dip (Lebanese garlic spread) & pita bread</li>
+            <li>2 tbsp olive oil + 1 lemon (juiced) + 3 cloves minced garlic + 1 tsp oregano</li>
+            <li>Deli Tzatziki or Toum garlic spread</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Toss chicken thighs with 1 tbsp olive oil, lemon juice, lemon zest, minced garlic, oregano, salt, and pepper.</li>
-            <li>Preheat grill to medium-high (400°F). Place chicken thighs on grates. Grill for 6–7 minutes per side until charred and internal temp is 165–170°F.</li>
-            <li>Toss green beans and parboiled baby potatoes with olive oil and salt; cook in a grill basket for 8–10 minutes until tender with light char.</li>
+            <li>Marinate chicken thighs in olive oil, lemon juice, garlic, oregano, salt, and pepper for 10 mins.</li>
+            <li>Boil baby potatoes for 8 mins, drain, toss with oil and salt, then grill or air-fry until crispy.</li>
+            <li>Grill chicken thighs over medium-high heat (400°F) for 6–7 mins per side until internal temp is 170°F.</li>
+            <li>Grill or steam green beans with light olive oil spray for 5 mins.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">4.5 oz grilled skinless chicken thigh meat + 120g roasted baby potatoes + 1.5 cups charred green beans + 1 tbsp Garlic Toum dip.</div>
+            <div class="custom-text">4.5 oz skinless chicken thigh meat + 120g roasted baby potatoes + 1.5 cups green beans + 1 tbsp tzatziki.</div>
             <div class="macro-badge">🎯 34g Protein • 16g Fat • 42g Carbs • 450 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Dip juicy chicken into pungent, spicy Lebanese Garlic Toum dip with warm pita.</div>
+            <div class="custom-text">Homemade chimichurri or spicy garlic-dijon mustard dip & warm pita.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Sliced tender chicken thigh meat + roasted baby potato bites + warm pita wedges.</div>
+            <div class="custom-text">Sliced chicken thigh meat + roasted potato bites + warm pita wedges.</div>
           </div>
         </div>
       </div>
     </article>
 
-    <!-- W3 FRI -->
-    <article class="recipe-card" id="rec-w3-fri" data-appliance="Air Fryer" data-week="3">
-      <div class="recipe-header">
-        <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 3 • Friday</div>
-          <h3 class="recipe-title">Protein-Loaded Sweet Potato & Potato Bar</h3>
-        </div>
-        <div class="recipe-meta">
-          <span class="badge badge-af">Air Fryer</span>
-          <span class="meta-pill">⏱️ Prep: 5m</span>
-          <span class="meta-pill">🔥 Cook: 35m</span>
-          <span class="meta-pill">👥 Serves: 5</span>
-        </div>
-      </div>
-      <div class="recipe-body">
-        <div class="recipe-col">
-          <div class="recipe-section-title">🛒 Ingredients</div>
-          <ul class="ingredients-list">
-            <li>1.5 lbs chicken breasts (seasoned & grilled/diced as core protein)</li>
-            <li>4 large Russet potatoes + 2 medium Sweet potatoes</li>
-            <li>1 tbsp olive oil + coarse sea salt</li>
-            <li>4 slices thick-cut bacon (optional for dad/kids, crumbled)</li>
-            <li>Shredded cheddar cheese, nonfat plain Greek yogurt</li>
-            <li>Fresh chives, sliced jalapeños, hot sauce, steamed broccoli</li>
-          </ul>
-        </div>
-        <div class="recipe-col">
-          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
-          <ol class="steps-list">
-            <li>Pierce potatoes all over with a fork. Rub skins lightly with olive oil and coarse sea salt.</li>
-            <li>Preheat Air Fryer to 400°F. Place potatoes in basket. Air-fry for 35–40 minutes until skins are crispy and insides are fork-tender.</li>
-            <li>Pan-sear or grill seasoned chicken breasts for 10 mins (165°F), then dice into bite-sized protein cubes. Cook optional bacon for dad.</li>
-            <li>Slice potatoes open, fluff insides, and set out diced chicken, Greek yogurt, broccoli, and toppings for a healthy loaded potato bar.</li>
-          </ol>
-        </div>
-        <div class="customizations-box">
-          <div class="custom-item">
-            <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">1 medium baked sweet potato (150g) + 4.5 oz diced grilled chicken breast + 1/4 cup nonfat Greek yogurt + 1 cup steamed broccoli + fresh chives.</div>
-            <div class="macro-badge">🎯 38g Protein • 14g Fat • 44g Carbs • 450 kcal</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Loaded russet with sharp cheddar, diced chicken, bacon crumbles, sliced jalapeños, and hot sauce.</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Crispy-skinned russet potato fluffed with butter, mild melted cheddar, and tender chicken bites.</div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- W3 SAT -->
+    <!-- W3 SAT: SEAFOOD -->
     <article class="recipe-card" id="rec-w3-sat" data-appliance="Air Fryer" data-week="3">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 3 • Saturday</div>
-          <h3 class="recipe-title">Air-Fryer Honey Mustard Salmon with Zucchini & Wild Rice</h3>
+          <div class="recipe-day-tag">Week 3 • Saturday • Seafood Night</div>
+          <h3 class="recipe-title">🐟 Honey Mustard Salmon & Wild Rice</h3>
         </div>
         <div class="recipe-meta">
           <span class="badge badge-af">Air Fryer</span>
-          <span class="meta-pill">⏱️ Prep: 8m</span>
+          <span class="meta-pill">⏱️ Prep: 10m</span>
           <span class="meta-pill">🔥 Cook: 10m</span>
           <span class="meta-pill">👥 Serves: 5</span>
         </div>
@@ -2148,52 +2132,51 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>2–3 fresh salmon fillets (approx. 5–6 oz each for parents)</li>
-            <li>Kids meat: 1 lb chicken tenders (for air fryer)</li>
-            <li>2 tbsp coarse Dijon / whole-grain mustard</li>
-            <li>1.5 tbsp honey + 1 tbsp olive oil + 1 tsp lemon juice</li>
-            <li>2 medium zucchinis, sliced into half-moons</li>
-            <li>Cooked wild rice blend</li>
+            <li>1.5 lbs salmon fillets</li>
+            <li><strong>Glaze:</strong> 2 tbsp Dijon mustard + 1.5 tbsp honey + 1 tbsp olive oil + 1 clove garlic</li>
+            <li>3 cups cooked wild rice blend</li>
+            <li>2 medium zucchinis, cut into half-moons</li>
+            <li><em>Kids alternative:</em> 1 bag chicken tenders</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Whisk coarse mustard, honey, olive oil, lemon juice, salt, and pepper in a small bowl.</li>
-            <li>Toss sliced zucchini with 1 tsp olive oil and salt. Place in air fryer basket.</li>
-            <li>Top salmon fillets with honey mustard glaze. Place salmon alongside zucchini in air fryer basket.</li>
-            <li>Air-fry at 390°F for 8–10 minutes until salmon flakes easily with a fork and zucchini is tender-crisp. (Cook kid tenders for 8–10 mins at 390°F).</li>
+            <li>Preheat Air Fryer to 400°F. Whisk Dijon mustard, honey, olive oil, and garlic.</li>
+            <li>Coat salmon fillets with honey mustard glaze. Air-fry at 400°F for 7–9 minutes until flaky.</li>
+            <li>Sauté zucchini half-moons in a pan with 1 tsp olive oil and salt for 5 mins until tender-crisp.</li>
+            <li>Serve salmon with warm wild rice and sautéed zucchini.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz honey mustard salmon fillet + 2/3 cup cooked wild rice blend + 1.5 cups roasted zucchini half-moons.</div>
+            <div class="custom-text">5 oz salmon fillet + 2/3 cup cooked wild rice blend + roasted zucchini + honey mustard glaze.</div>
             <div class="macro-badge">🎯 34g Protein • 16g Fat • 47g Carbs • 470 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Spicy coarse Dijon glaze with extra cracked pepper and a pinch of cayenne.</div>
+            <div class="custom-text">Spicy coarse Dijon glaze with cracked black pepper & cayenne.</div>
           </div>
           <div class="custom-item">
-            <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text"><strong>Kid Friendly:</strong> Crispy air-fryer chicken tenders + wild/white rice + mild honey mustard dipping sauce.</div>
+            <div class="custom-label label-kids">🧒 Kids' Plate (Alternative)</div>
+            <div class="custom-text">Air-Fryer Chicken Tenders + wild rice + honey mustard.</div>
           </div>
         </div>
       </div>
     </article>
 
     <!-- W3 SUN -->
-    <article class="recipe-card" id="rec-w3-sun" data-appliance="Oven" data-week="3">
+    <article class="recipe-card" id="rec-w3-sun" data-appliance="Takeout" data-week="3">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 3 • Sunday</div>
-          <h3 class="recipe-title">Family Pizza Night</h3>
+          <div class="recipe-day-tag">Week 3 • Sunday • Family Tradition</div>
+          <h3 class="recipe-title">🍕 Takeout / Frozen Pizza & Movie Night</h3>
         </div>
         <div class="recipe-meta">
-          <span class="badge badge-oven">Oven</span>
-          <span class="meta-pill">⏱️ Prep: 10m</span>
-          <span class="meta-pill">🔥 Cook: 12m</span>
+          <span class="badge badge-takeout">Takeout / Frozen</span>
+          <span class="meta-pill">⏱️ Prep: 5m</span>
+          <span class="meta-pill">🔥 Cook: 15m</span>
           <span class="meta-pill">👥 Serves: 5</span>
         </div>
       </div>
@@ -2201,47 +2184,44 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>2 pizza crusts / flatbreads</li>
-            <li>1 cup pizza marinara sauce + 2 cups shredded mozzarella</li>
-            <li>1 lb chicken breast strips (grilled for toppers & salad)</li>
-            <li>Assorted favorite vegetable toppings (peppers, mushrooms, basil)</li>
-            <li>Hot honey & side green salad kit with vinaigrette</li>
+            <li>2 frozen pizzas or takeout order</li>
+            <li>1 large bagged garden salad</li>
+            <li>1 cup leftover grilled chicken or tuna</li>
+            <li>Hot honey, red pepper flakes, grated parmesan</li>
           </ul>
         </div>
         <div class="recipe-col">
-          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
+          <div class="recipe-section-title">👨‍🍳 Effortless Sunday Flow</div>
           <ol class="steps-list">
-            <li>Preheat oven to 450°F. Pan-sear chicken breast strips.</li>
-            <li>Build custom pizzas with family-favorite cheese and toppings.</li>
-            <li>Bake for 10–13 minutes until bubbly and golden.</li>
-            <li>Toss garden salad with light dressing and top with grilled chicken.</li>
+            <li>Bake pizzas or unpack takeout delivery.</li>
+            <li>Toss garden salad with lean protein for Mom's balanced plate.</li>
+            <li>Enjoy zero-cook Sunday family dinner!</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">1 thin-crust veggie slice + large garden salad topped with 3.5 oz grilled chicken breast & light Italian vinaigrette.</div>
+            <div class="custom-text">1 thin-crust cheese/veggie slice + large garden salad topped with 3.5 oz chicken & light vinaigrette.</div>
             <div class="macro-badge">🎯 34g Protein • 14g Fat • 42g Carbs • 430 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Hot Honey drizzle over pizza slices with red pepper flakes.</div>
+            <div class="custom-text">Hot Honey drizzle, red pepper flakes & grated parmesan.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Warm melted cheese pizza slices with fresh veggie sticks.</div>
+            <div class="custom-text">Melted mozzarella cheese pizza slices + fresh veggie sticks.</div>
           </div>
         </div>
       </div>
     </article>
-
 
     <!-- ========================================================================= -->
     <!-- WEEK 4 RECIPES -->
     <!-- ========================================================================= -->
     <div class="week-divider" id="week-4">
       <h2>🗓️ Week 4: Quick Skillet & Air-Fryer Favorites</h2>
-      <span class="week-subtitle">Greek Bowls • Chicken Tacos • Tomato Spinach Pasta • BBQ Chicken • Sloppy Joes • Garlic Shrimp • Pizza</span>
+      <span class="week-subtitle">Greek Turkey Bowls • Chicken Tacos • Leftovers • Tuscan White Bean Pasta • BBQ Chicken • Shrimp • Pizza</span>
     </div>
 
     <!-- W4 MON -->
@@ -2249,10 +2229,10 @@
       <div class="recipe-header">
         <div class="recipe-title-group">
           <div class="recipe-day-tag">Week 4 • Monday</div>
-          <h3 class="recipe-title">Greek Turkey & Cucumber Salad Bowls</h3>
+          <h3 class="recipe-title">Greek Turkey Cucumber Salad Bowls</h3>
         </div>
         <div class="recipe-meta">
-          <span class="badge badge-skillet">Stovetop Skillet</span>
+          <span class="badge badge-skillet">Skillet</span>
           <span class="meta-pill">⏱️ Prep: 10m</span>
           <span class="meta-pill">🔥 Cook: 10m</span>
           <span class="meta-pill">👥 Serves: 5</span>
@@ -2262,35 +2242,36 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>1.5 lbs ground turkey (93/7)</li>
-            <li>1 tbsp olive oil, 1 tsp dried oregano, 1/2 tsp garlic powder, salt, pepper</li>
-            <li>2 Persian/English cucumbers, diced + 1 pint cherry tomatoes, halved</li>
-            <li>1/2 cup crumbled feta cheese & Tzatziki dip</li>
-            <li>Harissa paste (spicy chili paste for dad)</li>
-            <li>Warm Greek whole wheat & white pita flatbreads + white rice</li>
+            <li>1.5 lbs 93/7 lean ground turkey</li>
+            <li>1 tbsp oregano, 1 tsp garlic powder, salt & pepper</li>
+            <li>2 cucumbers & 1 pint cherry tomatoes, diced</li>
+            <li>1/2 cup crumbled feta cheese + 1/2 cup Tzatziki dip</li>
+            <li>3 whole wheat Greek pita flatbreads</li>
+            <li>Cooked brown/jasmine rice</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Heat olive oil in a skillet over medium-high. Add ground turkey, oregano, garlic powder, salt, and pepper. Cook for 8 mins until browned.</li>
-            <li>In a medium bowl, toss diced cucumbers and cherry tomatoes with a splash of olive oil, lemon juice, and salt.</li>
-            <li>Warm pita bread. Assemble bowls with turkey, cucumber-tomato salad, feta, and tzatziki.</li>
+            <li>Brown ground turkey in a skillet with oregano, garlic powder, salt, and pepper for 7–8 mins.</li>
+            <li>Toss diced cucumbers and tomatoes with 1 tbsp olive oil, lemon juice, salt, and pepper.</li>
+            <li>Warm pita flatbreads in a dry pan or toaster.</li>
+            <li>Assemble bowls with seasoned turkey, cucumber-tomato salad, feta, and tzatziki.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz seasoned 93/7 ground turkey + 1/2 whole wheat Greek pita + generous cucumber-tomato salad + 2 tbsp crumbled feta & 2 tbsp tzatziki.</div>
+            <div class="custom-text">5 oz 93/7 ground turkey + 1/2 whole wheat pita + cucumber-tomato salad + 2 tbsp feta & tzatziki.</div>
             <div class="macro-badge">🎯 36g Protein • 15g Fat • 43g Carbs • 450 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Swirl spicy red Harissa paste and extra crumbled feta into his bowl.</div>
+            <div class="custom-text">Pickled banana peppers/jalapeños, sriracha/hot sauce & extra feta.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Warm rice bowl with seasoned turkey, cucumber slices, and warm pita bread triangles for dipping.</div>
+            <div class="custom-text">Warm rice bowl with seasoned turkey, cucumbers & pita triangles.</div>
           </div>
         </div>
       </div>
@@ -2314,46 +2295,94 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>1.5 lbs chicken breasts / tenderloins</li>
-            <li>1.5 tbsp olive oil + 1 lime (juiced) + 1 packet taco seasoning</li>
-            <li>Warm corn tortillas (for mom) and flour tortillas (for kids/dad)</li>
-            <li>Shredded cheddar/jack cheese & shredded lettuce</li>
-            <li>Fresh guacamole, salsa, chipotle hot sauce, jalapeños</li>
+            <li>1.5 lbs chicken breast tenders</li>
+            <li>1 packet taco seasoning + 1 lime (juiced) + 1 tbsp oil</li>
+            <li>Corn tortillas (for Mom) & flour tortillas (for kids/dad)</li>
+            <li>Shredded romaine lettuce, fresh salsa, prepared guacamole</li>
+            <li>Shredded cheddar cheese & sour cream</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Toss chicken in olive oil, lime juice, and taco seasoning.</li>
-            <li>Preheat grill to medium-high (400°F). Grill chicken for 5–6 minutes per side until charred and internal temp is 165°F.</li>
-            <li>Rest chicken for 3 minutes, then slice or dice into bite-sized taco pieces.</li>
-            <li>Warm tortillas on the grill for 20 seconds. Serve family-style taco bar.</li>
+            <li>Toss chicken tenders in oil, lime juice, and taco seasoning.</li>
+            <li>Grill over medium-high heat for 4–5 mins per side until internal temp is 165°F. Rest and slice.</li>
+            <li>Warm tortillas on the grill for 30 seconds.</li>
+            <li>Set out toppings bar for family soft taco assembly.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz grilled chicken breast + 2 warm corn tortillas + shredded lettuce + 2 tbsp fresh salsa + 2 tbsp fresh guacamole.</div>
+            <div class="custom-text">5 oz grilled chicken breast + 2 warm corn tortillas + shredded lettuce + fresh salsa + 2 tbsp guacamole.</div>
             <div class="macro-badge">🎯 38g Protein • 14g Fat • 43g Carbs • 450 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Douse with smoky chipotle hot sauce, sliced fresh jalapeños, and cilantro.</div>
+            <div class="custom-text">Smoky chipotle hot sauce, pickled jalapeños & fresh lime squeeze.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Soft flour tortillas filled with mild diced grilled chicken and melted cheddar cheese.</div>
+            <div class="custom-text">Soft flour tortillas filled with mild grilled chicken and cheddar.</div>
           </div>
         </div>
       </div>
     </article>
 
-    <!-- W4 WED -->
-    <article class="recipe-card" id="rec-w4-wed" data-appliance="Skillet" data-week="4">
+    <!-- W4 WED: LEFTOVERS -->
+    <article class="recipe-card" id="rec-w4-wed" data-appliance="Reheat" data-week="4">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 4 • Wednesday</div>
-          <h3 class="recipe-title">Creamy Tomato & Spinach Chicken Pasta</h3>
+          <div class="recipe-day-tag">Week 4 • Wednesday • Busy Activities Night</div>
+          <h3 class="recipe-title">🔄 Family Leftovers Buffet & Reheat Night</h3>
+        </div>
+        <div class="recipe-meta">
+          <span class="badge badge-reheat">Quick Reheat</span>
+          <span class="meta-pill">⏱️ Prep: 5m</span>
+          <span class="meta-pill">🔥 Reheat: 5m</span>
+          <span class="meta-pill">👥 Serves: 5</span>
+        </div>
+      </div>
+      <div class="recipe-body">
+        <div class="recipe-col">
+          <div class="recipe-section-title">🛒 Ingredients (From Fridge)</div>
+          <ul class="ingredients-list">
+            <li>Leftover Greek seasoned turkey (from Mon)</li>
+            <li>Leftover grilled taco chicken & tortillas (from Tue)</li>
+            <li>Pantry: hot sauce, pickled peppers, feta, salsa</li>
+          </ul>
+        </div>
+        <div class="recipe-col">
+          <div class="recipe-section-title">👨‍🍳 5-Minute Speedy Service</div>
+          <ol class="steps-list">
+            <li>Reheat chicken and seasoned turkey in microwave for 60 seconds.</li>
+            <li>Quick-assemble tacos, rice bowls, or pita wraps in 5 mins before sports.</li>
+          </ol>
+        </div>
+        <div class="customizations-box">
+          <div class="custom-item">
+            <div class="custom-label label-mom">🥗 Mom's Portion</div>
+            <div class="custom-text">4–5 oz leftover seasoned turkey/chicken + 1/2 cup rice/pita + fresh side garden salad.</div>
+            <div class="macro-badge">🎯 36g Protein • 14g Fat • 44g Carbs • 450 kcal</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
+            <div class="custom-text">Loaded leftover taco salad with hot sauce, pickled peppers & crumbled feta.</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-kids">🧒 Kids' Plate</div>
+            <div class="custom-text">Reheated chicken tacos or turkey roll-ups with mild cheddar.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- W4 THU: VEGETARIAN -->
+    <article class="recipe-card" id="rec-w4-thu" data-appliance="Skillet" data-week="4">
+      <div class="recipe-header">
+        <div class="recipe-title-group">
+          <div class="recipe-day-tag">Week 4 • Thursday • High-Protein Vegetarian</div>
+          <h3 class="recipe-title">🌱 Creamy Tuscan White Bean & Spinach Pasta</h3>
         </div>
         <div class="recipe-meta">
           <span class="badge badge-skillet">Stovetop Skillet</span>
@@ -2366,213 +2395,50 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>1.5 lbs chicken breast, cut into bite-sized pieces</li>
-            <li>8 oz penne pasta (for kids/dad) + 2 oz Banza chickpea penne (for mom)</li>
-            <li>1 can (14 oz) crushed tomatoes or marinara</li>
-            <li>1/3 cup half & half or light cream</li>
-            <li>2 cups fresh baby spinach</li>
-            <li>2 cloves garlic, minced + 1 tbsp olive oil + 1/4 cup grated Parmesan</li>
-            <li>Fresh basil pesto & red pepper flakes</li>
+            <li>2 cans (15 oz each) organic Cannellini (white kidney) beans, rinsed & drained</li>
+            <li>1 box (8 oz) Banza chickpea penne (or regular penne for kids)</li>
+            <li>1 can (14.5 oz) diced Italian tomatoes + 1/2 cup tomato marinara</li>
+            <li>4 cups fresh baby spinach</li>
+            <li>3 cloves minced garlic + 2 tbsp olive oil + 1/4 cup light cream or milk</li>
+            <li>1/3 cup grated parmesan cheese + pinch red pepper flakes</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Boil penne pasta and Banza chickpea pasta separately according to package directions; drain.</li>
-            <li>In a large skillet, heat 1 tbsp olive oil over medium-high. Season chicken with salt and Italian herbs, and sauté 5–6 mins until golden and cooked through. Remove to a plate.</li>
-            <li>Add minced garlic to skillet, sauté 30 seconds. Pour in crushed tomatoes and cream. Simmer 3 minutes until smooth.</li>
-            <li>Stir in baby spinach until wilted. Toss in cooked pasta, chicken, and Parmesan cheese until coated.</li>
+            <li>Boil penne pasta in salted water for 7–8 mins until al dente. Drain.</li>
+            <li>In a large skillet, heat olive oil over medium heat and sauté minced garlic for 1 min.</li>
+            <li>Add drained cannellini beans, diced tomatoes, marinara, and light cream. Simmer gently for 5 mins, slightly mashing some beans to thicken the sauce.</li>
+            <li>Stir in baby spinach until wilted (1 min). Toss in cooked pasta and parmesan cheese.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">4.5 oz sautéed chicken breast + 2 oz Banza chickpea penne + creamy tomato-spinach sauce + 1 tbsp parmesan.</div>
-            <div class="macro-badge">🎯 40g Protein • 13g Fat • 45g Carbs • 460 kcal</div>
+            <div class="custom-text">3/4 cup cannellini beans + 1.5 oz Banza pasta + creamy garlic-spinach-tomato sauce + 1 tbsp parmesan.</div>
+            <div class="macro-badge">🎯 30g Protein • 13g Fat • 54g Carbs • 460 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Swirl in 1 tbsp fresh basil pesto and crushed red pepper flakes.</div>
+            <div class="custom-text">Crushed red pepper flakes, heaping parmesan & fresh cracked black pepper.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Penne pasta with creamy pink tomato sauce, tender chicken bites, and parmesan.</div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- W4 THU -->
-    <article class="recipe-card" id="rec-w4-thu" data-appliance="Air Fryer" data-week="4">
-      <div class="recipe-header">
-        <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 4 • Thursday</div>
-          <h3 class="recipe-title">Air-Fryer BBQ Chicken & Sweet Corn on the Cob</h3>
-        </div>
-        <div class="recipe-meta">
-          <span class="badge badge-af">Air Fryer</span>
-          <span class="meta-pill">⏱️ Prep: 8m</span>
-          <span class="meta-pill">🔥 Cook: 15m</span>
-          <span class="meta-pill">👥 Serves: 5</span>
-        </div>
-      </div>
-      <div class="recipe-body">
-        <div class="recipe-col">
-          <div class="recipe-section-title">🛒 Ingredients</div>
-          <ul class="ingredients-list">
-            <li>1.5 lbs chicken breasts / tenderloins</li>
-            <li>3–4 ears fresh sweet corn, husked and cut in half</li>
-            <li>1/2 cup favorite BBQ sauce (Kinder's / Sweet Baby Ray's)</li>
-            <li>1 tbsp olive oil, 1 tsp smoked paprika, garlic powder, salt</li>
-            <li>2 broccoli crowns, cut into florets & steamed</li>
-            <li>Spicy chipotle BBQ sauce for dad</li>
-          </ul>
-        </div>
-        <div class="recipe-col">
-          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
-          <ol class="steps-list">
-            <li>Rub halved corn ears with 1 tsp olive oil, salt, and pepper. Place in air fryer at 400°F for 10–12 mins until kernels are golden and lightly blistered.</li>
-            <li>Season chicken tenders with paprika, garlic powder, and salt.</li>
-            <li>Air-fry chicken at 390°F for 8 minutes. Brush with BBQ sauce. Air-fry for 2–3 more minutes until glaze is sticky, bubbly, and caramelized (165°F).</li>
-            <li>Steam broccoli florets in a saucepan or steamer for 4 minutes with a pinch of salt.</li>
-          </ol>
-        </div>
-        <div class="customizations-box">
-          <div class="custom-item">
-            <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz BBQ-glazed chicken tenders + 1 ear sweet corn on the cob + 1.5 cups steamed broccoli florets.</div>
-            <div class="macro-badge">🎯 37g Protein • 12g Fat • 46g Carbs • 440 kcal</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Brush chicken with spicy chipotle BBQ sauce and add a dash of cayenne pepper.</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Sweet corn on the cob (with butter) + sliced sweet BBQ chicken tenders + broccoli.</div>
+            <div class="custom-text">Penne pasta in creamy tomato sauce with cannellini beans & melted parmesan.</div>
           </div>
         </div>
       </div>
     </article>
 
     <!-- W4 FRI -->
-    <article class="recipe-card" id="rec-w4-fri" data-appliance="Instant Pot" data-week="4">
+    <article class="recipe-card" id="rec-w4-fri" data-appliance="Air Fryer" data-week="4">
       <div class="recipe-header">
         <div class="recipe-title-group">
           <div class="recipe-day-tag">Week 4 • Friday</div>
-          <h3 class="recipe-title">Instant Pot Turkey Sloppy Joes on Hawaiian Rolls</h3>
-        </div>
-        <div class="recipe-meta">
-          <span class="badge badge-ip">Instant Pot</span>
-          <span class="meta-pill">⏱️ Prep: 8m</span>
-          <span class="meta-pill">🔥 Cook: 5m (High)</span>
-          <span class="meta-pill">👥 Serves: 5</span>
-        </div>
-      </div>
-      <div class="recipe-body">
-        <div class="recipe-col">
-          <div class="recipe-section-title">🛒 Ingredients</div>
-          <ul class="ingredients-list">
-            <li>1.5 lbs ground turkey (93/7)</li>
-            <li>1 small yellow onion, finely diced</li>
-            <li>1/2 cup tomato sauce + 1/3 cup ketchup</li>
-            <li>1 tbsp yellow mustard + 1 tbsp Worcestershire sauce</li>
-            <li>1 tbsp brown sugar + 1/2 tsp garlic powder, salt, pepper</li>
-            <li>1 pack King's Hawaiian sweet rolls (for kids/dad) + 1 whole wheat bun for mom</li>
-            <li>1 sweet potato, cut into wedges & roasted</li>
-            <li>Pickled jalapeños & spicy mustard for dad</li>
-          </ul>
-        </div>
-        <div class="recipe-col">
-          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
-          <ol class="steps-list">
-            <li>Set Instant Pot to "Sauté". Add 1 tsp oil, diced onion, and ground turkey. Cook for 4–5 mins until turkey is browned.</li>
-            <li>Stir in tomato sauce, ketchup, mustard, Worcestershire, brown sugar, garlic powder, salt, and pepper.</li>
-            <li>Lock lid, cook on High Pressure for 5 minutes. Quick release pressure. Stir well; let sit 2 mins to thicken.</li>
-            <li>Roast sweet potato wedges in air fryer at 400°F for 15 mins. Slice rolls/buns horizontally to build sandwiches.</li>
-          </ol>
-        </div>
-        <div class="customizations-box">
-          <div class="custom-item">
-            <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">5 oz lean turkey Sloppy Joe mixture + open-face whole wheat bun + 100g roasted sweet potato wedges + side green salad.</div>
-            <div class="macro-badge">🎯 36g Protein • 13g Fat • 46g Carbs • 450 kcal</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Top sliders with pickled jalapeño slices and spicy coarse brown mustard.</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text">Mini Sloppy Joe sliders on sweet King's Hawaiian rolls (kid absolute favorite).</div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- W4 SAT -->
-    <article class="recipe-card" id="rec-w4-sat" data-appliance="Air Fryer" data-week="4">
-      <div class="recipe-header">
-        <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 4 • Saturday</div>
-          <h3 class="recipe-title">Air-Fryer Garlic Butter Shrimp with Asparagus (Kids Sliders)</h3>
+          <h3 class="recipe-title">Air-Fryer BBQ Chicken Tenders & Sweet Corn</h3>
         </div>
         <div class="recipe-meta">
           <span class="badge badge-af">Air Fryer</span>
-          <span class="meta-pill">⏱️ Prep: 8m</span>
-          <span class="meta-pill">🔥 Cook: 6m</span>
-          <span class="meta-pill">👥 Serves: 5</span>
-        </div>
-      </div>
-      <div class="recipe-body">
-        <div class="recipe-col">
-          <div class="recipe-section-title">🛒 Ingredients</div>
-          <ul class="ingredients-list">
-            <li>1 lb raw large shrimp (Kirkland), peeled & deveined, tail-on</li>
-            <li>Kids meat: 4–6 mini breaded chicken cutlets / tenders for sliders</li>
-            <li>1 bunch fresh asparagus, trimmed</li>
-            <li>2 tbsp butter, melted + 1 tbsp olive oil</li>
-            <li>3 cloves garlic, minced + 1 lemon (juiced) + 1 tbsp fresh parsley</li>
-            <li>Cooked wild rice blend</li>
-            <li>Hawaiian rolls & cheddar slices (for kids sliders)</li>
-          </ul>
-        </div>
-        <div class="recipe-col">
-          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
-          <ol class="steps-list">
-            <li>Toss raw shrimp and asparagus with melted butter, olive oil, minced garlic, lemon juice, salt, and pepper.</li>
-            <li>Preheat Air Fryer to 390°F. Place shrimp and asparagus in the basket in a single layer.</li>
-            <li>Air-fry for 5–7 minutes, shaking basket at 3 minutes, until shrimp are pink, opaque, and curled, and asparagus is tender-crisp.</li>
-            <li>For kids: Air-fry chicken tenders for 6–8 mins at 390°F; place on Hawaiian rolls with melted cheese.</li>
-          </ol>
-        </div>
-        <div class="customizations-box">
-          <div class="custom-item">
-            <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">6 oz large shrimp + 2/3 cup cooked wild rice blend + 1.5 cups roasted asparagus + 1 tbsp garlic lemon butter/oil.</div>
-            <div class="macro-badge">🎯 38g Protein • 15g Fat • 44g Carbs • 460 kcal</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Drizzle with spicy garlic chili butter with extra lemon and red pepper flakes.</div>
-          </div>
-          <div class="custom-item">
-            <div class="custom-label label-kids">🧒 Kids' Plate</div>
-            <div class="custom-text"><strong>Kid Friendly:</strong> Warm mini chicken slider sandwiches on sweet Hawaiian rolls with cheese.</div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- W4 SUN -->
-    <article class="recipe-card" id="rec-w4-sun" data-appliance="Oven" data-week="4">
-      <div class="recipe-header">
-        <div class="recipe-title-group">
-          <div class="recipe-day-tag">Week 4 • Sunday</div>
-          <h3 class="recipe-title">Family Pizza Night</h3>
-        </div>
-        <div class="recipe-meta">
-          <span class="badge badge-oven">Oven</span>
           <span class="meta-pill">⏱️ Prep: 10m</span>
           <span class="meta-pill">🔥 Cook: 12m</span>
           <span class="meta-pill">👥 Serves: 5</span>
@@ -2582,31 +2448,131 @@
         <div class="recipe-col">
           <div class="recipe-section-title">🛒 Ingredients</div>
           <ul class="ingredients-list">
-            <li>2 artisan pizza crusts / flatbreads</li>
-            <li>1 cup pizza marinara sauce + 2 cups shredded mozzarella</li>
-            <li>1 lb chicken breast strips (grilled for toppers & salad)</li>
-            <li>Favorite vegetable toppings (peppers, mushrooms, basil)</li>
-            <li>Hot honey & side garden salad kit with light dressing</li>
+            <li>1.5–2 lbs chicken breast tenderloins</li>
+            <li>1/2 cup BBQ sauce (low-sugar for Mom, sweet for kids)</li>
+            <li>4 ears sweet corn on the cob</li>
+            <li>1 bag broccoli florets (steamed)</li>
+            <li>1 tsp garlic powder, smoked paprika, salt & pepper</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
           <ol class="steps-list">
-            <li>Preheat oven to 450°F. Pan-sear chicken breast strips.</li>
-            <li>Build pizzas with preferred toppings and sauce amounts.</li>
-            <li>Bake for 10–13 minutes until crispy and golden.</li>
-            <li>Toss garden salad with light vinaigrette and top with grilled chicken.</li>
+            <li>Preheat Air Fryer to 390°F. Season chicken tenders with garlic powder, paprika, salt, and pepper.</li>
+            <li>Air-fry chicken for 8 minutes, brush generously with BBQ sauce, and air-fry 3 more minutes until caramelized and 165°F.</li>
+            <li>Boil or grill sweet corn for 6–8 minutes. Steam broccoli in microwave or saucepan for 4 mins.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Portion</div>
-            <div class="custom-text">1 thin-crust veggie slice + large garden salad topped with 3.5 oz grilled chicken breast & light vinaigrette.</div>
+            <div class="custom-text">5 oz BBQ glazed chicken breast tenders + 1 ear sweet corn + 1.5 cups steamed broccoli.</div>
+            <div class="macro-badge">🎯 37g Protein • 12g Fat • 46g Carbs • 440 kcal</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
+            <div class="custom-text">Spicy coarse Dijon mustard, cayenne pepper & hot sauce swirl.</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-kids">🧒 Kids' Plate</div>
+            <div class="custom-text">Sweet corn on the cob + sweet BBQ chicken tenders + broccoli with butter.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- W4 SAT: SEAFOOD -->
+    <article class="recipe-card" id="rec-w4-sat" data-appliance="Air Fryer" data-week="4">
+      <div class="recipe-header">
+        <div class="recipe-title-group">
+          <div class="recipe-day-tag">Week 4 • Saturday • Seafood Night</div>
+          <h3 class="recipe-title">🐟 Air-Fryer Garlic Butter Shrimp & Asparagus</h3>
+        </div>
+        <div class="recipe-meta">
+          <span class="badge badge-af">Air Fryer</span>
+          <span class="meta-pill">⏱️ Prep: 10m</span>
+          <span class="meta-pill">🔥 Cook: 8m</span>
+          <span class="meta-pill">👥 Serves: 5</span>
+        </div>
+      </div>
+      <div class="recipe-body">
+        <div class="recipe-col">
+          <div class="recipe-section-title">🛒 Ingredients</div>
+          <ul class="ingredients-list">
+            <li>1.5 lbs raw large shrimp (peeled, deveined, tails on)</li>
+            <li>2 tbsp olive oil / butter + 3 cloves minced garlic + 1 lemon (juiced)</li>
+            <li>1 lb fresh asparagus, trimmed</li>
+            <li>3 cups cooked wild rice blend</li>
+            <li><em>Kids alternative:</em> Mini chicken sliders on Hawaiian rolls</li>
+          </ul>
+        </div>
+        <div class="recipe-col">
+          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
+          <ol class="steps-list">
+            <li>Toss shrimp and trimmed asparagus with olive oil, minced garlic, lemon juice, salt, and pepper.</li>
+            <li>Preheat Air Fryer to 390°F. Cook shrimp and asparagus in basket for 6–8 minutes, shaking halfway, until shrimp are pink and asparagus is tender-crisp.</li>
+            <li>Serve with warm wild rice blend and lemon wedges.</li>
+          </ol>
+        </div>
+        <div class="customizations-box">
+          <div class="custom-item">
+            <div class="custom-label label-mom">🥗 Mom's Portion</div>
+            <div class="custom-text">6 oz raw large shrimp + 2/3 cup cooked wild rice blend + roasted asparagus + 1 tbsp garlic butter/oil.</div>
+            <div class="macro-badge">🎯 38g Protein • 15g Fat • 44g Carbs • 460 kcal</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
+            <div class="custom-text">Garlic chili butter drizzle with lemon & crushed red pepper flakes.</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-kids">🧒 Kids' Plate (Alternative)</div>
+            <div class="custom-text">Air-Fryer Mini Chicken Sliders on sweet Hawaiian rolls.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- W4 SUN -->
+    <article class="recipe-card" id="rec-w4-sun" data-appliance="Takeout" data-week="4">
+      <div class="recipe-header">
+        <div class="recipe-title-group">
+          <div class="recipe-day-tag">Week 4 • Sunday • Family Tradition</div>
+          <h3 class="recipe-title">🍕 Takeout / Frozen Pizza & Movie Night</h3>
+        </div>
+        <div class="recipe-meta">
+          <span class="badge badge-takeout">Takeout / Frozen</span>
+          <span class="meta-pill">⏱️ Prep: 5m</span>
+          <span class="meta-pill">🔥 Cook: 15m</span>
+          <span class="meta-pill">👥 Serves: 5</span>
+        </div>
+      </div>
+      <div class="recipe-body">
+        <div class="recipe-col">
+          <div class="recipe-section-title">🛒 Ingredients</div>
+          <ul class="ingredients-list">
+            <li>2 frozen pizzas or takeout order</li>
+            <li>1 large bagged salad kit</li>
+            <li>1 cup leftover protein (chicken/tuna)</li>
+            <li>Hot honey, red pepper flakes, grated parmesan</li>
+          </ul>
+        </div>
+        <div class="recipe-col">
+          <div class="recipe-section-title">👨‍🍳 Effortless Sunday Flow</div>
+          <ol class="steps-list">
+            <li>Bake pizzas or unpack takeout delivery.</li>
+            <li>Toss garden salad with lean protein for Mom's balanced plate.</li>
+            <li>Enjoy zero-cook Sunday family dinner!</li>
+          </ol>
+        </div>
+        <div class="customizations-box">
+          <div class="custom-item">
+            <div class="custom-label label-mom">🥗 Mom's Portion</div>
+            <div class="custom-text">1 thin-crust cheese/veggie slice + large garden salad topped with 3.5 oz chicken/tuna & light vinaigrette.</div>
             <div class="macro-badge">🎯 34g Protein • 14g Fat • 42g Carbs • 430 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Flavor</div>
-            <div class="custom-text">Hot honey drizzle over pizza with chili flakes.</div>
+            <div class="custom-text">Hot Honey drizzle, red pepper flakes & grated parmesan.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Plate</div>
@@ -2616,187 +2582,97 @@
       </div>
     </article>
 
-
-    <!-- ========================================================================= -->
-    <!-- DEDICATED KID ALTERNATIVES & MASTER GUIDES -->
-    <!-- ========================================================================= -->
-    <div class="week-divider" id="kid-alternatives">
-      <h2>🧒 Dedicated Kid Alternatives & Master Guides</h2>
-      <span class="week-subtitle">Fish-Night Alternates (Tenders, Skewers, Sliders) • Master Pizza Night Guide</span>
-    </div>
-
-    <!-- KID ALT 1 -->
-    <article class="recipe-card" id="rec-kid-tenders" data-appliance="Air Fryer" data-week="kids">
+    <!-- MASTER LEFTOVERS GUIDE -->
+    <article class="recipe-card" id="master-leftovers-guide" data-appliance="Reheat" data-week="guide">
       <div class="recipe-header">
         <div class="recipe-title-group">
-          <div class="recipe-day-tag">Fish Night Kid Alternate (W1 & W3 Sat)</div>
-          <h3 class="recipe-title">Air-Fryer Crispy Homemade Chicken Tenders</h3>
+          <div class="recipe-day-tag">Master Strategy • Wednesday Family Tradition</div>
+          <h3 class="recipe-title">🔄 Master Wednesday Leftover Buffet & Remix Guide</h3>
         </div>
         <div class="recipe-meta">
-          <span class="badge badge-af">Air Fryer</span>
-          <span class="meta-pill">⏱️ Prep: 8m</span>
-          <span class="meta-pill">🔥 Cook: 10m</span>
-          <span class="meta-pill">👥 Serves: 3 Kids</span>
-        </div>
-      </div>
-      <div class="recipe-body">
-        <div class="recipe-col">
-          <div class="recipe-section-title">🛒 Ingredients</div>
-          <ul class="ingredients-list">
-            <li>1 lb chicken breast tenderloins</li>
-            <li>3/4 cup Panko breadcrumbs</li>
-            <li>1 egg, beaten (or 2 tbsp milk)</li>
-            <li>1/2 tsp garlic powder & 1/2 tsp salt (mild)</li>
-            <li>Olive oil cooking spray</li>
-            <li>Dipping sauces: Ketchup, mild honey mustard, BBQ sauce</li>
-          </ul>
-        </div>
-        <div class="recipe-col">
-          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
-          <ol class="steps-list">
-            <li>Preheat Air Fryer to 390°F. Lightly spray basket with cooking oil.</li>
-            <li>In one shallow bowl, beat the egg. In a second bowl, combine panko, garlic powder, and salt.</li>
-            <li>Dip each tenderloin into the egg, then dredge in panko, pressing gently so crumbs adhere.</li>
-            <li>Arrange in a single layer in the air fryer basket. Spray tops lightly with cooking oil.</li>
-            <li>Air-fry for 10 minutes at 390°F, flipping at 5 minutes, until golden, crispy, and cooked to 165°F.</li>
-          </ol>
-        </div>
-        <div class="customizations-box">
-          <div class="custom-item">
-            <div class="custom-label label-kids">🧒 Serving Recommendation</div>
-            <div class="custom-text">Serve with fluffy white/brown rice or roasted potato wedges, sliced cucumbers, and kid's choice of dipping sauce.</div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- KID ALT 2 -->
-    <article class="recipe-card" id="rec-kid-skewers" data-appliance="Grill" data-week="kids">
-      <div class="recipe-header">
-        <div class="recipe-title-group">
-          <div class="recipe-day-tag">Fish Night Kid Alternate (W2 Sat)</div>
-          <h3 class="recipe-title">Grilled Mild Chicken Skewers / Kabobs</h3>
-        </div>
-        <div class="recipe-meta">
-          <span class="badge badge-grill">Outdoor Grill</span>
-          <span class="meta-pill">⏱️ Prep: 8m</span>
-          <span class="meta-pill">🔥 Cook: 10m</span>
-          <span class="meta-pill">👥 Serves: 3 Kids</span>
-        </div>
-      </div>
-      <div class="recipe-body">
-        <div class="recipe-col">
-          <div class="recipe-section-title">🛒 Ingredients</div>
-          <ul class="ingredients-list">
-            <li>1 lb boneless chicken breasts, cut into 1-inch bite-sized cubes</li>
-            <li>4–6 wooden skewers (soaked in water 15 mins)</li>
-            <li>1 tbsp olive oil + 1/2 tsp garlic powder + 1/2 tsp salt</li>
-            <li>Optional: Mild sweet bell pepper chunks (spaced apart)</li>
-          </ul>
-        </div>
-        <div class="recipe-col">
-          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
-          <ol class="steps-list">
-            <li>Thread chicken cubes onto the soaked wooden skewers (leave slight space between pieces for fast, even cooking).</li>
-            <li>Brush lightly with olive oil and season with mild garlic powder and salt.</li>
-            <li>Preheat grill to medium-high (400°F). Grill skewers for 8–10 minutes, rotating every 2–3 minutes until nicely grilled and cooked through (165°F).</li>
-          </ol>
-        </div>
-        <div class="customizations-box">
-          <div class="custom-item">
-            <div class="custom-label label-kids">🧒 Serving Recommendation</div>
-            <div class="custom-text">Kids love eating off skewers! Serve with warm jasmine rice, pita bread triangles, or baby carrots.</div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- KID ALT 3 -->
-    <article class="recipe-card" id="rec-kid-sliders" data-appliance="Air Fryer" data-week="kids">
-      <div class="recipe-header">
-        <div class="recipe-title-group">
-          <div class="recipe-day-tag">Fish Night Kid Alternate (W4 Sat)</div>
-          <h3 class="recipe-title">Mini Chicken Sliders on Sweet Hawaiian Rolls</h3>
-        </div>
-        <div class="recipe-meta">
-          <span class="badge badge-af">Air Fryer</span>
+          <span class="badge badge-reheat">Quick Reheat</span>
           <span class="meta-pill">⏱️ Prep: 5m</span>
-          <span class="meta-pill">🔥 Cook: 8m</span>
-          <span class="meta-pill">👥 Serves: 3 Kids</span>
+          <span class="meta-pill">🔥 Cook: 5m</span>
+          <span class="meta-pill">👥 Serves: 5</span>
         </div>
       </div>
       <div class="recipe-body">
         <div class="recipe-col">
-          <div class="recipe-section-title">🛒 Ingredients</div>
+          <div class="recipe-section-title">💡 Why Wednesday Leftovers Work</div>
           <ul class="ingredients-list">
-            <li>6 King's Hawaiian sweet rolls, split horizontally</li>
-            <li>6 small air-fried chicken breast tender cutlets (or tenders cut in half)</li>
-            <li>3 slices mild cheddar or American cheese, cut into quarters</li>
-            <li>Light butter or mayo/ketchup</li>
+            <li><strong>Zero Cooking on Activity Nights:</strong> Gets dinner on the table in 5 minutes flat between sports and homework.</li>
+            <li><strong>Empties the Fridge Mid-Week:</strong> Eliminates food waste and keeps fridge organized.</li>
+            <li><strong>Air-Fryer Magic:</strong> 3 minutes at 380°F restores crispy tenders, potatoes, and quesadillas without sogginess.</li>
           </ul>
         </div>
         <div class="recipe-col">
-          <div class="recipe-section-title">👨‍🍳 Step-by-Step Instructions</div>
+          <div class="recipe-section-title">👨‍🍳 3 Quick Remix Ideas</div>
           <ol class="steps-list">
-            <li>Air-fry seasoned chicken tenders at 390°F for 8 minutes until cooked through. In the last 1 minute, place cheese squares on top to melt.</li>
-            <li>Lightly toast King's Hawaiian rolls in the toaster or air fryer for 1 minute.</li>
-            <li>Assemble mini sliders with the cheesy chicken tenders on the sweet rolls.</li>
+            <li><strong>The 3-Minute Quesadilla:</strong> Sandwich leftover shredded chicken or taco beef with cheese in a tortilla and toast in a dry skillet.</li>
+            <li><strong>The Power Grain Bowl:</strong> Reheat brown rice, top with warm leftover protein, steamed veggies, and a drizzle of tzatziki or chimichurri.</li>
+            <li><strong>The Loaded Salad:</strong> Fill a bowl with mixed greens, toss with light dressing, and top with chilled leftover grilled chicken or steak.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
-            <div class="custom-label label-kids">🧒 Serving Recommendation</div>
-            <div class="custom-text">Serve 2 mini sliders per kid with crunchy apple slices or carrot sticks.</div>
+            <div class="custom-label label-mom">🥗 Mom's Calibration Rule</div>
+            <div class="custom-text">Target: 4–5 oz stored lean protein + 1/2 cup stored complex carb + fresh side salad with 1 tbsp light dressing = 450 kcal.</div>
+            <div class="macro-badge">🎯 ~36g Protein • 14g Fat • 44g Carbs • 450 kcal</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-dad">🌶️ Dad's Remix Rule</div>
+            <div class="custom-text">Use versatile fridge boosters: pickled jalapeños, chimichurri, sriracha, or grated parmesan to make leftovers taste brand new.</div>
+          </div>
+          <div class="custom-item">
+            <div class="custom-label label-kids">🧒 Kids' Choice</div>
+            <div class="custom-text">Kids choose their favorite earlier meal of the week reheated fast.</div>
           </div>
         </div>
       </div>
     </article>
 
     <!-- MASTER GUIDE: PIZZA NIGHT -->
-    <article class="recipe-card" id="rec-master-pizza" data-appliance="Oven" data-week="guide">
+    <article class="recipe-card" id="rec-master-pizza" data-appliance="Takeout" data-week="guide">
       <div class="recipe-header">
         <div class="recipe-title-group">
           <div class="recipe-day-tag">Master Guide • Sunday Family Tradition</div>
-          <h3 class="recipe-title">Master Family Pizza Night & Customization Guide</h3>
+          <h3 class="recipe-title">🍕 Master Sunday Takeout / Frozen Pizza Guide</h3>
         </div>
         <div class="recipe-meta">
-          <span class="badge badge-oven">Oven</span>
-          <span class="meta-pill">⏱️ Prep: 15m</span>
-          <span class="meta-pill">🔥 Cook: 12m</span>
+          <span class="badge badge-takeout">Takeout / Frozen</span>
+          <span class="meta-pill">⏱️ Prep: 5m</span>
+          <span class="meta-pill">🔥 Cook: 15m</span>
           <span class="meta-pill">👥 Serves: 5</span>
         </div>
       </div>
       <div class="recipe-body">
         <div class="recipe-col">
-          <div class="recipe-section-title">🛒 Master Pantry Checklist</div>
+          <div class="recipe-section-title">🛒 Master Sunday Checklist</div>
           <ul class="ingredients-list">
-            <li>2 pizza dough balls or pre-baked artisan thin crusts</li>
-            <li>1 cup San Marzano tomato pizza sauce (or seasoned marinara)</li>
-            <li>8 oz whole-milk low-moisture mozzarella, freshly shredded</li>
-            <li>1 lb chicken breast strips (grilled for mom & salad toppers)</li>
-            <li>Toppings bar: sliced mushrooms, bell peppers, red onions, fresh basil</li>
-            <li>Finishing drizzle: Mike's Hot Honey & crushed red pepper flakes</li>
-            <li>Side: Romaine salad kit with light Italian vinaigrette</li>
+            <li>2 Kirkland Signature or Motor City frozen pizzas (or local takeout delivery)</li>
+            <li>1 large bagged Italian salad kit or mixed romaine greens</li>
+            <li>1 can light chunk white tuna (or 1 cup leftover grilled chicken from the week)</li>
+            <li>Finishing drizzle: Honey + crushed red pepper flakes (Hot Honey) & grated parmesan</li>
+            <li>Side: Sliced fresh cucumbers & baby carrots</li>
           </ul>
         </div>
         <div class="recipe-col">
           <div class="recipe-section-title">👨‍🍳 Step-by-Step Pro Tips</div>
           <ol class="steps-list">
-            <li><strong>Oven Temperature:</strong> Crank oven to highest setting (450°F–500°F). If using a pizza stone or steel, preheat for 30 minutes.</li>
-            <li><strong>Assembly Line:</strong> Let kids stretch their own dough on parchment paper and spoon sauce. Keep cheese 1/2 inch away from edges for a crispy crust.</li>
-            <li><strong>Bake Time:</strong> Bake 10–14 minutes until bottom is crispy and cheese is bubbling with blistered spots.</li>
-            <li><strong>Finishing Touch:</strong> Drizzle Dad's slices with hot honey immediately out of the oven!</li>
+            <li><strong>Bake Hot:</strong> If using frozen pizza, bake at 425°F–450°F directly on the center rack for the crispiest crust.</li>
+            <li><strong>Mom's High-Protein Anchor:</strong> Prep a large salad bowl with mixed greens, cherry tomatoes, and 3.5 oz grilled chicken or canned tuna in water.</li>
+            <li><strong>Dad's Gourmet Crust:</strong> Drizzle hot honey, sprinkle pecorino/parmesan, and add dried oregano right when it comes out of the oven.</li>
           </ol>
         </div>
         <div class="customizations-box">
           <div class="custom-item">
             <div class="custom-label label-mom">🥗 Mom's Pro-Tip</div>
-            <div class="custom-text">Opt for 1 thin crust veggie slice paired with a large green salad topped with 3.5 oz grilled chicken breast & light vinaigrette.</div>
+            <div class="custom-text">Opt for 1 thin crust slice paired with a large green salad topped with 3.5 oz protein & light vinaigrette.</div>
             <div class="macro-badge">🎯 34g Protein • 14g Fat • 42g Carbs • 430 kcal</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-dad">🌶️ Dad's Pro-Tip</div>
-            <div class="custom-text">Hot honey drizzle, fresh basil, and crushed red pepper flakes over bubbly cheese.</div>
+            <div class="custom-text">Hot honey drizzle, grated parmesan, and crushed red pepper flakes over bubbly cheese.</div>
           </div>
           <div class="custom-item">
             <div class="custom-label label-kids">🧒 Kids' Pro-Tip</div>
