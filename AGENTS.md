@@ -31,7 +31,8 @@ Whenever any meal plan change, recipe addition, ingredient substitution, day swa
 - **Daily Target Budget**: 1,350–1,450 kcal/day.
 - **Macronutrient Ratio**: **30% Protein (~105g)** • **30% Fat (~46g)** • **40% Carbohydrates (~140g)**.
 - **Dinner Calibration**: ~440–470 kcal per dinner (approx. 33% of daily intake).
-- **Protein Source Restrictions**: **0% Red Meat and 0% Pork** (no ground beef, steak, pork chops, or pork bacon as primary protein). All core proteins must be **lean poultry** (chicken breast, tenderloins, 93/7 ground turkey) or **seafood** (salmon, wild cod, shrimp).
+- **Protein Source Restrictions & Cadence**: Core proteins emphasize **lean poultry** (chicken breast, tenderloins, 93/7 ground turkey), **seafood** (salmon, wild cod, shrimp), **high-protein plant-forward meals** (extra-firm tofu, chickpeas, black beans, cannellini beans; 1 night/week), and **lean red meat** (90/10 lean ground beef, flank steak; bi-weekly on Weeks 1 & 3). Zero pork/bacon.
+- **Weekly Schedule Cadence**: Wednesdays = Leftovers / quick reheat; Thursdays = Vegetarian; Sundays = Takeout / Frozen pizza with high-protein salad.
 - **Carbohydrate Balancing**: Do NOT strip all carbohydrates from Mom's portions into zero-carb/keto. Always pair lean protein with nutrient-dense complex carbs (sweet potatoes, brown/wild rice, Banza chickpea pasta, whole wheat pitas/buns, corn, black beans) to satisfy her 40% carbohydrate target.
 
 ---
